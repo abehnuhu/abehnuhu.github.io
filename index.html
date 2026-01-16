@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House of Baiden | Luxury Fragrance & Skincare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --charcoal: #1a1a1a;
+            --dark-charcoal: #0d0d0d;
+            --light-gray: #f5f5f5;
+            --soft-white: #f8f8f8;
+            --muted-gold: #c4a747;
+            --dark-gold: #9c7c2e;
+            --text-gray: #cccccc;
+            --section-padding: 80px 20px;
+            --transition: all 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background-color: var(--dark-charcoal);
+            color: var(--text-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            color: var(--soft-white);
+            font-weight: 400;
+        }
+
+        section {
+            padding: var(--section-padding);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background-color: var(--muted-gold);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--muted-gold);
+            color: var(--dark-charcoal);
+            padding: 14px 32px;
+            border-radius: 0;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--dark-gold);
+            transform: translateY(-2px);
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            background-color: rgba(13, 13, 13, 0.9);
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--soft-white);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--muted-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 40px;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--muted-gold);
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--muted-gold);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--soft-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--muted-gold);
+            margin-bottom: 25px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            font-style: italic;
+            color: var(--soft-white);
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--charcoal);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        /* Collections Section */
+        .collections {
+            background-color: var(--dark-charcoal);
+        }
+
+        .collection-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .collection-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 40px 30px;
+            border-top: 1px solid rgba(196, 167, 71, 0.2);
+            transition: var(--transition);
+        }
+
+        .collection-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-top: 1px solid var(--muted-gold);
+        }
+
+        .collection-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .product-card {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .product-card:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .product-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--muted-gold);
+        }
+
+        /* Product Details Section */
+        .product-details {
+            background-color: var(--charcoal);
+        }
+
+        .details-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 60px;
+            justify-content: center;
+        }
+
+        .details-column {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .details-column h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--muted-gold);
+        }
+
+        .perfume-notes, .skincare-highlights {
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        .note-profile, .skincare-point {
+            margin-bottom: 25px;
+        }
+
+        .note-profile h4, .skincare-point h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .notes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .note {
+            padding: 8px 15px;
+            background-color: rgba(196, 167, 71, 0.1);
+            border: 1px solid rgba(196, 167, 71, 0.3);
+            font-size: 0.9rem;
+        }
+
+        /* Why Choose Section */
+        .why-choose {
+            background-color: var(--dark-charcoal);
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .benefit {
+            padding: 40px 20px;
+        }
+
+        .benefit i {
+            font-size: 2.5rem;
+            color: var(--muted-gold);
+            margin-bottom: 25px;
+        }
+
+        .benefit h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background-color: var(--charcoal);
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 30px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 15px 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--soft-white);
+            font-size: 1rem;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--muted-gold);
+        }
+
+        .contact-email {
+            margin-top: 30px;
+            font-size: 1.1rem;
+        }
+
+        .contact-email a {
+            color: var(--muted-gold);
+            text-decoration: none;
+        }
+
+        .contact-email a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0a0a0a;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-gray);
+            border-radius: 50%;
+            margin: 0 10px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--muted-gold);
+            color: var(--dark-charcoal);
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(13, 13, 13, 0.95);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.2rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-input {
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .collection-cards, .benefits {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <nav class="container">
+            <a href="#" class="logo">House of <span>Baiden</span></a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Our Story</a></li>
+                <li><a href="#collections">Collections</a></li>
+                <li><a href="#details">Product Details</a></li>
+                <li><a href="#why">Why Choose Us</a></li>
+                <li><a href="#newsletter">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content fade-in">
+            <h1>House of Baiden</h1>
+            <div class="hero-subtitle">Fragrance & Skincare House</div>
+            <p class="hero-tagline">"Elevate your senses. Nourish your skin. Experience true luxury."</p>
+            <a href="#collections" class="btn">Explore Collection</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Story</h2>
+            </div>
+            <div class="about-content fade-in">
+                <p>At House of Baiden, we craft experiences, not just products. From signature fragrances to skincare essentials, every creation is designed to inspire confidence, elegance, and a sense of ritual in your daily life.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections Section -->
+    <section class="collections" id="collections">
+        <div class="container">
+            <div class="section-header">
+                <h2>Collections</h2>
+            </div>
+            <div class="collection-cards">
+                <!-- Fragrances Card -->
+                <div class="collection-card fade-in">
+                    <h3>Signature Scents</h3>
+                    <div class="product-card">
+                        <h4>Noir Essence</h4>
+                        <p>A bold blend of bergamot, amber, and sandalwood. Deep, mysterious, unforgettable.</p>
+                    </div>
+                    <div class="product-card">
+                        <h4>Aurora Bloom</h4>
+                        <p>Soft florals with a hint of vanilla and musk. Elegant and uplifting.</p>
+                    </div>
+                    <div class="product-card">
+                        <h4>Velour Mist</h4>
+                        <p>Fresh citrus top notes layered with warm woods. Balanced and modern.</p>
+                    </div>
+                </div>
+                
+                <!-- Skincare Card -->
+                <div class="collection-card fade-in">
+                    <h3>Essential Skincare</h3>
+                    <div class="product-card">
+                        <h4>Radiance Serum</h4>
+                        <p>Lightweight formula with hyaluronic acid to hydrate and glow.</p>
+                    </div>
+                    <div class="product-card">
+                        <h4>Velvet Moisturizer</h4>
+                        <p>Smooth, nourishing cream that leaves skin soft and supple.</p>
+                    </div>
+                    <div class="product-card">
+                        <h4>Clarifying Cleanser</h4>
+                        <p>Gentle yet effective cleanser for a refreshed, clear complexion.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Details Section -->
+    <section class="product-details" id="details">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Art Behind Every Creation</h2>
+            </div>
+            <div class="details-container">
+                <div class="details-column fade-in">
+                    <h3>Perfume Notes</h3>
+                    <p>Each scent is crafted with a top, heart, and base note profile for a layered experience.</p>
+                    <div class="perfume-notes">
+                        <div class="note-profile">
+                            <h4>Noir Essence</h4>
+                            <div class="notes">
+                                <span class="note">Top: Bergamot</span>
+                                <span class="note">Heart: Jasmine</span>
+                                <span class="note">Base: Sandalwood</span>
+                            </div>
+                        </div>
+                        <div class="note-profile">
+                            <h4>Aurora Bloom</h4>
+                            <div class="notes">
+                                <span class="note">Top: Pear Blossom</span>
+                                <span class="note">Heart: Vanilla Orchid</span>
+                                <span class="note">Base: White Musk</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="details-column fade-in">
+                    <h3>Skincare Highlights</h3>
+                    <p>Ingredients are selected for effectiveness and safety. Products nourish, protect, and enhance your natural glow.</p>
+                    <div class="skincare-highlights">
+                        <div class="skincare-point">
+                            <h4>Premium Formulations</h4>
+                            <p>Each product is developed with dermatologist-tested ingredients that deliver visible results.</p>
+                        </div>
+                        <div class="skincare-point">
+                            <h4>Skin-Friendly</h4>
+                            <p>Our formulas are free from parabens, sulfates, and synthetic fragrances for all skin types.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Section -->
+    <section class="why-choose" id="why">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why House of Baiden</h2>
+            </div>
+            <div class="benefits">
+                <div class="benefit fade-in">
+                    <i class="fas fa-gem"></i>
+                    <h3>Premium Ingredients</h3>
+                    <p>Every product is crafted using carefully sourced, high-quality ingredients from around the world.</p>
+                </div>
+                <div class="benefit fade-in">
+                    <i class="fas fa-spa"></i>
+                    <h3>Skin & Sense Care</h3>
+                    <p>Thoughtful formulations that elevate your daily ritual, blending skincare with sensory pleasure.</p>
+                </div>
+                <div class="benefit fade-in">
+                    <i class="fas fa-crown"></i>
+                    <h3>Timeless Elegance</h3>
+                    <p>Products designed to feel luxurious, modern, and confident—created to stand the test of time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter" id="newsletter">
+        <div class="container">
+            <div class="section-header">
+                <h2>Stay Connected</h2>
+            </div>
+            <div class="newsletter-content fade-in">
+                <p>Sign up to receive exclusive updates, new launches, and seasonal collections.</p>
+                <form class="newsletter-form" id="subscribeForm">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn">Subscribe</button>
+                </form>
+                <div class="contact-email">
+                    <p>Email us at <a href="mailto:info@houseofbaiden.com">info@houseofbaiden.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <a href="#" class="logo">House of <span>Baiden</span></a>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+                <p class="copyright">© 2023 House of Baiden. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Scroll animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        fadeElements.forEach(el => observer.observe(el));
+        
+        // Newsletter form submission
+        document.getElementById('subscribeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            
+            // In a real implementation, you would send this to your server
+            alert(`Thank you for subscribing with ${email}! You'll receive our updates soon.`);
+            this.reset();
+        });
+        
+        // Initialize with header state
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>
