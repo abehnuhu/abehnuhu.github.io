@@ -268,12 +268,6 @@
             border: 1px solid #bee5eb;
         }
         
-        .upload-status.warning {
-            background: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeeba;
-        }
-        
         .btn-add {
             background: #28a745;
             color: white;
@@ -298,10 +292,6 @@
         .btn-add:disabled {
             background: #6c757d;
             cursor: not-allowed;
-        }
-        
-        .btn-add i {
-            font-size: 1.2rem;
         }
         
         .products-list-section {
@@ -484,7 +474,6 @@
 </head>
 <body>
     <div class="admin-container">
-        <!-- Header -->
         <div class="admin-header">
             <h1>House of <span>Baiden</span> Admin</h1>
             <button class="logout-btn" id="logoutBtn">
@@ -492,15 +481,12 @@
             </button>
         </div>
         
-        <!-- Message Display -->
         <div id="message" class="message"></div>
         
-        <!-- ADD PRODUCT FORM - WITH IMGBB FREE IMAGE UPLOAD -->
         <div class="add-product-section">
             <h2><i class="fas fa-plus-circle" style="color: #28a745;"></i> Add New Product</h2>
             
             <div class="form-grid">
-                <!-- Left Column -->
                 <div>
                     <div class="form-group">
                         <label>
@@ -531,7 +517,6 @@
                     </div>
                 </div>
                 
-                <!-- Right Column -->
                 <div>
                     <div class="form-group">
                         <label>
@@ -546,17 +531,14 @@
                 </div>
             </div>
             
-            <!-- 📸 IMGBB IMAGE UPLOAD - COMPLETELY FREE, NO CREDIT CARD! -->
             <div style="margin-top: 20px;">
                 <label>
                     <i class="fas fa-image"></i> Product Image 
                     <span class="required">*</span>
                 </label>
                 
-                <!-- Hidden file input -->
                 <input type="file" id="imageInput" accept="image/*">
                 
-                <!-- Upload area (click to select image) -->
                 <div id="uploadArea" class="image-upload-area">
                     <i class="fas fa-cloud-upload-alt"></i>
                     <h3>Upload Product Image</h3>
@@ -573,7 +555,6 @@
                     </span>
                 </div>
                 
-                <!-- Image preview (hidden until image selected) -->
                 <div id="imagePreviewContainer" style="display: none; text-align: center; margin-top: 20px;">
                     <div class="image-preview-container">
                         <img id="imagePreview" class="image-preview" src="" alt="Preview">
@@ -586,11 +567,9 @@
                     </p>
                 </div>
                 
-                <!-- Upload status -->
                 <div id="uploadStatus" class="upload-status"></div>
             </div>
             
-            <!-- Hidden field to store the ImgBB image URL -->
             <input type="hidden" id="productImageUrl">
             
             <button class="btn-add" id="addProductBtn" onclick="addProduct()">
@@ -602,7 +581,6 @@
             </div>
         </div>
         
-        <!-- Products List -->
         <div class="products-list-section">
             <h2><i class="fas fa-boxes"></i> Your Products</h2>
             <div id="productsContainer">
@@ -615,7 +593,7 @@
     </div>
     
     <script>
-        // 🔥 FIREBASE CONFIG - YOUR EXISTING CONFIG
+        // 🔥 CORRECT FIREBASE CONFIGURATION - FIXED!
         const firebaseConfig = {
             apiKey: "AIzaSyDl6pEFAsr6M_T-eAuE2FuMS3kOOp1LBKs",
             authDomain: "house-of-baiden.firebaseapp.com",
@@ -626,11 +604,11 @@
             measurementId: "G-Z2RLV3V401"
         };
 
-        // Initialize Firebase (Firestore ONLY, no Storage!)
+        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // CHECK IF LOGGED IN
+        // CHECK LOGIN
         const isLoggedIn = localStorage.getItem('adminLoggedIn');
         const loginExpiry = localStorage.getItem('adminLoginExpiry');
         
@@ -640,14 +618,9 @@
             window.location.href = 'index.html';
         }
 
-        // ============================================
-        // 📸 IMGBB FREE IMAGE UPLOAD
-        // ============================================
-        
-        // ImgBB API Key - This is a PUBLIC key for anonymous uploads
-        // It's completely safe to use in client-side code
-        const IMGBB_API_KEY = 'c1f1a0c5b8c5d4e3f2a1b0c9d8e7f6a5'; // Free public key
-        
+        // ImgBB API Key
+        const IMGBB_API_KEY = 'c1f1a0c5b8c5d4e3f2a1b0c9d8e7f6a5';
+
         // DOM Elements
         const imageInput = document.getElementById('imageInput');
         const uploadArea = document.getElementById('uploadArea');
@@ -657,31 +630,27 @@
         const uploadStatus = document.getElementById('uploadStatus');
         const productImageUrl = document.getElementById('productImageUrl');
         const addProductBtn = document.getElementById('addProductBtn');
-        
-        // State
+
         let isUploading = false;
-        
-        // Click upload area to trigger file selection
+
         uploadArea.addEventListener('click', () => {
             imageInput.click();
         });
-        
-        // Handle file selection
+
         imageInput.addEventListener('change', handleImageSelection);
-        
-        // Drag and drop support
+
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadArea.style.background = '#f0f0f0';
             uploadArea.style.borderColor = '#9c7c2e';
         });
-        
+
         uploadArea.addEventListener('dragleave', (e) => {
             e.preventDefault();
             uploadArea.style.background = '#f9f9f9';
             uploadArea.style.borderColor = '#c4a747';
         });
-        
+
         uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
             uploadArea.style.background = '#f9f9f9';
@@ -692,26 +661,22 @@
                 handleImageSelection({ target: { files: e.dataTransfer.files } });
             }
         });
-        
-        // Handle image selection and upload to ImgBB
+
         async function handleImageSelection(event) {
             const file = event.target.files[0];
             
             if (!file) return;
             
-            // Validate file type
             if (!file.type.startsWith('image/')) {
                 showUploadStatus('❌ Please select an image file (JPG, PNG, GIF, WEBP)', 'error');
                 return;
             }
             
-            // Validate file size (max 32MB - ImgBB limit)
             if (file.size > 32 * 1024 * 1024) {
                 showUploadStatus('❌ Image size must be less than 32MB', 'error');
                 return;
             }
             
-            // Show preview
             const reader = new FileReader();
             reader.onload = (e) => {
                 imagePreview.src = e.target.result;
@@ -720,11 +685,9 @@
             };
             reader.readAsDataURL(file);
             
-            // Upload to ImgBB
             await uploadToImgBB(file);
         }
-        
-        // Upload image to ImgBB (100% FREE, no credit card!)
+
         async function uploadToImgBB(file) {
             if (isUploading) return;
             
@@ -734,12 +697,10 @@
             showUploadStatus('🔄 Uploading to ImgBB... (FREE)', 'info');
             
             try {
-                // Create form data for ImgBB API
                 const formData = new FormData();
                 formData.append('key', IMGBB_API_KEY);
                 formData.append('image', file);
                 
-                // Upload to ImgBB
                 const response = await fetch('https://api.imgbb.com/1/upload', {
                     method: 'POST',
                     body: formData
@@ -748,14 +709,7 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    // Get the direct image URL
-                    const imageUrl = data.data.url;
-                    const displayUrl = data.data.display_url;
-                    const thumbUrl = data.data.thumb.url;
-                    
-                    // Store the URL (use display_url for better quality)
                     productImageUrl.value = data.data.display_url;
-                    
                     showUploadStatus('✅ Image uploaded successfully to ImgBB!', 'success');
                 } else {
                     throw new Error('Upload failed');
@@ -765,7 +719,6 @@
                 console.error('ImgBB upload error:', error);
                 showUploadStatus('❌ Upload failed. Please try again.', 'error');
                 
-                // Reset on error
                 imageInput.value = '';
                 imagePreviewContainer.style.display = 'none';
                 uploadArea.style.display = 'block';
@@ -776,14 +729,12 @@
                 addProductBtn.disabled = false;
             }
         }
-        
-        // Show status in upload area
+
         function showUploadStatus(message, type) {
             uploadStatus.textContent = message;
             uploadStatus.className = `upload-status ${type}`;
         }
-        
-        // Remove image and reset
+
         removeImageBtn.addEventListener('click', () => {
             imageInput.value = '';
             imagePreviewContainer.style.display = 'none';
@@ -794,18 +745,13 @@
             isUploading = false;
         });
 
-        // ============================================
-        // ✅ ADD PRODUCT FUNCTION - WITH OPTIONAL DESCRIPTION
-        // ============================================
         async function addProduct() {
-            // Get values from form
             const name = document.getElementById('productName').value.trim();
             const price = document.getElementById('productPrice').value.trim();
             const category = document.getElementById('productCategory').value;
             const description = document.getElementById('productDesc').value.trim();
             const image = productImageUrl.value;
             
-            // Validate REQUIRED fields only
             if (!name) {
                 showMessage('❌ Product name is required!', 'error');
                 return;
@@ -823,12 +769,10 @@
                 return;
             }
             
-            // Disable button during submission
             addProductBtn.disabled = true;
             addProductBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding Product...';
             
             try {
-                // Prepare product data
                 const productData = {
                     name: name,
                     price: price,
@@ -837,46 +781,36 @@
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 };
                 
-                // Add description ONLY if it's not empty
                 if (description) {
                     productData.description = description;
                 }
                 
-                // Add to Firebase
                 await db.collection('products').add(productData);
                 
-                // Show success message
                 showMessage('✅ Product added successfully!', 'success');
                 
-                // Clear form
                 document.getElementById('productName').value = '';
                 document.getElementById('productPrice').value = '';
                 document.getElementById('productDesc').value = '';
                 document.getElementById('productCategory').value = '';
                 productImageUrl.value = '';
                 
-                // Reset image upload area
                 imageInput.value = '';
                 imagePreviewContainer.style.display = 'none';
                 uploadArea.style.display = 'block';
                 uploadStatus.className = 'upload-status';
                 
-                // Reload products list
                 loadProducts();
                 
             } catch (error) {
                 console.error('Error adding product:', error);
                 showMessage('❌ Error adding product. Please try again.', 'error');
             } finally {
-                // Re-enable button
                 addProductBtn.disabled = false;
                 addProductBtn.innerHTML = '<i class="fas fa-plus"></i> Add Product to Website';
             }
         }
 
-        // ============================================
-        // 📋 LOAD ALL PRODUCTS
-        // ============================================
         async function loadProducts() {
             const container = document.getElementById('productsContainer');
             
@@ -965,7 +899,6 @@
             }
         }
 
-        // 🗑️ DELETE PRODUCT
         async function deleteProduct(id) {
             if (confirm('Are you sure you want to delete this product?')) {
                 try {
@@ -979,19 +912,16 @@
             }
         }
 
-        // ✏️ EDIT PRODUCT
         async function editProduct(id) {
             try {
                 const doc = await db.collection('products').doc(id).get();
                 const product = doc.data();
                 
-                // Fill form with product data
                 document.getElementById('productName').value = product.name || '';
                 document.getElementById('productPrice').value = product.price || '';
                 document.getElementById('productDesc').value = product.description || '';
                 document.getElementById('productCategory').value = product.category || '';
                 
-                // Show existing image
                 if (product.image) {
                     productImageUrl.value = product.image;
                     imagePreview.src = product.image;
@@ -999,10 +929,8 @@
                     uploadArea.style.display = 'none';
                 }
                 
-                // Delete old product
                 await deleteProduct(id);
                 
-                // Scroll to form
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 
                 showMessage('✏️ Now edit the product and click "Add Product"', 'info');
@@ -1013,7 +941,6 @@
             }
         }
 
-        // SHOW MESSAGE FUNCTION
         function showMessage(text, type) {
             const messageDiv = document.getElementById('message');
             messageDiv.textContent = text;
@@ -1024,17 +951,14 @@
             }, 3000);
         }
 
-        // LOGOUT FUNCTION
         document.getElementById('logoutBtn').addEventListener('click', () => {
             localStorage.removeItem('adminLoggedIn');
             localStorage.removeItem('adminLoginExpiry');
             window.location.href = 'index.html';
         });
 
-        // LOAD PRODUCTS WHEN PAGE OPENS
         document.addEventListener('DOMContentLoaded', loadProducts);
         
-        // PREVENT FORM SUBMIT ON ENTER
         document.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
                 e.preventDefault();
