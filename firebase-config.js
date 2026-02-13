@@ -1,5 +1,6 @@
+// 🔥 CORRECT FIREBASE CONFIGURATION - FIXED!
 const firebaseConfig = {
-    apiKey: "AIzaSyDl6pEFAsr6M_T-eAuE2FuMS3kOOp1LBKs",  // Note: 'l' not '1'
+    apiKey: "AIzaSyDl6pEFAsr6M_T-eAuE2FuMS3kOOp1LBKs",
     authDomain: "house-of-baiden.firebaseapp.com",
     projectId: "house-of-baiden",
     storageBucket: "house-of-baiden.firebasestorage.app",
@@ -7,3 +8,7 @@ const firebaseConfig = {
     appId: "1:220065196721:web:8fe9ab0c991b8d04dc1090",
     measurementId: "G-Z2RLV3V401"
 };
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
