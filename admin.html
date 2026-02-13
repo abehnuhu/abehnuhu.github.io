@@ -3,697 +3,536 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel | House of Baiden</title>
+    <title>Admin Panel - House of Baiden</title>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        :root {
-            --charcoal: #1a1a1a;
-            --dark-charcoal: #0d0d0d;
-            --light-gray: #f5f5f5;
-            --soft-white: #f8f8f8;
-            --muted-gold: #c4a747;
-            --dark-gold: #9c7c2e;
-            --text-gray: #cccccc;
-        }
-
+        
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--dark-charcoal);
-            color: var(--text-gray);
-            line-height: 1.6;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
+            min-height: 100vh;
         }
-
+        
         .admin-container {
             max-width: 1200px;
             margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-
+        
         .admin-header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(196, 167, 71, 0.3);
-        }
-
-        .admin-header h1 {
-            font-family: 'Playfair Display', serif;
-            color: var(--muted-gold);
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .admin-header p {
-            color: var(--text-gray);
-        }
-
-        .back-to-site {
-            display: inline-block;
-            margin-top: 20px;
-            color: var(--muted-gold);
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-        .back-to-site:hover {
-            text-decoration: underline;
-        }
-
-        .admin-nav {
-            display: flex;
-            gap: 20px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
             margin-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-
-        .admin-nav button {
-            background: none;
+        
+        .admin-header h1 {
+            color: #333;
+            font-size: 2rem;
+        }
+        
+        .admin-header h1 span {
+            color: #c4a747;
+        }
+        
+        .logout-btn {
+            background: #dc3545;
+            color: white;
             border: none;
-            color: var(--text-gray);
             padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-size: 1rem;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s ease;
         }
-
-        .admin-nav button.active {
-            color: var(--muted-gold);
-            border-bottom: 2px solid var(--muted-gold);
+        
+        .logout-btn:hover {
+            background: #c82333;
         }
-
-        .admin-nav button:hover {
-            color: var(--muted-gold);
+        
+        .add-product-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-
-        .admin-section {
-            display: none;
-        }
-
-        .admin-section.active {
-            display: block;
-        }
-
-        .form-group {
+        
+        .add-product-section h2 {
+            color: #333;
             margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: var(--soft-white);
+            color: #555;
             font-weight: 500;
         }
-
-        .form-control {
+        
+        .form-group input,
+        .form-group textarea {
             width: 100%;
             padding: 12px 15px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            color: var(--soft-white);
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
             font-size: 1rem;
+            transition: border-color 0.3s;
         }
-
-        .form-control:focus {
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
             outline: none;
-            border-color: var(--muted-gold);
+            border-color: #c4a747;
         }
-
-        .btn {
-            background-color: var(--muted-gold);
-            color: var(--dark-charcoal);
+        
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .btn-add {
+            background: #28a745;
+            color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
             cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: inline-flex;
+            display: flex;
             align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        
+        .btn-add:hover {
+            background: #218838;
+        }
+        
+        .btn-add i {
+            font-size: 1.2rem;
+        }
+        
+        .products-list-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .products-list-section h2 {
+            color: #333;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .products-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .products-table th {
+            background: #f8f9fa;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .products-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: middle;
+        }
+        
+        .product-image-small {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
+        .action-btns {
+            display: flex;
             gap: 8px;
         }
-
-        .btn:hover {
-            background-color: var(--dark-gold);
-            transform: translateY(-2px);
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background-color: #c82333;
-        }
-
-        .btn-success {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background-color: #218838;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .product-card {
-            background-color: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .product-card:hover {
-            border-color: var(--muted-gold);
-            transform: translateY(-5px);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-
-        .product-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .product-actions button {
-            flex: 1;
+        
+        .btn-edit, .btn-delete {
             padding: 8px 12px;
-            font-size: 0.9rem;
-        }
-
-        .preview-image {
-            max-width: 200px;
-            max-height: 200px;
-            margin-top: 10px;
+            border: none;
             border-radius: 5px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        
+        .btn-edit {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-edit:hover, .btn-delete:hover {
+            opacity: 0.8;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #c4a747;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
             display: none;
         }
-
-        .preview-image.show {
+        
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
             display: block;
         }
-
-        .image-upload-box {
-            border: 2px dashed rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            padding: 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
+        
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
         }
-
-        .image-upload-box:hover {
-            border-color: var(--muted-gold);
-            background-color: rgba(196, 167, 71, 0.05);
-        }
-
-        .image-upload-box i {
-            font-size: 3rem;
-            color: var(--muted-gold);
-            margin-bottom: 15px;
-        }
-
-        .image-upload-box p {
-            margin-bottom: 10px;
-        }
-
-        .image-upload-box input[type="file"] {
-            display: none;
-        }
-
-        .instructions {
-            background-color: rgba(196, 167, 71, 0.1);
-            border: 1px solid rgba(196, 167, 71, 0.3);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-
-        .instructions h3 {
-            color: var(--muted-gold);
-            margin-bottom: 10px;
-        }
-
-        .instructions ul {
-            padding-left: 20px;
-        }
-
-        .instructions li {
-            margin-bottom: 8px;
-        }
-
+        
         @media (max-width: 768px) {
-            .admin-nav {
+            .admin-header {
                 flex-direction: column;
-                gap: 10px;
+                gap: 15px;
+                text-align: center;
             }
-
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .product-actions {
-                flex-direction: column;
+            
+            .products-table {
+                display: block;
+                overflow-x: auto;
             }
         }
     </style>
 </head>
 <body>
     <div class="admin-container">
+        <!-- Header -->
         <div class="admin-header">
-            <h1><i class="fas fa-cog"></i> House of Baiden Admin Panel</h1>
-            <p>Manage your products, prices, and images easily</p>
-            <a href="index.html" class="back-to-site">
-                <i class="fas fa-arrow-left"></i> Back to Website
-            </a>
-        </div>
-
-        <div class="admin-nav">
-            <button onclick="showSection('add')" class="active">
-                <i class="fas fa-plus"></i> Add New Product
-            </button>
-            <button onclick="showSection('manage')">
-                <i class="fas fa-edit"></i> Manage Products
-            </button>
-            <button onclick="showSection('instructions')">
-                <i class="fas fa-info-circle"></i> Instructions
+            <h1>House of <span>Baiden</span> Admin</h1>
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
             </button>
         </div>
-
-        <!-- Add Product Section -->
-        <div id="add-section" class="admin-section active">
-            <h2>Add New Product</h2>
-            <form id="add-product-form">
+        
+        <!-- Message Display -->
+        <div id="message" class="message"></div>
+        
+        <!-- Add Product Form -->
+        <div class="add-product-section">
+            <h2><i class="fas fa-plus-circle" style="color: #28a745;"></i> Add New Product</h2>
+            <div class="form-grid">
                 <div class="form-group">
-                    <label for="product-name">Product Name *</label>
-                    <input type="text" id="product-name" class="form-control" required 
-                           placeholder="e.g., Intense Man EDP 100ml">
+                    <label><i class="fas fa-tag"></i> Product Name</label>
+                    <input type="text" id="productName" placeholder="e.g., Intense Man EDP" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="product-price">Price (Ghana Cedis) *</label>
-                    <input type="number" id="product-price" class="form-control" required 
-                           placeholder="e.g., 220" min="1" step="1">
+                    <label><i class="fas fa-money-bill"></i> Price (₵)</label>
+                    <input type="text" id="productPrice" placeholder="e.g., 220" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="product-description">Description</label>
-                    <textarea id="product-description" class="form-control" rows="3" 
-                              placeholder="Describe the product..."></textarea>
+                    <label><i class="fas fa-image"></i> Image URL</label>
+                    <input type="text" id="productImage" placeholder="https://example.com/image.jpg" required>
                 </div>
-
-                <div class="form-group">
-                    <label>Product Image</label>
-                    <div class="image-upload-box" onclick="document.getElementById('image-input').click()">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Click to upload product image</p>
-                        <p style="font-size: 0.9rem; color: #999;">Or paste image URL below</p>
-                        <input type="file" id="image-input" accept="image/*" onchange="previewUploadedImage(event)">
-                    </div>
-                    <input type="text" id="image-url" class="form-control" style="margin-top: 15px;"
-                           placeholder="Or paste image URL here (e.g., from ImgBB, Google Drive)">
-                    <img id="image-preview" class="preview-image" alt="Image Preview">
-                </div>
-
-                <button type="submit" class="btn btn-success">
-                    <i class="fas fa-save"></i> Add Product
-                </button>
-                <button type="button" class="btn" onclick="clearForm()">
-                    <i class="fas fa-times"></i> Clear Form
-                </button>
-            </form>
-        </div>
-
-        <!-- Manage Products Section -->
-        <div id="manage-section" class="admin-section">
-            <h2>Manage Products</h2>
-            <p>Edit or delete existing products</p>
-            
-            <div id="products-list" class="products-grid">
-                <!-- Products will be loaded here -->
             </div>
-        </div>
-
-        <!-- Instructions Section -->
-        <div id="instructions-section" class="admin-section">
-            <h2>How to Use This Admin Panel</h2>
-            
-            <div class="instructions">
-                <h3><i class="fas fa-camera"></i> Adding Product Images</h3>
-                <p>You have 3 options to add product images:</p>
-                <ul>
-                    <li><strong>Option 1:</strong> Upload from your computer (click the upload box)</li>
-                    <li><strong>Option 2:</strong> Use free image hosting:
-                        <ul>
-                            <li>Go to <a href="https://imgbb.com" target="_blank" style="color: var(--muted-gold);">ImgBB.com</a></li>
-                            <li>Upload your product photo</li>
-                            <li>Copy the "Direct Link" URL</li>
-                            <li>Paste it in the image URL field</li>
-                        </ul>
-                    </li>
-                    <li><strong>Option 3:</strong> Use Google Drive:
-                        <ul>
-                            <li>Upload photo to Google Drive</li>
-                            <li>Right-click → Get shareable link</li>
-                            <li>Change "view" to "download" in the URL</li>
-                            <li>Paste the link</li>
-                        </ul>
-                    </li>
-                </ul>
+            <div class="form-group">
+                <label><i class="fas fa-align-left"></i> Description</label>
+                <textarea id="productDesc" placeholder="Enter product description..." required></textarea>
             </div>
-
-            <div class="instructions">
-                <h3><i class="fas fa-money-bill-wave"></i> Setting Prices</h3>
-                <ul>
-                    <li>Check Jiji for current market prices</li>
-                    <li>Price competitively but not too cheap</li>
-                    <li>Consider student discounts for KNUST</li>
-                    <li>Update prices regularly based on demand</li>
-                </ul>
-            </div>
-
-            <div class="instructions">
-                <h3><i class="fas fa-mobile-alt"></i> Mobile-Friendly Tips</h3>
-                <ul>
-                    <li>Use your phone to take product photos</li>
-                    <li>Ensure good lighting for clear images</li>
-                    <li>Use simple backgrounds (white or dark)</li>
-                    <li>Crop photos to focus on the product</li>
-                </ul>
-            </div>
-
-            <div class="instructions">
-                <h3><i class="fas fa-sync-alt"></i> Keeping Products Updated</h3>
-                <ul>
-                    <li>Add new products as you get them</li>
-                    <li>Update prices when they change</li>
-                    <li>Mark sold-out products as unavailable</li>
-                    <li>Add seasonal or special offers</li>
-                </ul>
-            </div>
-        </div>
-
-        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-            <p style="color: #666; font-size: 0.9rem;">
-                <i class="fas fa-lock"></i> This admin panel saves data locally in your browser.
-                Clear browser data will reset products. For permanent storage, consider Firebase or a backend.
+            <button class="btn-add" onclick="addProduct()">
+                <i class="fas fa-plus"></i> Add Product to Website
+            </button>
+            <p style="color: #666; margin-top: 10px; font-size: 0.9rem;">
+                <i class="fas fa-info-circle"></i> Product will appear on your website immediately!
             </p>
-            <button onclick="exportData()" class="btn" style="margin-top: 15px;">
-                <i class="fas fa-download"></i> Export Products Data
-            </button>
-            <button onclick="importData()" class="btn" style="margin-top: 15px;">
-                <i class="fas fa-upload"></i> Import Products Data
-            </button>
+        </div>
+        
+        <!-- Products List -->
+        <div class="products-list-section">
+            <h2><i class="fas fa-boxes"></i> Your Products</h2>
+            <div id="productsContainer">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading your products...</p>
+                </div>
+            </div>
         </div>
     </div>
-
+    
     <script>
-        // Show specific section
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.admin-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Remove active class from all buttons
-            document.querySelectorAll('.admin-nav button').forEach(button => {
-                button.classList.remove('active');
-            });
-            
-            // Show selected section
-            document.getElementById(sectionId + '-section').classList.add('active');
-            
-            // Add active class to clicked button
-            event.target.classList.add('active');
-            
-            // Load products if managing
-            if (sectionId === 'manage') {
-                loadProductsForManagement();
-            }
+        // 🔥 YOUR FIREBASE CONFIG
+        const firebaseConfig = {
+            apiKey: "AIzaSyDl6pEFAsr6M_T-eAuE2FuMS3kOOp1LBKs",
+            authDomain: "house-of-baiden.firebaseapp.com",
+            projectId: "house-of-baiden",
+            storageBucket: "house-of-baiden.firebasestorage.app",
+            messagingSenderId: "220065196721",
+            appId: "1:220065196721:web:8fe9ab0c991b8d04dc1090",
+            measurementId: "G-Z2RLV3V401"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // CHECK IF LOGGED IN
+        const isLoggedIn = localStorage.getItem('adminLoggedIn');
+        const loginExpiry = localStorage.getItem('adminLoginExpiry');
+        
+        if (!isLoggedIn || !loginExpiry || Date.now() > parseInt(loginExpiry)) {
+            localStorage.removeItem('adminLoggedIn');
+            localStorage.removeItem('adminLoginExpiry');
+            window.location.href = 'index.html';
         }
 
-        // Preview uploaded image
-        function previewUploadedImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const preview = document.getElementById('image-preview');
-                    preview.src = e.target.result;
-                    preview.classList.add('show');
-                    
-                    // Also set the URL field
-                    document.getElementById('image-url').value = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // Load products from localStorage
-        function getProducts() {
-            return JSON.parse(localStorage.getItem('houseOfBaidenProducts')) || [];
-        }
-
-        // Save products to localStorage
-        function saveProducts(products) {
-            localStorage.setItem('houseOfBaidenProducts', JSON.stringify(products));
-        }
-
-        // Add new product
-        document.getElementById('add-product-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('product-name').value.trim();
-            const price = document.getElementById('product-price').value.trim();
-            const description = document.getElementById('product-description').value.trim();
-            const imageUrl = document.getElementById('image-url').value.trim();
-            
-            if (!name || !price) {
-                alert('Please fill in at least name and price');
-                return;
-            }
-            
-            const products = getProducts();
-            const newProduct = {
-                id: Date.now(), // Unique ID
-                name: name,
-                price: price,
-                description: description || 'Premium fragrance product',
-                image: imageUrl || 'https://via.placeholder.com/300x300/1a1a1a/c4a747?text=' + encodeURIComponent(name)
-            };
-            
-            products.push(newProduct);
-            saveProducts(products);
-            
-            alert('Product added successfully!');
-            clearForm();
-            showSection('manage'); // Switch to manage section
-            loadProductsForManagement();
+        // LOGOUT FUNCTION
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('adminLoggedIn');
+            localStorage.removeItem('adminLoginExpiry');
+            window.location.href = 'index.html';
         });
 
-        // Clear form
-        function clearForm() {
-            document.getElementById('add-product-form').reset();
-            document.getElementById('image-preview').classList.remove('show');
-            document.getElementById('image-preview').src = '';
+        // SHOW MESSAGE FUNCTION
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            
+            setTimeout(() => {
+                messageDiv.className = 'message';
+            }, 3000);
         }
 
-        // Load products for management
-        function loadProductsForManagement() {
-            const products = getProducts();
-            const container = document.getElementById('products-list');
+        // ✅ ADD PRODUCT FUNCTION - This is what you'll use!
+        async function addProduct() {
+            // Get values from form
+            const name = document.getElementById('productName').value.trim();
+            const price = document.getElementById('productPrice').value.trim();
+            const description = document.getElementById('productDesc').value.trim();
+            const image = document.getElementById('productImage').value.trim();
             
-            if (products.length === 0) {
-                container.innerHTML = '<p>No products yet. Add some products first.</p>';
+            // Validate
+            if (!name || !price || !description || !image) {
+                showMessage('Please fill in all fields!', 'error');
                 return;
             }
             
-            container.innerHTML = '';
+            try {
+                // Add to Firebase
+                await db.collection('products').add({
+                    name: name,
+                    price: price,
+                    description: description,
+                    image: image,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                // Show success message
+                showMessage('✅ Product added successfully!', 'success');
+                
+                // Clear form
+                document.getElementById('productName').value = '';
+                document.getElementById('productPrice').value = '';
+                document.getElementById('productDesc').value = '';
+                document.getElementById('productImage').value = '';
+                
+                // Reload products list
+                loadProducts();
+                
+            } catch (error) {
+                console.error('Error adding product:', error);
+                showMessage('Error adding product. Please try again.', 'error');
+            }
+        }
+
+        // 📋 LOAD ALL PRODUCTS
+        async function loadProducts() {
+            const container = document.getElementById('productsContainer');
             
-            products.forEach((product, index) => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}" class="product-image"
-                         onerror="this.src='https://via.placeholder.com/300x300/1a1a1a/c4a747?text=Product+Image'">
-                    <h3 style="color: var(--muted-gold); margin-bottom: 10px;">${product.name}</h3>
-                    <p style="margin-bottom: 5px;">${product.description}</p>
-                    <p style="font-weight: bold; color: var(--soft-white);">₵${product.price}</p>
-                    <div class="product-actions">
-                        <button onclick="editProduct(${index})" class="btn" style="flex: 2;">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button onclick="deleteProduct(${index})" class="btn btn-danger">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
+            try {
+                const snapshot = await db.collection('products')
+                    .orderBy('createdAt', 'desc')
+                    .get();
+                
+                if (snapshot.empty) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #666;">
+                            <i class="fas fa-box-open" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                            <p>No products yet. Add your first product above!</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                let html = `
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                snapshot.forEach(doc => {
+                    const product = doc.data();
+                    const productId = doc.id;
+                    
+                    html += `
+                        <tr>
+                            <td>
+                                <img src="${product.image || 'https://via.placeholder.com/50'}" 
+                                     alt="${product.name}" 
+                                     class="product-image-small"
+                                     onerror="this.src='https://via.placeholder.com/50'">
+                            </td>
+                            <td><strong>${product.name}</strong></td>
+                            <td>₵${product.price}</td>
+                            <td>${product.description.substring(0, 50)}${product.description.length > 50 ? '...' : ''}</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="btn-edit" onclick="editProduct('${productId}')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-delete" onclick="deleteProduct('${productId}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                html += `</tbody></table>`;
+                container.innerHTML = html;
+                
+            } catch (error) {
+                console.error('Error loading products:', error);
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #dc3545;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                        <p>Error loading products. Please refresh the page.</p>
                     </div>
                 `;
-                container.appendChild(card);
-            });
-        }
-
-        // Edit product
-        function editProduct(index) {
-            const products = getProducts();
-            const product = products[index];
-            
-            // Fill form with product data
-            document.getElementById('product-name').value = product.name;
-            document.getElementById('product-price').value = product.price;
-            document.getElementById('product-description').value = product.description;
-            document.getElementById('image-url').value = product.image;
-            
-            // Show preview if image exists
-            if (product.image) {
-                const preview = document.getElementById('image-preview');
-                preview.src = product.image;
-                preview.classList.add('show');
             }
-            
-            // Change form to edit mode
-            const form = document.getElementById('add-product-form');
-            const submitBtn = form.querySelector('button[type="submit"]');
-            
-            // Store edit index
-            form.dataset.editIndex = index;
-            
-            // Update button text
-            submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Product';
-            submitBtn.onclick = function(e) {
-                e.preventDefault();
-                updateProduct(index);
-            };
-            
-            // Switch to add section
-            showSection('add');
         }
 
-        // Update product
-        function updateProduct(index) {
-            const products = getProducts();
-            
-            products[index] = {
-                id: products[index].id,
-                name: document.getElementById('product-name').value.trim(),
-                price: document.getElementById('product-price').value.trim(),
-                description: document.getElementById('product-description').value.trim(),
-                image: document.getElementById('image-url').value.trim() || 
-                       'https://via.placeholder.com/300x300/1a1a1a/c4a747?text=' + 
-                       encodeURIComponent(document.getElementById('product-name').value.trim())
-            };
-            
-            saveProducts(products);
-            
-            // Reset form
-            const form = document.getElementById('add-product-form');
-            delete form.dataset.editIndex;
-            const submitBtn = form.querySelector('button[type="submit"]');
-            submitBtn.innerHTML = '<i class="fas fa-save"></i> Add Product';
-            submitBtn.onclick = null;
-            
-            alert('Product updated successfully!');
-            clearForm();
-            showSection('manage');
-            loadProductsForManagement();
-        }
-
-        // Delete product
-        function deleteProduct(index) {
+        // 🗑️ DELETE PRODUCT
+        async function deleteProduct(id) {
             if (confirm('Are you sure you want to delete this product?')) {
-                const products = getProducts();
-                products.splice(index, 1);
-                saveProducts(products);
-                loadProductsForManagement();
-                alert('Product deleted successfully!');
+                try {
+                    await db.collection('products').doc(id).delete();
+                    showMessage('✅ Product deleted successfully!', 'success');
+                    loadProducts();
+                } catch (error) {
+                    console.error('Error deleting product:', error);
+                    showMessage('Error deleting product.', 'error');
+                }
             }
         }
 
-        // Export data
-        function exportData() {
-            const products = getProducts();
-            const dataStr = JSON.stringify(products, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = 'houseofbaiden-products.json';
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
+        // ✏️ EDIT PRODUCT (Simple version)
+        async function editProduct(id) {
+            try {
+                const doc = await db.collection('products').doc(id).get();
+                const product = doc.data();
+                
+                // Fill form with product data
+                document.getElementById('productName').value = product.name;
+                document.getElementById('productPrice').value = product.price;
+                document.getElementById('productDesc').value = product.description;
+                document.getElementById('productImage').value = product.image;
+                
+                // Delete old product
+                await deleteProduct(id);
+                
+                // Scroll to form
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                showMessage('✏️ Edit product and click "Add Product"', 'success');
+                
+            } catch (error) {
+                console.error('Error editing product:', error);
+                showMessage('Error editing product.', 'error');
+            }
         }
 
-        // Import data
-        function importData() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json';
-            
-            input.onchange = function(e) {
-                const file = e.target.files[0];
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    try {
-                        const importedProducts = JSON.parse(e.target.result);
-                        if (Array.isArray(importedProducts)) {
-                            // Merge with existing products
-                            const existingProducts = getProducts();
-                            const mergedProducts = [...existingProducts, ...importedProducts];
-                            
-                            // Remove duplicates by ID
-                            const uniqueProducts = mergedProducts.filter((product, index, self) =>
-                                index === self.findIndex(p => p.id === product.id)
-                            );
-                            
-                            saveProducts(uniqueProducts);
-                            alert('Products imported successfully!');
-                            loadProductsForManagement();
-                        } else {
-                            alert('Invalid file format. Please upload a valid JSON file.');
-                        }
-                    } catch (error) {
-                        alert('Error reading file: ' + error.message);
-                    }
-                };
-                
-                reader.readAsText(file);
-            };
-            
-            input.click();
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            loadProductsForManagement();
+        // LOAD PRODUCTS WHEN PAGE OPENS
+        document.addEventListener('DOMContentLoaded', loadProducts);
+        
+        // PRESS ENTER TO SUBMIT FORM
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+                addProduct();
+            }
         });
     </script>
 </body>
