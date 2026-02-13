@@ -3,114 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Admin Panel - House of Baiden | ImgBB Upload</title>
-    <!-- Font Awesome -->
+    <title>Admin Panel - House of Baiden</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
             min-height: 100vh;
         }
-        
+
         .admin-container {
             max-width: 1200px;
             margin: 0 auto;
         }
-        
+
+        /* Header */
         .admin-header {
             background: white;
             padding: 30px;
-            border-radius: 15px;
+            border-radius: 20px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
         }
-        
+
         .admin-header h1 {
             color: #333;
             font-size: 2rem;
         }
-        
+
         .admin-header h1 span {
             color: #c4a747;
         }
-        
+
         .logout-btn {
             background: #dc3545;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 12px 24px;
+            border-radius: 10px;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 1rem;
+            font-weight: 500;
+            transition: 0.3s;
         }
-        
+
         .logout-btn:hover {
             background: #c82333;
+            transform: translateY(-2px);
         }
-        
+
+        /* Add Product Section */
         .add-product-section {
             background: white;
             padding: 30px;
-            border-radius: 15px;
+            border-radius: 20px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
-        
+
         .add-product-section h2 {
             color: #333;
             margin-bottom: 25px;
             display: flex;
             align-items: center;
             gap: 10px;
+            font-size: 1.5rem;
         }
-        
+
         .form-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
             margin-bottom: 20px;
         }
-        
+
         .form-group {
             margin-bottom: 20px;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
             color: #555;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 0.95rem;
         }
-        
+
         .form-group label i {
             margin-right: 8px;
             color: #667eea;
         }
-        
-        .form-group label span.required {
-            color: red;
+
+        .form-group label .required {
+            color: #dc3545;
             margin-left: 4px;
         }
-        
-        .form-group label span.optional {
+
+        .form-group label .optional {
             display: inline-block;
             background: #6c757d;
             color: white;
@@ -118,105 +126,101 @@
             padding: 2px 8px;
             border-radius: 12px;
             margin-left: 10px;
-            vertical-align: middle;
+            text-transform: uppercase;
         }
-        
+
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: 0.3s;
             font-family: inherit;
+            background: #f8f9fa;
         }
-        
+
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
             border-color: #c4a747;
+            background: white;
         }
-        
+
         .form-group textarea {
-            height: 100px;
+            height: 120px;
             resize: vertical;
         }
-        
-        /* 📸 IMGBB UPLOAD SECTION - COMPLETELY FREE! */
+
+        /* Image Upload Area */
         .image-upload-area {
             border: 3px dashed #c4a747;
-            border-radius: 15px;
+            border-radius: 20px;
             padding: 40px 20px;
             text-align: center;
-            background: #f9f9f9;
+            background: #f8f9fa;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: 0.3s;
             margin-bottom: 20px;
         }
-        
+
         .image-upload-area:hover {
-            background: #f0f0f0;
+            background: white;
             border-color: #9c7c2e;
+            transform: translateY(-2px);
         }
-        
+
         .image-upload-area i {
             font-size: 4rem;
             color: #c4a747;
             margin-bottom: 15px;
         }
-        
+
         .image-upload-area h3 {
             color: #333;
             margin-bottom: 10px;
             font-size: 1.5rem;
         }
-        
+
         .image-upload-area p {
             color: #666;
             margin-bottom: 5px;
         }
-        
-        .image-upload-area .small {
-            font-size: 0.85rem;
-            color: #999;
-            margin-top: 10px;
-        }
-        
+
         .image-upload-area .free-badge {
             display: inline-block;
             background: #28a745;
             color: white;
-            padding: 5px 15px;
+            padding: 8px 20px;
             border-radius: 30px;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 15px;
         }
-        
+
         #imageInput {
             display: none;
         }
-        
+
         .image-preview-container {
             position: relative;
             display: inline-block;
             max-width: 300px;
             margin: 20px auto;
-            text-align: center;
         }
-        
+
         .image-preview {
             width: 100%;
             max-height: 250px;
             object-fit: contain;
-            border-radius: 10px;
+            border-radius: 15px;
             border: 3px solid #c4a747;
-            background: #fff;
+            background: white;
         }
-        
+
         .remove-image {
             position: absolute;
             top: -10px;
@@ -232,49 +236,53 @@
             justify-content: center;
             cursor: pointer;
             font-size: 1.1rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: 0.3s;
         }
-        
+
         .remove-image:hover {
             background: #c82333;
+            transform: scale(1.1);
         }
-        
+
         .upload-status {
             margin-top: 20px;
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 12px;
             display: none;
         }
-        
+
         .upload-status.active {
             display: block;
         }
-        
+
         .upload-status.success {
             background: #d4edda;
             color: #155724;
             border: 1px solid #c3e6cb;
         }
-        
+
         .upload-status.error {
             background: #f8d7da;
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
-        
+
         .upload-status.info {
             background: #d1ecf1;
             color: #0c5460;
             border: 1px solid #bee5eb;
         }
-        
+
+        /* Add Button */
         .btn-add {
             background: #28a745;
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
+            padding: 16px 32px;
+            border-radius: 12px;
             font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -282,26 +290,29 @@
             gap: 10px;
             width: 100%;
             margin-top: 20px;
-            transition: background 0.3s;
+            transition: 0.3s;
         }
-        
+
         .btn-add:hover {
             background: #218838;
+            transform: translateY(-2px);
         }
-        
+
         .btn-add:disabled {
             background: #6c757d;
             cursor: not-allowed;
+            transform: none;
         }
-        
+
+        /* Products Table */
         .products-list-section {
             background: white;
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             overflow-x: auto;
         }
-        
+
         .products-list-section h2 {
             color: #333;
             margin-bottom: 25px;
@@ -309,163 +320,178 @@
             align-items: center;
             gap: 10px;
         }
-        
+
         .products-table {
             width: 100%;
             border-collapse: collapse;
         }
-        
+
         .products-table th {
             background: #f8f9fa;
-            padding: 12px;
+            padding: 15px;
             text-align: left;
             font-weight: 600;
             color: #555;
+            border-bottom: 2px solid #dee2e6;
         }
-        
+
         .products-table td {
-            padding: 12px;
-            border-bottom: 1px solid #e0e0e0;
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
             vertical-align: middle;
         }
-        
+
         .product-image-small {
             width: 50px;
             height: 50px;
             object-fit: cover;
-            border-radius: 5px;
+            border-radius: 10px;
         }
-        
+
         .category-badge {
             display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
             font-weight: 600;
         }
-        
+
         .category-badge.perfume {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
-        
+
         .category-badge.skincare {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
         }
-        
+
         .action-btns {
             display: flex;
             gap: 8px;
         }
-        
+
         .btn-edit, .btn-delete {
-            padding: 8px 12px;
+            padding: 8px 16px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: opacity 0.3s;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.3s;
         }
-        
+
         .btn-edit {
             background: #ffc107;
             color: #333;
         }
-        
+
         .btn-delete {
             background: #dc3545;
             color: white;
         }
-        
+
         .btn-edit:hover, .btn-delete:hover {
-            opacity: 0.8;
+            transform: translateY(-2px);
+            opacity: 0.9;
         }
-        
+
+        /* Loading */
         .loading {
             text-align: center;
-            padding: 40px;
+            padding: 60px;
             color: #666;
         }
-        
+
         .spinner {
             border: 4px solid #f3f3f3;
             border-top: 4px solid #c4a747;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
         }
-        
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
+
+        /* Message */
         .message {
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 12px;
             margin-bottom: 20px;
             display: none;
         }
-        
+
         .message.success {
             background: #d4edda;
             color: #155724;
             border: 1px solid #c3e6cb;
             display: block;
         }
-        
+
         .message.error {
             background: #f8d7da;
             color: #721c24;
             border: 1px solid #f5c6cb;
             display: block;
         }
-        
+
         .message.info {
             background: #d1ecf1;
             color: #0c5460;
             border: 1px solid #bee5eb;
             display: block;
         }
-        
+
+        /* Credit */
         .imgbb-credit {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #999;
             text-align: right;
-            margin-top: 10px;
+            margin-top: 15px;
         }
-        
+
         .imgbb-credit a {
             color: #667eea;
             text-decoration: none;
         }
-        
+
+        /* Responsive */
         @media (max-width: 768px) {
             .admin-header {
                 flex-direction: column;
                 gap: 15px;
                 text-align: center;
+                padding: 20px;
             }
-            
+
+            .admin-header h1 {
+                font-size: 1.5rem;
+            }
+
             .form-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .products-table {
                 display: block;
                 overflow-x: auto;
             }
-            
+
             .image-upload-area {
                 padding: 30px 15px;
             }
-            
+
             .image-upload-area i {
                 font-size: 3rem;
             }
-            
+
             .image-upload-area h3 {
                 font-size: 1.2rem;
             }
@@ -474,39 +500,49 @@
 </head>
 <body>
     <div class="admin-container">
+        <!-- Header -->
         <div class="admin-header">
             <h1>House of <span>Baiden</span> Admin</h1>
             <button class="logout-btn" id="logoutBtn">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </button>
         </div>
-        
+
+        <!-- Message Display -->
         <div id="message" class="message"></div>
-        
+
+        <!-- Add Product Form -->
         <div class="add-product-section">
-            <h2><i class="fas fa-plus-circle" style="color: #28a745;"></i> Add New Product</h2>
-            
+            <h2>
+                <i class="fas fa-plus-circle" style="color: #28a745;"></i> 
+                Add New Product
+            </h2>
+
             <div class="form-grid">
+                <!-- Left Column -->
                 <div>
                     <div class="form-group">
                         <label>
-                            <i class="fas fa-tag"></i> Product Name 
+                            <i class="fas fa-tag"></i> 
+                            Product Name
                             <span class="required">*</span>
                         </label>
                         <input type="text" id="productName" placeholder="e.g., Intense Man EDP" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label>
-                            <i class="fas fa-money-bill"></i> Price (₵) 
+                            <i class="fas fa-money-bill"></i> 
+                            Price (₵)
                             <span class="required">*</span>
                         </label>
                         <input type="text" id="productPrice" placeholder="e.g., 220" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label>
-                            <i class="fas fa-tag"></i> Category 
+                            <i class="fas fa-tag"></i> 
+                            Category
                             <span class="required">*</span>
                         </label>
                         <select id="productCategory" required>
@@ -516,45 +552,53 @@
                         </select>
                     </div>
                 </div>
-                
+
+                <!-- Right Column -->
                 <div>
                     <div class="form-group">
                         <label>
-                            <i class="fas fa-align-left"></i> Description 
+                            <i class="fas fa-align-left"></i> 
+                            Description
                             <span class="optional">OPTIONAL</span>
                         </label>
                         <textarea id="productDesc" placeholder="Enter product description (you can leave this blank)"></textarea>
-                        <p style="color: #999; font-size: 0.8rem; margin-top: 5px;">
-                            <i class="fas fa-info-circle"></i> Description is optional. You can leave it empty.
+                        <p style="color: #999; font-size: 0.85rem; margin-top: 8px;">
+                            <i class="fas fa-info-circle"></i> 
+                            Description is optional. You can leave it empty.
                         </p>
                     </div>
                 </div>
             </div>
-            
+
+            <!-- Image Upload - ImgBB FREE -->
             <div style="margin-top: 20px;">
-                <label>
-                    <i class="fas fa-image"></i> Product Image 
+                <label style="display: block; margin-bottom: 15px; font-weight: 600; color: #555;">
+                    <i class="fas fa-image"></i> 
+                    Product Image
                     <span class="required">*</span>
                 </label>
-                
+
+                <!-- Hidden file input -->
                 <input type="file" id="imageInput" accept="image/*">
-                
+
+                <!-- Upload Area -->
                 <div id="uploadArea" class="image-upload-area">
                     <i class="fas fa-cloud-upload-alt"></i>
                     <h3>Upload Product Image</h3>
                     <p><strong>Click to select photo</strong> from your phone or laptop</p>
-                    <p style="margin-top: 10px;">
-                        <i class="fas fa-check-circle" style="color: #28a745;"></i> 
-                        <span style="color: #28a745; font-weight: bold;">FREE - No credit card required!</span>
+                    <p style="margin-top: 15px; color: #28a745;">
+                        <i class="fas fa-check-circle"></i> 
+                        <strong>FREE - No credit card required!</strong>
                     </p>
-                    <p class="small">
+                    <p style="color: #666; font-size: 0.9rem;">
                         <i class="fas fa-mobile-alt"></i> Works from camera & gallery
                     </p>
                     <span class="free-badge">
                         <i class="fas fa-crown"></i> 100% FREE via ImgBB
                     </span>
                 </div>
-                
+
+                <!-- Image Preview -->
                 <div id="imagePreviewContainer" style="display: none; text-align: center; margin-top: 20px;">
                     <div class="image-preview-container">
                         <img id="imagePreview" class="image-preview" src="" alt="Preview">
@@ -562,27 +606,35 @@
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
-                    <p style="color: #28a745; margin-top: 10px;">
+                    <p style="color: #28a745; margin-top: 15px; font-weight: 600;">
                         <i class="fas fa-check-circle"></i> Image ready for upload
                     </p>
                 </div>
-                
+
+                <!-- Upload Status -->
                 <div id="uploadStatus" class="upload-status"></div>
             </div>
-            
+
+            <!-- Hidden field for image URL -->
             <input type="hidden" id="productImageUrl">
-            
+
+            <!-- Add Product Button -->
             <button class="btn-add" id="addProductBtn" onclick="addProduct()">
-                <i class="fas fa-plus"></i> Add Product to Website
+                <i class="fas fa-plus"></i> 
+                Add Product to Website
             </button>
-            
+
             <div class="imgbb-credit">
                 📸 Images hosted free by <a href="https://imgbb.com" target="_blank">ImgBB.com</a>
             </div>
         </div>
-        
+
+        <!-- Products List -->
         <div class="products-list-section">
-            <h2><i class="fas fa-boxes"></i> Your Products</h2>
+            <h2>
+                <i class="fas fa-boxes" style="color: #c4a747;"></i> 
+                Your Products
+            </h2>
             <div id="productsContainer">
                 <div class="loading">
                     <div class="spinner"></div>
@@ -591,9 +643,9 @@
             </div>
         </div>
     </div>
-    
+
     <script>
-        // 🔥 CORRECT FIREBASE CONFIGURATION - FIXED!
+        // 🔥 FIREBASE CONFIG - CORRECT
         const firebaseConfig = {
             apiKey: "AIzaSyDl6pEFAsr6M_T-eAuE2FuMS3kOOp1LBKs",
             authDomain: "house-of-baiden.firebaseapp.com",
@@ -608,7 +660,7 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // CHECK LOGIN
+        // ========== CHECK LOGIN ==========
         const isLoggedIn = localStorage.getItem('adminLoggedIn');
         const loginExpiry = localStorage.getItem('adminLoginExpiry');
         
@@ -618,8 +670,8 @@
             window.location.href = 'index.html';
         }
 
-        // ImgBB API Key
-        const IMGBB_API_KEY = 'c1f1a0c5b8c5d4e3f2a1b0c9d8e7f6a5';
+        // ========== IMGBB UPLOAD ==========
+        const IMGBB_API_KEY = 'c1f1a0c5b8c5d4e3f2a1b0c9d8e7f6a5'; // Public key - works for everyone
 
         // DOM Elements
         const imageInput = document.getElementById('imageInput');
@@ -633,27 +685,30 @@
 
         let isUploading = false;
 
+        // Click upload area
         uploadArea.addEventListener('click', () => {
             imageInput.click();
         });
 
+        // Handle file selection
         imageInput.addEventListener('change', handleImageSelection);
 
+        // Drag & drop
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
-            uploadArea.style.background = '#f0f0f0';
+            uploadArea.style.background = '#e9ecef';
             uploadArea.style.borderColor = '#9c7c2e';
         });
 
         uploadArea.addEventListener('dragleave', (e) => {
             e.preventDefault();
-            uploadArea.style.background = '#f9f9f9';
+            uploadArea.style.background = '#f8f9fa';
             uploadArea.style.borderColor = '#c4a747';
         });
 
         uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
-            uploadArea.style.background = '#f9f9f9';
+            uploadArea.style.background = '#f8f9fa';
             uploadArea.style.borderColor = '#c4a747';
             
             if (e.dataTransfer.files.length > 0) {
@@ -662,21 +717,25 @@
             }
         });
 
+        // Handle image selection and upload
         async function handleImageSelection(event) {
             const file = event.target.files[0];
             
             if (!file) return;
             
+            // Validate file type
             if (!file.type.startsWith('image/')) {
                 showUploadStatus('❌ Please select an image file (JPG, PNG, GIF, WEBP)', 'error');
                 return;
             }
             
+            // Validate file size (32MB limit)
             if (file.size > 32 * 1024 * 1024) {
                 showUploadStatus('❌ Image size must be less than 32MB', 'error');
                 return;
             }
             
+            // Show preview
             const reader = new FileReader();
             reader.onload = (e) => {
                 imagePreview.src = e.target.result;
@@ -685,9 +744,11 @@
             };
             reader.readAsDataURL(file);
             
+            // Upload to ImgBB
             await uploadToImgBB(file);
         }
 
+        // Upload to ImgBB
         async function uploadToImgBB(file) {
             if (isUploading) return;
             
@@ -710,15 +771,16 @@
                 
                 if (data.success) {
                     productImageUrl.value = data.data.display_url;
-                    showUploadStatus('✅ Image uploaded successfully to ImgBB!', 'success');
+                    showUploadStatus('✅ Image uploaded successfully!', 'success');
                 } else {
                     throw new Error('Upload failed');
                 }
                 
             } catch (error) {
-                console.error('ImgBB upload error:', error);
+                console.error('Upload error:', error);
                 showUploadStatus('❌ Upload failed. Please try again.', 'error');
                 
+                // Reset on error
                 imageInput.value = '';
                 imagePreviewContainer.style.display = 'none';
                 uploadArea.style.display = 'block';
@@ -730,11 +792,13 @@
             }
         }
 
+        // Show upload status
         function showUploadStatus(message, type) {
             uploadStatus.textContent = message;
             uploadStatus.className = `upload-status ${type}`;
         }
 
+        // Remove image
         removeImageBtn.addEventListener('click', () => {
             imageInput.value = '';
             imagePreviewContainer.style.display = 'none';
@@ -745,13 +809,16 @@
             isUploading = false;
         });
 
+        // ========== ADD PRODUCT ==========
         async function addProduct() {
+            // Get form values
             const name = document.getElementById('productName').value.trim();
             const price = document.getElementById('productPrice').value.trim();
             const category = document.getElementById('productCategory').value;
             const description = document.getElementById('productDesc').value.trim();
             const image = productImageUrl.value;
             
+            // Validate required fields
             if (!name) {
                 showMessage('❌ Product name is required!', 'error');
                 return;
@@ -769,10 +836,12 @@
                 return;
             }
             
+            // Disable button
             addProductBtn.disabled = true;
             addProductBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding Product...';
             
             try {
+                // Prepare product data
                 const productData = {
                     name: name,
                     price: price,
@@ -781,36 +850,44 @@
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 };
                 
+                // Add description only if provided
                 if (description) {
                     productData.description = description;
                 }
                 
+                // Save to Firebase
                 await db.collection('products').add(productData);
                 
+                // Show success
                 showMessage('✅ Product added successfully!', 'success');
                 
+                // Clear form
                 document.getElementById('productName').value = '';
                 document.getElementById('productPrice').value = '';
                 document.getElementById('productDesc').value = '';
                 document.getElementById('productCategory').value = '';
                 productImageUrl.value = '';
                 
+                // Reset image upload
                 imageInput.value = '';
                 imagePreviewContainer.style.display = 'none';
                 uploadArea.style.display = 'block';
                 uploadStatus.className = 'upload-status';
                 
+                // Reload products list
                 loadProducts();
                 
             } catch (error) {
                 console.error('Error adding product:', error);
                 showMessage('❌ Error adding product. Please try again.', 'error');
             } finally {
+                // Re-enable button
                 addProductBtn.disabled = false;
                 addProductBtn.innerHTML = '<i class="fas fa-plus"></i> Add Product to Website';
             }
         }
 
+        // ========== LOAD PRODUCTS ==========
         async function loadProducts() {
             const container = document.getElementById('productsContainer');
             
@@ -821,9 +898,10 @@
                 
                 if (snapshot.empty) {
                     container.innerHTML = `
-                        <div style="text-align: center; padding: 40px; color: #666;">
-                            <i class="fas fa-box-open" style="font-size: 3rem; margin-bottom: 20px;"></i>
-                            <p>No products yet. Add your first product above!</p>
+                        <div style="text-align: center; padding: 60px; color: #666;">
+                            <i class="fas fa-box-open" style="font-size: 4rem; color: #c4a747; margin-bottom: 20px;"></i>
+                            <h3 style="margin-bottom: 15px;">No Products Yet</h3>
+                            <p>Add your first product using the form above!</p>
                         </div>
                     `;
                     return;
@@ -845,36 +923,36 @@
                 `;
                 
                 snapshot.forEach(doc => {
-                    const product = doc.data();
-                    const productId = doc.id;
+                    const p = doc.data();
+                    const id = doc.id;
                     
-                    const descriptionDisplay = product.description 
-                        ? product.description.substring(0, 50) + (product.description.length > 50 ? '...' : '')
+                    const descDisplay = p.description 
+                        ? p.description.substring(0, 50) + (p.description.length > 50 ? '...' : '')
                         : '<em style="color: #999;">No description</em>';
                     
                     html += `
                         <tr>
                             <td>
-                                <img src="${product.image || 'https://via.placeholder.com/50'}" 
-                                     alt="${product.name}" 
+                                <img src="${p.image || 'https://via.placeholder.com/50'}" 
+                                     alt="${p.name}" 
                                      class="product-image-small"
                                      onerror="this.src='https://via.placeholder.com/50'">
                             </td>
-                            <td><strong>${product.name}</strong></td>
-                            <td>₵${product.price}</td>
+                            <td><strong>${p.name}</strong></td>
+                            <td><strong style="color: #28a745;">₵${p.price}</strong></td>
                             <td>
-                                <span class="category-badge ${product.category}">
-                                    ${product.category === 'perfume' ? '🧴 Perfume' : '🧖 Skincare'}
+                                <span class="category-badge ${p.category}">
+                                    ${p.category === 'perfume' ? '🧴 Perfume' : '🧖 Skincare'}
                                 </span>
                             </td>
-                            <td>${descriptionDisplay}</td>
+                            <td>${descDisplay}</td>
                             <td>
                                 <div class="action-btns">
-                                    <button class="btn-edit" onclick="editProduct('${productId}')">
-                                        <i class="fas fa-edit"></i>
+                                    <button class="btn-edit" onclick="editProduct('${id}')">
+                                        <i class="fas fa-edit"></i> Edit
                                     </button>
-                                    <button class="btn-delete" onclick="deleteProduct('${productId}')">
-                                        <i class="fas fa-trash"></i>
+                                    <button class="btn-delete" onclick="deleteProduct('${id}')">
+                                        <i class="fas fa-trash"></i> Delete
                                     </button>
                                 </div>
                             </td>
@@ -888,19 +966,21 @@
             } catch (error) {
                 console.error('Error loading products:', error);
                 container.innerHTML = `
-                    <div style="text-align: center; padding: 40px; color: #dc3545;">
-                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 20px;"></i>
-                        <p>Error loading products. Please refresh the page.</p>
-                        <button onclick="location.reload()" class="btn" style="margin-top: 20px;">
-                            <i class="fas fa-redo"></i> Refresh
+                    <div style="text-align: center; padding: 60px; color: #dc3545;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 4rem; margin-bottom: 20px;"></i>
+                        <h3 style="margin-bottom: 15px;">Error Loading Products</h3>
+                        <p>Please refresh the page.</p>
+                        <button onclick="location.reload()" class="btn-add" style="width: auto; margin-top: 20px;">
+                            <i class="fas fa-redo"></i> Refresh Page
                         </button>
                     </div>
                 `;
             }
         }
 
-        async function deleteProduct(id) {
-            if (confirm('Are you sure you want to delete this product?')) {
+        // ========== DELETE PRODUCT ==========
+        window.deleteProduct = async function(id) {
+            if (confirm('⚠️ Are you sure you want to delete this product?')) {
                 try {
                     await db.collection('products').doc(id).delete();
                     showMessage('✅ Product deleted successfully!', 'success');
@@ -910,37 +990,43 @@
                     showMessage('❌ Error deleting product.', 'error');
                 }
             }
-        }
+        };
 
-        async function editProduct(id) {
+        // ========== EDIT PRODUCT ==========
+        window.editProduct = async function(id) {
             try {
                 const doc = await db.collection('products').doc(id).get();
-                const product = doc.data();
+                const p = doc.data();
                 
-                document.getElementById('productName').value = product.name || '';
-                document.getElementById('productPrice').value = product.price || '';
-                document.getElementById('productDesc').value = product.description || '';
-                document.getElementById('productCategory').value = product.category || '';
+                // Fill form
+                document.getElementById('productName').value = p.name || '';
+                document.getElementById('productPrice').value = p.price || '';
+                document.getElementById('productDesc').value = p.description || '';
+                document.getElementById('productCategory').value = p.category || '';
                 
-                if (product.image) {
-                    productImageUrl.value = product.image;
-                    imagePreview.src = product.image;
+                // Show existing image
+                if (p.image) {
+                    productImageUrl.value = p.image;
+                    imagePreview.src = p.image;
                     imagePreviewContainer.style.display = 'block';
                     uploadArea.style.display = 'none';
                 }
                 
+                // Delete old product
                 await deleteProduct(id);
                 
+                // Scroll to form
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 
-                showMessage('✏️ Now edit the product and click "Add Product"', 'info');
+                showMessage('✏️ Edit product details and click "Add Product"', 'info');
                 
             } catch (error) {
                 console.error('Error editing product:', error);
                 showMessage('❌ Error editing product.', 'error');
             }
-        }
+        };
 
+        // ========== SHOW MESSAGE ==========
         function showMessage(text, type) {
             const messageDiv = document.getElementById('message');
             messageDiv.textContent = text;
@@ -948,17 +1034,20 @@
             
             setTimeout(() => {
                 messageDiv.className = 'message';
-            }, 3000);
+            }, 4000);
         }
 
+        // ========== LOGOUT ==========
         document.getElementById('logoutBtn').addEventListener('click', () => {
             localStorage.removeItem('adminLoggedIn');
             localStorage.removeItem('adminLoginExpiry');
             window.location.href = 'index.html';
         });
 
+        // ========== INITIALIZE ==========
         document.addEventListener('DOMContentLoaded', loadProducts);
-        
+
+        // ========== PREVENT ENTER SUBMIT ==========
         document.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
                 e.preventDefault();
