@@ -6,6 +6,7 @@
     <title>Skincare - House of Baiden | KNUST</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
     
@@ -115,6 +116,7 @@
             color: white;
         }
 
+        /* Header & Navigation */
         header {
             position: fixed;
             top: 0;
@@ -196,6 +198,7 @@
             cursor: pointer;
         }
 
+        /* Page Header - Skincare Theme (Pink/Purple Gradient) */
         .page-header {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             padding: 120px 20px 60px;
@@ -214,6 +217,7 @@
             color: white;
         }
 
+        /* Products Section */
         .products-section {
             background-color: var(--dark-charcoal);
         }
@@ -266,6 +270,7 @@
             margin: 10px 0;
         }
 
+        /* Category Badge - Skincare Theme */
         .category-badge {
             display: inline-block;
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
@@ -276,6 +281,7 @@
             margin-bottom: 10px;
         }
 
+        /* Back Button */
         .back-btn {
             display: inline-flex;
             align-items: center;
@@ -291,6 +297,7 @@
             transform: translateX(-5px);
         }
 
+        /* WhatsApp CTA */
         .whatsapp-cta {
             background-color: rgba(37, 211, 102, 0.1);
             border: 1px solid rgba(37, 211, 102, 0.3);
@@ -300,6 +307,7 @@
             margin-top: 40px;
         }
 
+        /* Footer */
         footer {
             background-color: #0a0a0a;
             padding: 40px 20px;
@@ -341,6 +349,7 @@
             font-size: 0.9rem;
         }
 
+        /* Animation Classes */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -352,6 +361,7 @@
             transform: translateY(0);
         }
 
+        /* Loading Spinner */
         .spinner {
             border: 4px solid rgba(255, 255, 255, 0.1);
             border-radius: 50%;
@@ -367,6 +377,7 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Responsive Styles */
         @media (max-width: 768px) {
             .nav-links {
                 position: fixed;
@@ -404,12 +415,20 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+        }
     </style>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Header & Navigation -->
     <header id="header">
         <nav class="container">
             <a href="index.html" class="logo">House of <span>Baiden</span></a>
@@ -426,6 +445,7 @@
         </nav>
     </header>
 
+    <!-- Page Header - Skincare -->
     <div class="page-header">
         <div class="container">
             <h1>Premium Skincare</h1>
@@ -433,6 +453,7 @@
         </div>
     </div>
 
+    <!-- Products Section -->
     <section class="products-section">
         <div class="container">
             <a href="index.html" class="back-btn">
@@ -440,12 +461,14 @@
             </a>
             
             <div id="products-container" class="products-grid">
+                <!-- Skincare products will load here from Firebase -->
                 <div style="text-align: center; grid-column: 1/-1; padding: 40px;">
                     <div class="spinner"></div>
                     <p>Loading our skincare collection...</p>
                 </div>
             </div>
             
+            <!-- WhatsApp CTA -->
             <div class="whatsapp-cta">
                 <h3><i class="fab fa-whatsapp" style="color: #25D366;"></i> Order via WhatsApp</h3>
                 <p>Click below to order any skincare product and get free delivery within KNUST campus.</p>
@@ -456,6 +479,7 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -473,6 +497,7 @@
     </footer>
 
     <script>
+        // 🔥 CORRECT FIREBASE CONFIGURATION - FIXED!
         const firebaseConfig = {
             apiKey: "AIzaSyDl6pEFAsr6M_T-eAuE2FuMS3kOOp1LBKs",
             authDomain: "house-of-baiden.firebaseapp.com",
@@ -483,9 +508,11 @@
             measurementId: "G-Z2RLV3V401"
         };
 
+        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
+        // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.querySelector('.nav-links');
         
@@ -496,6 +523,7 @@
                 : '<i class="fas fa-bars"></i>';
         });
         
+        // Close mobile menu when clicking a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
@@ -503,6 +531,7 @@
             });
         });
         
+        // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
             if (window.scrollY > 50) {
@@ -512,6 +541,7 @@
             }
         });
         
+        // Scroll animation
         const fadeElements = document.querySelectorAll('.fade-in');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -523,10 +553,12 @@
         
         fadeElements.forEach(el => observer.observe(el));
 
+        // 🔥 LOAD ONLY SKINCARE PRODUCTS
         async function loadSkincare() {
             const container = document.getElementById('products-container');
             
             try {
+                // Get ONLY products with category = 'skincare'
                 const snapshot = await db.collection('products')
                     .where('category', '==', 'skincare')
                     .orderBy('createdAt', 'desc')
@@ -548,7 +580,7 @@
                 
                 snapshot.forEach(doc => {
                     const product = doc.data();
-                    const description = product.description || '';
+                    const description = product.description || ''; // Handle optional description
                     
                     const productCard = document.createElement('div');
                     productCard.className = 'product-card fade-in';
@@ -567,14 +599,15 @@
                     container.appendChild(productCard);
                 });
                 
+                // Re-initialize animations for new elements
                 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
                 
             } catch (error) {
-                console.error('Error loading skincare:', error);
+                console.error('Error loading skincare products:', error);
                 container.innerHTML = `
                     <div style="text-align: center; grid-column: 1/-1; padding: 40px; color: #ff6b6b;">
                         <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 20px;"></i>
-                        <p>Error loading products. Please refresh the page.</p>
+                        <p>Error loading products. Please check your internet connection.</p>
                         <button onclick="location.reload()" class="btn" style="margin-top: 20px;">
                             <i class="fas fa-redo"></i> Try Again
                         </button>
@@ -583,6 +616,7 @@
             }
         }
 
+        // Load skincare products when page opens
         document.addEventListener('DOMContentLoaded', loadSkincare);
     </script>
 </body>
