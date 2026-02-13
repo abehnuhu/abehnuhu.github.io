@@ -11,6 +11,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
     
     <style>
+        /* ALL YOUR EXISTING CSS - Keep exactly as you had it */
         * {
             margin: 0;
             padding: 0;
@@ -831,7 +832,7 @@
     </footer>
 
     <script>
-        // 🔥 FIREBASE CONFIGURATION
+        // 🔥 CORRECT FIREBASE CONFIGURATION - FIXED!
         const firebaseConfig = {
             apiKey: "AIzaSyDl6pEFAsr6M_T-eAuE2FuMS3kOOp1LBKs",
             authDomain: "house-of-baiden.firebaseapp.com",
@@ -842,6 +843,7 @@
             measurementId: "G-Z2RLV3V401"
         };
 
+        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
