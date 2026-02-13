@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>House of Baiden | Premium Fragrances & Skincare - KNUST</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+    
     <style>
-        /* CSS Reset & Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -107,7 +111,16 @@
             background-color: #1da851;
         }
 
-        /* Header & Navigation */
+        .btn-perfume {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-skincare {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
         header {
             position: fixed;
             top: 0;
@@ -189,7 +202,6 @@
             cursor: pointer;
         }
 
-        /* Hero Section */
         .hero {
             height: 100vh;
             display: flex;
@@ -240,60 +252,109 @@
             color: var(--soft-white);
         }
 
-        /* Products Section */
-        .products-section {
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .category-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(196, 167, 71, 0.2);
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text-gray);
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--muted-gold);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .category-card i {
+            font-size: 3rem;
+            color: var(--muted-gold);
+            margin-bottom: 20px;
+        }
+
+        .category-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--soft-white);
+        }
+
+        .category-card p {
+            margin-bottom: 20px;
+        }
+
+        .category-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            color: var(--muted-gold);
+        }
+
+        .location {
+            background-color: var(--charcoal);
+        }
+
+        .location-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
+            align-items: center;
+        }
+
+        .location-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .location-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--muted-gold);
+        }
+
+        .location-info p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .why-choose {
             background-color: var(--dark-charcoal);
         }
 
-        .products-grid {
+        .benefits {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 40px;
-            margin-bottom: 60px;
-        }
-
-        .product-card {
-            background-color: rgba(255, 255, 255, 0.03);
-            padding: 25px;
-            border-top: 1px solid rgba(196, 167, 71, 0.2);
-            transition: var(--transition);
             text-align: center;
         }
 
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-            border-top: 1px solid var(--muted-gold);
+        .benefit {
+            padding: 40px 20px;
         }
 
-        .product-image {
-            width: 100%;
-            height: 250px;
-            object-fit: contain;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 10px;
-        }
-
-        .product-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 8px;
+        .benefit i {
+            font-size: 2.5rem;
             color: var(--muted-gold);
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin-bottom: 25px;
         }
 
-        .product-price {
-            font-size: 1.4rem;
-            color: var(--soft-white);
-            font-weight: 600;
-            margin: 10px 0;
+        .benefit h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
         }
 
-        /* Login Modal */
         .login-modal {
             display: none;
             position: fixed;
@@ -418,7 +479,6 @@
             color: var(--muted-gold);
         }
 
-        /* Admin Panel Link */
         .admin-link {
             position: fixed;
             bottom: 20px;
@@ -447,64 +507,6 @@
             transform: translateY(-2px);
         }
 
-        /* Location Section */
-        .location {
-            background-color: var(--charcoal);
-        }
-
-        .location-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 60px;
-            align-items: center;
-        }
-
-        .location-image {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .location-info h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--muted-gold);
-        }
-
-        .location-info p {
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        /* Why Choose Section */
-        .why-choose {
-            background-color: var(--dark-charcoal);
-        }
-
-        .benefits {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            text-align: center;
-        }
-
-        .benefit {
-            padding: 40px 20px;
-        }
-
-        .benefit i {
-            font-size: 2.5rem;
-            color: var(--muted-gold);
-            margin-bottom: 25px;
-        }
-
-        .benefit h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-
-        /* WhatsApp CTA */
         .whatsapp-cta {
             background-color: rgba(37, 211, 102, 0.1);
             border: 1px solid rgba(37, 211, 102, 0.3);
@@ -514,7 +516,6 @@
             margin-top: 40px;
         }
 
-        /* Footer */
         footer {
             background-color: #0a0a0a;
             padding: 40px 20px;
@@ -556,7 +557,6 @@
             font-size: 0.9rem;
         }
 
-        /* Animation Classes */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -568,14 +568,27 @@
             transform: translateY(0);
         }
 
-        /* Shake Animation */
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--muted-gold);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
             20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
 
-        /* Responsive Styles */
         @media (max-width: 768px) {
             .nav-links {
                 position: fixed;
@@ -630,6 +643,10 @@
                 bottom: 10px;
                 right: 10px;
             }
+
+            .categories {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
@@ -641,7 +658,7 @@
                 font-size: 1.8rem;
             }
 
-            .products-grid, .benefits {
+            .benefits {
                 grid-template-columns: 1fr;
             }
 
@@ -656,19 +673,18 @@
             }
         }
     </style>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header & Navigation -->
     <header id="header">
         <nav class="container">
             <a href="index.html" class="logo">House of <span>Baiden</span></a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="#products">Products</a></li>
+                <li><a href="perfumes.html">Perfumes</a></li>
+                <li><a href="skincare.html">Skincare</a></li>
                 <li><a href="#location">Location</a></li>
                 <li><a href="https://wa.me/233554142949" target="_blank">Order Now</a></li>
             </ul>
@@ -678,29 +694,34 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-bg"></div>
         <div class="hero-content fade-in">
             <h1>House of Baiden</h1>
             <div class="hero-subtitle">Premium Fragrances & Skincare</div>
             <p class="hero-tagline">"Authentic Luxury at Student-Friendly Prices. Quality You Can Trust."</p>
-            <a href="#products" class="btn">View Products</a>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="perfumes.html" class="btn btn-perfume">
+                    <i class="fas fa-spray-can"></i> Shop Perfumes
+                </a>
+                <a href="skincare.html" class="btn btn-skincare">
+                    <i class="fas fa-leaf"></i> Shop Skincare
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- Products Section (Dynamically Loaded) -->
-    <section class="products-section" id="products">
+    <section class="products-section" id="categories">
         <div class="container">
             <div class="section-header">
-                <h2>Our Products</h2>
-                <p>Premium fragrances and skincare available at KNUST</p>
+                <h2>Our Collections</h2>
+                <p>Choose from our premium fragrance and skincare collections</p>
             </div>
             
-            <div id="products-container" class="products-grid">
-                <!-- Products will be loaded dynamically from localStorage -->
-                <div class="loading-message" style="text-align: center; grid-column: 1/-1; padding: 40px;">
-                    <p>Loading products...</p>
+            <div class="categories" id="categoriesContainer">
+                <div style="text-align: center; grid-column: 1/-1; padding: 40px;">
+                    <div class="spinner"></div>
+                    <p>Loading collections...</p>
                 </div>
             </div>
             
@@ -714,7 +735,6 @@
         </div>
     </section>
 
-    <!-- Location Section -->
     <section class="location" id="location">
         <div class="container">
             <div class="section-header">
@@ -740,7 +760,6 @@
         </div>
     </section>
 
-    <!-- Why Choose Section -->
     <section class="why-choose">
         <div class="container">
             <div class="section-header">
@@ -766,7 +785,6 @@
         </div>
     </section>
 
-    <!-- Login Modal -->
     <div class="login-modal" id="loginModal">
         <div class="login-container">
             <button class="close-modal" id="closeModal">&times;</button>
@@ -790,14 +808,12 @@
         </div>
     </div>
 
-    <!-- Admin Panel Link -->
     <div class="admin-link">
         <button class="admin-btn" id="adminLink">
             <i class="fas fa-cog"></i> Manage Products
         </button>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -815,11 +831,23 @@
     </footer>
 
     <script>
-        // Password Configuration
+        // 🔥 FIREBASE CONFIGURATION
+        const firebaseConfig = {
+            apiKey: "AIzaSyDl6pEFAsr6M_T-eAuE2FuMS3kOOp1LBKs",
+            authDomain: "house-of-baiden.firebaseapp.com",
+            projectId: "house-of-baiden",
+            storageBucket: "house-of-baiden.firebasestorage.app",
+            messagingSenderId: "220065196721",
+            appId: "1:220065196721:web:8fe9ab0c991b8d04dc1090",
+            measurementId: "G-Z2RLV3V401"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
         const ADMIN_PASSWORD = "baidenrules";
         const ADMIN_REDIRECT_URL = "admin.html";
 
-        // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.querySelector('.nav-links');
         
@@ -830,7 +858,6 @@
                 : '<i class="fas fa-bars"></i>';
         });
         
-        // Close mobile menu when clicking a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
@@ -838,7 +865,6 @@
             });
         });
         
-        // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
             if (window.scrollY > 50) {
@@ -848,7 +874,6 @@
             }
         });
         
-        // Scroll animation
         const fadeElements = document.querySelectorAll('.fade-in');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -860,7 +885,6 @@
         
         fadeElements.forEach(el => observer.observe(el));
 
-        // Login Modal Elements
         const loginModal = document.getElementById('loginModal');
         const adminLink = document.getElementById('adminLink');
         const closeModal = document.getElementById('closeModal');
@@ -869,21 +893,18 @@
         const forgotPasswordLink = document.getElementById('forgotPassword');
         const passwordInput = document.getElementById('password');
 
-        // Show login modal when admin link is clicked
         adminLink.addEventListener('click', (e) => {
             e.preventDefault();
             loginModal.classList.add('active');
             passwordInput.focus();
         });
 
-        // Close modal
         closeModal.addEventListener('click', () => {
             loginModal.classList.remove('active');
             errorMessage.classList.remove('visible');
             loginForm.reset();
         });
 
-        // Close modal when clicking outside
         loginModal.addEventListener('click', (e) => {
             if (e.target === loginModal) {
                 loginModal.classList.remove('active');
@@ -892,115 +913,28 @@
             }
         });
 
-        // Handle login form submission
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const password = passwordInput.value.trim();
             
             if (password === ADMIN_PASSWORD) {
-                // Store login status in localStorage (expires in 1 hour)
                 const loginExpiry = Date.now() + (60 * 60 * 1000);
                 localStorage.setItem('adminLoggedIn', 'true');
                 localStorage.setItem('adminLoginExpiry', loginExpiry);
-                
-                // Redirect to admin panel
                 window.location.href = ADMIN_REDIRECT_URL;
             } else {
                 errorMessage.classList.add('visible');
                 passwordInput.value = '';
                 passwordInput.focus();
-                
-                // Shake animation for error
-                passwordInput.style.animation = 'none';
-                setTimeout(() => {
-                    passwordInput.style.animation = 'shake 0.5s ease-in-out';
-                }, 10);
+                passwordInput.style.animation = 'shake 0.5s ease-in-out';
             }
         });
 
-        // Forgot password feature
         forgotPasswordLink.addEventListener('click', (e) => {
             e.preventDefault();
-            alert('Password Hint: "baidenrules"\n\nContact Admin: +233 55 414 2949');
+            alert('Password: "baidenrules"\n\nContact: +233 55 414 2949');
         });
 
-        // Load Products from localStorage
-        function loadProducts() {
-            const container = document.getElementById('products-container');
-            const products = JSON.parse(localStorage.getItem('houseOfBaidenProducts')) || getDefaultProducts();
-            
-            container.innerHTML = '';
-            
-            if (products.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align: center; grid-column: 1/-1; padding: 40px;">
-                        <p>No products yet. Add products in the admin panel.</p>
-                        <button id="adminLink2" class="btn" style="margin-top: 20px;">
-                            <i class="fas fa-plus"></i> Add Products
-                        </button>
-                    </div>
-                `;
-                
-                // Add click event to the new admin link
-                document.getElementById('adminLink2').addEventListener('click', (e) => {
-                    e.preventDefault();
-                    loginModal.classList.add('active');
-                    passwordInput.focus();
-                });
-                
-                return;
-            }
-            
-            products.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card fade-in';
-                productCard.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/300x300/1a1a1a/c4a747?text=Product+Image'">
-                    <h3>${product.name}</h3>
-                    <p>${product.description}</p>
-                    <div class="product-price">₵${product.price}</div>
-                    <a href="https://wa.me/233554142949?text=Hello! I want to order ${product.name} for ₵${product.price}" class="btn btn-whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Order on WhatsApp
-                    </a>
-                `;
-                container.appendChild(productCard);
-            });
-            
-            // Re-initialize animations for new elements
-            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-        }
-
-        // Default products if none exist
-        function getDefaultProducts() {
-            const defaultProducts = [
-                {
-                    name: "Intense Man EDP",
-                    price: "220",
-                    description: "Masculine fragrance with woody notes",
-                    image: "https://via.placeholder.com/300x300/1a1a1a/c4a747?text=Intense+Man"
-                },
-                {
-                    name: "Explore The One",
-                    price: "200",
-                    description: "Fresh citrus with aquatic notes",
-                    image: "https://via.placeholder.com/300x300/1a1a1a/c4a747?text=Explore+The+One"
-                },
-                {
-                    name: "Berries EDP",
-                    price: "190",
-                    description: "Sweet berry fragrance",
-                    image: "https://via.placeholder.com/300x300/1a1a1a/c4a747?text=Berries+EDP"
-                }
-            ];
-            
-            localStorage.setItem('houseOfBaidenProducts', JSON.stringify(defaultProducts));
-            return defaultProducts;
-        }
-
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', loadProducts);
-
-        // Close modal with Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && loginModal.classList.contains('active')) {
                 loginModal.classList.remove('active');
@@ -1008,7 +942,65 @@
                 loginForm.reset();
             }
         });
+
+        async function loadCategoryStats() {
+            const container = document.getElementById('categoriesContainer');
+            
+            try {
+                const perfumesSnapshot = await db.collection('products')
+                    .where('category', '==', 'perfume')
+                    .get();
+                
+                const skincareSnapshot = await db.collection('products')
+                    .where('category', '==', 'skincare')
+                    .get();
+                
+                container.innerHTML = `
+                    <a href="perfumes.html" class="category-card fade-in">
+                        <i class="fas fa-spray-can-sparkles"></i>
+                        <h3>Perfumes</h3>
+                        <p>Discover our collection of premium fragrances. Long-lasting, authentic scents for every occasion.</p>
+                        <div class="category-stats">
+                            <span><i class="fas fa-box"></i> ${perfumesSnapshot.size} Products</span>
+                            <span><i class="fas fa-tag"></i> From ₵190</span>
+                        </div>
+                        <span class="btn" style="margin-top: 20px;">Browse Perfumes →</span>
+                    </a>
+                    
+                    <a href="skincare.html" class="category-card fade-in">
+                        <i class="fas fa-leaf"></i>
+                        <h3>Skincare</h3>
+                        <p>Premium skincare products for all skin types. Gentle, effective, and student-friendly.</p>
+                        <div class="category-stats">
+                            <span><i class="fas fa-box"></i> ${skincareSnapshot.size} Products</span>
+                            <span><i class="fas fa-tag"></i> From ₵150</span>
+                        </div>
+                        <span class="btn" style="margin-top: 20px;">Browse Skincare →</span>
+                    </a>
+                `;
+                
+                document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+                
+            } catch (error) {
+                console.error('Error loading categories:', error);
+                container.innerHTML = `
+                    <a href="perfumes.html" class="category-card fade-in">
+                        <i class="fas fa-spray-can-sparkles"></i>
+                        <h3>Perfumes</h3>
+                        <p>Discover our collection of premium fragrances.</p>
+                        <span class="btn" style="margin-top: 20px;">Browse Perfumes →</span>
+                    </a>
+                    <a href="skincare.html" class="category-card fade-in">
+                        <i class="fas fa-leaf"></i>
+                        <h3>Skincare</h3>
+                        <p>Premium skincare products for all skin types.</p>
+                        <span class="btn" style="margin-top: 20px;">Browse Skincare →</span>
+                    </a>
+                `;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadCategoryStats);
     </script>
 </body>
 </html>
-
