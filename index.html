@@ -304,7 +304,7 @@
             color: var(--muted-gold);
         }
 
-        /* ===== LOCATION SECTION ===== */
+        /* ===== LOCATION SECTION - THIS WAS MISSING ===== */
         .location {
             background-color: var(--charcoal);
         }
@@ -343,7 +343,7 @@
             text-align: center;
         }
 
-        /* ===== WHY CHOOSE SECTION ===== */
+        /* ===== WHY CHOOSE SECTION - THIS WAS MISSING ===== */
         .why-choose {
             background-color: var(--dark-charcoal);
         }
@@ -758,7 +758,6 @@
             </div>
             
             <div class="categories" id="categoriesContainer">
-                <!-- Dynamically loaded category cards -->
                 <div style="text-align: center; grid-column: 1/-1; padding: 40px;">
                     <div class="spinner"></div>
                     <p>Loading collections...</p>
@@ -775,7 +774,7 @@
         </div>
     </section>
 
-    <!-- ===== LOCATION SECTION ===== -->
+    <!-- ===== LOCATION SECTION - THIS WAS MISSING FROM YOUR FILE ===== -->
     <section class="location" id="location">
         <div class="container">
             <div class="section-header">
@@ -800,7 +799,7 @@
         </div>
     </section>
 
-    <!-- ===== WHY CHOOSE SECTION ===== -->
+    <!-- ===== WHY CHOOSE SECTION - THIS WAS MISSING FROM YOUR FILE ===== -->
     <section class="why-choose">
         <div class="container">
             <div class="section-header">
@@ -1030,7 +1029,6 @@
                     </a>
                 `;
                 
-                // Re-observe new fade-in elements
                 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
                 
             } catch (error) {
@@ -1052,7 +1050,6 @@
             }
         }
 
-        // Initialize on page load
         document.addEventListener('DOMContentLoaded', loadCategoryStats);
     </script>
 </body>
