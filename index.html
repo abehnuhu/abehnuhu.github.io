@@ -11,7 +11,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
     
     <style>
-        /* ALL YOUR EXISTING CSS - Keep exactly as you had it */
+        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -122,6 +122,7 @@
             color: white;
         }
 
+        /* ===== HEADER & NAVIGATION ===== */
         header {
             position: fixed;
             top: 0;
@@ -203,6 +204,7 @@
             cursor: pointer;
         }
 
+        /* ===== HERO SECTION ===== */
         .hero {
             height: 100vh;
             display: flex;
@@ -253,6 +255,7 @@
             color: var(--soft-white);
         }
 
+        /* ===== CATEGORY CARDS ===== */
         .categories {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -301,6 +304,7 @@
             color: var(--muted-gold);
         }
 
+        /* ===== LOCATION SECTION ===== */
         .location {
             background-color: var(--charcoal);
         }
@@ -328,8 +332,18 @@
         .location-info p {
             margin-bottom: 15px;
             font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
+        .location-info i {
+            color: var(--muted-gold);
+            width: 25px;
+            text-align: center;
+        }
+
+        /* ===== WHY CHOOSE SECTION ===== */
         .why-choose {
             background-color: var(--dark-charcoal);
         }
@@ -343,6 +357,13 @@
 
         .benefit {
             padding: 40px 20px;
+            background: rgba(255,255,255,0.02);
+            transition: var(--transition);
+        }
+
+        .benefit:hover {
+            transform: translateY(-10px);
+            background: rgba(196,167,71,0.05);
         }
 
         .benefit i {
@@ -354,8 +375,15 @@
         .benefit h3 {
             font-size: 1.5rem;
             margin-bottom: 15px;
+            color: var(--soft-white);
         }
 
+        .benefit p {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* ===== LOGIN MODAL ===== */
         .login-modal {
             display: none;
             position: fixed;
@@ -480,6 +508,7 @@
             color: var(--muted-gold);
         }
 
+        /* ===== ADMIN LINK ===== */
         .admin-link {
             position: fixed;
             bottom: 20px;
@@ -508,6 +537,7 @@
             transform: translateY(-2px);
         }
 
+        /* ===== WHATSAPP CTA ===== */
         .whatsapp-cta {
             background-color: rgba(37, 211, 102, 0.1);
             border: 1px solid rgba(37, 211, 102, 0.3);
@@ -517,6 +547,7 @@
             margin-top: 40px;
         }
 
+        /* ===== FOOTER ===== */
         footer {
             background-color: #0a0a0a;
             padding: 40px 20px;
@@ -556,8 +587,10 @@
         .copyright {
             color: #666;
             font-size: 0.9rem;
+            margin-top: 10px;
         }
 
+        /* ===== ANIMATIONS ===== */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -590,6 +623,7 @@
             20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
 
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .nav-links {
                 position: fixed;
@@ -674,11 +708,13 @@
             }
         }
     </style>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- ===== HEADER ===== -->
     <header id="header">
         <nav class="container">
             <a href="index.html" class="logo">House of <span>Baiden</span></a>
@@ -695,6 +731,7 @@
         </nav>
     </header>
 
+    <!-- ===== HERO ===== -->
     <section class="hero" id="home">
         <div class="hero-bg"></div>
         <div class="hero-content fade-in">
@@ -712,6 +749,7 @@
         </div>
     </section>
 
+    <!-- ===== CATEGORIES SECTION ===== -->
     <section class="products-section" id="categories">
         <div class="container">
             <div class="section-header">
@@ -720,6 +758,7 @@
             </div>
             
             <div class="categories" id="categoriesContainer">
+                <!-- Dynamically loaded category cards -->
                 <div style="text-align: center; grid-column: 1/-1; padding: 40px;">
                     <div class="spinner"></div>
                     <p>Loading collections...</p>
@@ -736,6 +775,7 @@
         </div>
     </section>
 
+    <!-- ===== LOCATION SECTION ===== -->
     <section class="location" id="location">
         <div class="container">
             <div class="section-header">
@@ -747,20 +787,20 @@
                 </div>
                 <div class="location-info fade-in">
                     <h3>Located at KNUST Campus</h3>
-                    <p><strong>Kwame Nkrumah University of Science and Technology</strong></p>
-                    <p>We're located right at KNUST, serving students, staff, and the Kumasi community.</p>
-                    <p><i class="fas fa-map-marker-alt" style="color: var(--muted-gold); margin-right: 10px;"></i> <strong>KNUST, Kumasi</strong> - Opposite Republic Hall</p>
-                    <p><i class="fas fa-phone-alt" style="color: var(--muted-gold); margin-right: 10px;"></i> <strong>+233 55 414 2949</strong></p>
-                    <p><i class="fas fa-clock" style="color: var(--muted-gold); margin-right: 10px;"></i> <strong>Mon-Sat:</strong> 9:00 AM - 7:00 PM</p>
-                    <p><i class="fas fa-truck" style="color: var(--muted-gold); margin-right: 10px;"></i> <strong>Free Delivery</strong> within KNUST campus</p>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Opposite Republic Hall</strong>, KNUST, Kumasi</p>
+                    <p><i class="fas fa-phone-alt"></i> <strong>+233 55 414 2949</strong></p>
+                    <p><i class="fas fa-clock"></i> <strong>Mon - Sat:</strong> 9:00 AM – 7:00 PM</p>
+                    <p><i class="fas fa-truck"></i> <strong>Free Delivery</strong> within KNUST campus</p>
+                    <p><i class="fas fa-whatsapp"></i> <strong>WhatsApp Orders:</strong> 24/7</p>
                     <a href="https://wa.me/233554142949?text=Hello! I'm at KNUST and would like directions to your shop." class="btn btn-whatsapp" style="margin-top: 20px;">
-                        <i class="fab fa-whatsapp"></i> Get Directions
+                        <i class="fab fa-whatsapp"></i> Get Directions via WhatsApp
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ===== WHY CHOOSE SECTION ===== -->
     <section class="why-choose">
         <div class="container">
             <div class="section-header">
@@ -770,22 +810,23 @@
                 <div class="benefit fade-in">
                     <i class="fas fa-check-circle"></i>
                     <h3>Authentic Products</h3>
-                    <p>100% genuine perfumes and skincare. No fakes or diluted products.</p>
+                    <p>100% genuine perfumes and skincare. No fakes, no diluted products. We source directly from trusted distributors.</p>
                 </div>
                 <div class="benefit fade-in">
                     <i class="fas fa-money-bill-wave"></i>
                     <h3>Best Prices in KNUST</h3>
-                    <p>We price-match Jiji and offer student discounts. Best value guaranteed.</p>
+                    <p>We price-match Jiji and offer exclusive student discounts. Premium quality at affordable prices – guaranteed.</p>
                 </div>
                 <div class="benefit fade-in">
                     <i class="fas fa-graduation-cap"></i>
                     <h3>Student-Friendly</h3>
-                    <p>Special packages and payment plans for KNUST students.</p>
+                    <p>Special packages, flexible payment plans, and free delivery right to your hall. We understand student life.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ===== LOGIN MODAL ===== -->
     <div class="login-modal" id="loginModal">
         <div class="login-container">
             <button class="close-modal" id="closeModal">&times;</button>
@@ -809,12 +850,14 @@
         </div>
     </div>
 
+    <!-- ===== ADMIN LINK ===== -->
     <div class="admin-link">
         <button class="admin-btn" id="adminLink">
             <i class="fas fa-cog"></i> Manage Products
         </button>
     </div>
 
+    <!-- ===== FOOTER ===== -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -847,9 +890,11 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
+        // ===== PASSWORD CONFIG =====
         const ADMIN_PASSWORD = "baidenrules";
         const ADMIN_REDIRECT_URL = "admin.html";
 
+        // ===== MOBILE MENU =====
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.querySelector('.nav-links');
         
@@ -867,6 +912,7 @@
             });
         });
         
+        // ===== HEADER SCROLL EFFECT =====
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
             if (window.scrollY > 50) {
@@ -876,6 +922,7 @@
             }
         });
         
+        // ===== SCROLL ANIMATIONS =====
         const fadeElements = document.querySelectorAll('.fade-in');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -887,6 +934,7 @@
         
         fadeElements.forEach(el => observer.observe(el));
 
+        // ===== LOGIN MODAL =====
         const loginModal = document.getElementById('loginModal');
         const adminLink = document.getElementById('adminLink');
         const closeModal = document.getElementById('closeModal');
@@ -945,6 +993,7 @@
             }
         });
 
+        // ===== LOAD CATEGORY STATS FROM FIREBASE =====
         async function loadCategoryStats() {
             const container = document.getElementById('categoriesContainer');
             
@@ -981,6 +1030,7 @@
                     </a>
                 `;
                 
+                // Re-observe new fade-in elements
                 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
                 
             } catch (error) {
@@ -1002,6 +1052,7 @@
             }
         }
 
+        // Initialize on page load
         document.addEventListener('DOMContentLoaded', loadCategoryStats);
     </script>
 </body>
