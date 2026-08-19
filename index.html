@@ -593,7 +593,7 @@ async function loadFeatured() {
         '</div>' +
         '<div class="product-info">' +
           '<div class="product-name">' + esc(p.name) + '</div>' +
-          '<div class="product-desc">' + esc(p.description || 'Premium quality product.') + '</div>' +
+          '<div class="product-desc">' + esc(getPerfumeDesc(p)) + '</div>' +
           '<div class="product-price">₵' + esc(p.price) + '</div>' +
           stockBadge(p) +
         '</div>' +

@@ -3,7 +3,200 @@
    Load AFTER firebase-config.js. Works on index/perfumes/skincare.
    ============================================================ */
 
-/* ---------- HELPERS ---------- */
+/* ============================================================
+   PERFUME DESCRIPTION DATABASE
+   Accurate scent profiles for each fragrance. Used by the
+   storefront (perfumes.html, index.html) and the scent finder.
+   Matches product names using fuzzy lookup.
+   ============================================================ */
+const PERFUME_DB = {
+  // ==================== LATTAFA ====================
+  'lattafa bade\'e al oud': { desc: 'Rich oud, saffron, and rose with a warm musk dry-down. A luxurious Arabian masterpiece — deep, complex, and unforgettable.', notes: 'Oud, Saffron, Rose, Musk' },
+  'oud for glory': { desc: 'Rich oud, saffron, and rose with a warm musk dry-down. A luxurious Arabian masterpiece — deep, complex, and unforgettable.', notes: 'Oud, Saffron, Rose, Musk' },
+  'bade\'e al oud': { desc: 'Rich oud, saffron, and rose with a warm musk dry-down. A luxurious Arabian masterpiece — deep, complex, and unforgettable.', notes: 'Oud, Saffron, Rose, Musk' },
+  'lattafa yara': { desc: 'Sweet vanilla, caramel, and heliotrope wrapped in soft musk. A warm Arabian gourmand — like dessert in a bottle.', notes: 'Vanilla, Caramel, Heliotrope, Musk' },
+  'lattafa asad': { desc: 'Bold tobacco, oud, and patchouli with amber warmth. Smoky, powerful, and intensely masculine — a statement fragrance.', notes: 'Tobacco, Oud, Patchouli, Amber' },
+  'lattafa raghba': { desc: 'Creamy vanilla, oud, and caramel with a musky base. Sweet Arabian luxury — mesmerizing and long-lasting.', notes: 'Vanilla, Oud, Caramel, Musk' },
+  'lattafa ana abiyedh': { desc: 'Delicate orange blossom, vanilla, and white musk. Clean, elegant, and effortlessly feminine.', notes: 'Orange Blossom, Vanilla, Musk' },
+  'lattafa fakhar': { desc: 'Fresh lavender, citrus, and woody undertones. A versatile masculine scent — clean yet confident.', notes: 'Lavender, Citrus, Woods' },
+  'lattafa ramz silver': { desc: 'Sweet vanilla, amber, and woody notes. A warm, inviting Arabian fragrance with lasting power.', notes: 'Vanilla, Amber, Woods' },
+  'lattafa qaa\'ed': { desc: 'Rich oud, amber, and spice. Deep, smoky, and luxurious — for those who command attention.', notes: 'Oud, Amber, Spices' },
+  'lattafa khamrah': { desc: 'Warm cinnamon, vanilla, and tonka bean over amber. Sweet, spicy, and irresistibly cozy.', notes: 'Cinnamon, Vanilla, Tonka, Amber' },
+  'lattafa amwaaj': { desc: 'Fresh aquatic notes with citrus and musk. A light, breezy Arabian fragrance for everyday wear.', notes: 'Aquatic, Citrus, Musk' },
+  'lattafa mayar': { desc: 'Delicate florals, pear, and vanilla. Sweet, romantic, and gracefully feminine.', notes: 'Florals, Pear, Vanilla' },
+
+  // ==================== RIIFFS ====================
+  'imperial noir': { desc: 'Dark bergamot, black pepper, oud, and leather. A sophisticated noir fragrance — mysterious, bold, and commanding.', notes: 'Bergamot, Black Pepper, Oud, Leather' },
+  'riiffs imperial noir': { desc: 'Dark bergamot, black pepper, oud, and leather. A sophisticated noir fragrance — mysterious, bold, and commanding.', notes: 'Bergamot, Black Pepper, Oud, Leather' },
+
+  // ==================== FRAGRANCE WORLD ====================
+  'hardcore wood': { desc: 'Intense cedar, sandalwood, and musk. A rugged woody fragrance — bold, earthy, and unapologetically masculine.', notes: 'Cedar, Sandalwood, Musk' },
+  'fragrance world hardcore': { desc: 'Intense cedar, sandalwood, and musk. A rugged woody fragrance — bold, earthy, and unapologetically masculine.', notes: 'Cedar, Sandalwood, Musk' },
+
+  // ==================== TOFY ====================
+  'tofy milky vanilla': { desc: 'Creamy vanilla, milk, and soft caramel. A sweet, comforting gourmand — like a warm hug in a bottle.', notes: 'Vanilla, Milk, Caramel' },
+  'tofy': { desc: 'Creamy vanilla, milk, and soft caramel. A sweet, comforting gourmand — like a warm hug in a bottle.', notes: 'Vanilla, Milk, Caramel' },
+
+  // ==================== DIOR ====================
+  'dior sauvage': { desc: 'Fresh bergamot, peppery Sichuan, and ambroxan. Clean yet magnetic — the modern everyday king.', notes: 'Bergamot, Pepper, Ambroxan' },
+  'sauvage': { desc: 'Fresh bergamot, peppery Sichuan, and ambroxan. Clean yet magnetic — the modern everyday king.', notes: 'Bergamot, Pepper, Ambroxan' },
+  'dior sauvage elixir': { desc: 'Intense cinnamon, nutmeg, and cardamom over amber. The darkest, most powerful Sauvage — pure luxury.', notes: 'Cinnamon, Nutmeg, Cardamom, Amber' },
+
+  // ==================== CHANEL ====================
+  'bleu de chanel': { desc: 'Citrus, mint, pink pepper over sandalwood and incense. Sophisticated freshness with depth.', notes: 'Citrus, Mint, Sandalwood, Incense' },
+  'chanel bleu': { desc: 'Citrus, mint, pink pepper over sandalwood and incense. Sophisticated freshness with depth.', notes: 'Citrus, Mint, Sandalwood, Incense' },
+  'chanel chance': { desc: 'Citrus, jasmine, patchouli, and amber. Fresh sparkle that evolves into warm elegance.', notes: 'Citrus, Jasmine, Patchouli, Amber' },
+  'chanel chance eau tendre': { desc: 'Grapefruit, jasmine, and musk. Softer, fruitier, and more delicate than the original.', notes: 'Grapefruit, Jasmine, Musk' },
+
+  // ==================== VERSACE ====================
+  'versace eros': { desc: 'Mint, green apple, tonka bean, and vanilla. Sweet, powerful, and impossible to ignore.', notes: 'Mint, Green Apple, Tonka, Vanilla' },
+  'versace eros flame': { desc: 'Black pepper, rose, vanilla, and tonka. Smokier and more seductive than the original.', notes: 'Black Pepper, Rose, Vanilla, Tonka' },
+  'versace bright crystal': { desc: 'Pomegranate, peony, magnolia, and amber. Light, sparkling, and feminine — a campus favourite.', notes: 'Pomegranate, Peony, Magnolia, Amber' },
+  'versace pour homme': { desc: 'Citrus, neroli, amber, and musk. Light and Mediterranean — effortless daily wear.', notes: 'Citrus, Neroli, Amber, Musk' },
+  'versace man eau fraiche': { desc: 'Lemon, tarragon, cedar, and amber. Fresh, aquatic, and breezy — summer in a bottle.', notes: 'Lemon, Tarragon, Cedar, Amber' },
+  'versace oud noir': { desc: 'Oud, leather, cardamom, and patchouli. Dark and intense Versace luxury.', notes: 'Oud, Leather, Cardamom, Patchouli' },
+
+  // ==================== YSL ====================
+  'YSL Y': { desc: 'Apple, ginger, sage, and ambergris. Modern, versatile, and effortlessly cool.', notes: 'Apple, Ginger, Sage, Ambergris' },
+  'yves saint laurent Y': { desc: 'Apple, ginger, sage, and ambergris. Modern, versatile, and effortlessly cool.', notes: 'Apple, Ginger, Sage, Ambergris' },
+  'YSL black opium': { desc: 'Coffee, vanilla, white flowers, and cedar. Addictive, dark, and electrically seductive.', notes: 'Coffee, Vanilla, White Flowers, Cedar' },
+  'yves saint laurent black opium': { desc: 'Coffee, vanilla, white flowers, and cedar. Addictive, dark, and electrically seductive.', notes: 'Coffee, Vanilla, White Flowers, Cedar' },
+
+  // ==================== PACO RABANNE ====================
+  'paco rabanne 1 million': { desc: 'Cinnamon, blood mandarin, leather, and amber. Sweet spice bomb — the ultimate party scent.', notes: 'Cinnamon, Mandarin, Leather, Amber' },
+  '1 million': { desc: 'Cinnamon, blood mandarin, leather, and amber. Sweet spice bomb — the ultimate party scent.', notes: 'Cinnamon, Mandarin, Leather, Amber' },
+  'paco rabanne invictus': { desc: 'Marine accord, grapefruit, guaiac wood. Fresh, sporty, and competitive — like winning.', notes: 'Marine, Grapefruit, Guaiac Wood' },
+  'invictus': { desc: 'Marine accord, grapefruit, guaiac wood. Fresh, sporty, and competitive — like winning.', notes: 'Marine, Grapefruit, Guaiac Wood' },
+  'paco rabanne phantom': { desc: 'Lemon, lavender, vanilla, and woody accord. Futuristic freshness with a creamy finish.', notes: 'Lemon, Lavender, Vanilla, Woods' },
+
+  // ==================== JEAN PAUL GAULTIER ====================
+  'jean paul gaultier le male': { desc: 'Lavender, vanilla, tonka, and mint. The iconic sweet-aromatic — bold and unforgettable.', notes: 'Lavender, Vanilla, Tonka, Mint' },
+  'le male': { desc: 'Lavender, vanilla, tonka, and mint. The iconic sweet-aromatic — bold and unforgettable.', notes: 'Lavender, Vanilla, Tonka, Mint' },
+  'jean paul gaultier ultra male': { desc: 'Pear, lavender, vanilla, and cinnamon. Sweeter and more intense than Le Male.', notes: 'Pear, Lavender, Vanilla, Cinnamon' },
+  'ultra male': { desc: 'Pear, lavender, vanilla, and cinnamon. Sweeter and more intense than Le Male.', notes: 'Pear, Lavender, Vanilla, Cinnamon' },
+
+  // ==================== HUGO BOSS ====================
+  'hugo boss bottled': { desc: 'Apple, cinnamon, geranium, and sandalwood. The gentleman\'s daily — polished and approachable.', notes: 'Apple, Cinnamon, Geranium, Sandalwood' },
+  'boss bottled': { desc: 'Apple, cinnamon, geranium, and sandalwood. The gentleman\'s daily — polished and approachable.', notes: 'Apple, Cinnamon, Geranium, Sandalwood' },
+
+  // ==================== DOLCE & GABBANA ====================
+  'd&g the one': { desc: 'Grapefruit, coriander, basil, amber, and tobacco. Warm, intimate, and irresistibly charming.', notes: 'Grapefruit, Coriander, Basil, Amber' },
+  'dolce gabbana the one': { desc: 'Grapefruit, coriander, basil, amber, and tobacco. Warm, intimate, and irresistibly charming.', notes: 'Grapefruit, Coriander, Basil, Amber' },
+  'd&g light blue': { desc: 'Sicilian lemon, apple, cedar, and amber. Sun-kissed Mediterranean in a bottle.', notes: 'Lemon, Apple, Cedar, Amber' },
+  'dolce gabbana light blue': { desc: 'Sicilian lemon, apple, cedar, and amber. Sun-kissed Mediterranean in a bottle.', notes: 'Lemon, Apple, Cedar, Amber' },
+  'dolce gabbana the only one': { desc: 'Violet, coffee, vanilla, and caramel. Sweet, warm, and commanding attention.', notes: 'Violet, Coffee, Vanilla, Caramel' },
+
+  // ==================== GUCCI ====================
+  'gucci bloom': { desc: 'Tuberose, jasmine, and Rangoon creeper. Lush white florals — like walking through a garden.', notes: 'Tuberose, Jasmine, Creeper' },
+
+  // ==================== PRADA ====================
+  'prada candy': { desc: 'Caramel, musk, vanilla, and benzoin. Sweet, warm, and dangerously addictive.', notes: 'Caramel, Musk, Vanilla, Benzoin' },
+  'prada l\'homme': { desc: 'Neroli, iris, amber, and cedar. Clean, powdery, and impeccably refined.', notes: 'Neroli, Iris, Amber, Cedar' },
+
+  // ==================== VIKTOR & ROLF ====================
+  'flowerbomb': { desc: 'Rose, jasmine, orchid, and patchouli. An explosion of sweet florals — bold and romantic.', notes: 'Rose, Jasmine, Orchid, Patchouli' },
+  'viktor rolf flowerbomb': { desc: 'Rose, jasmine, orchid, and patchouli. An explosion of sweet florals — bold and romantic.', notes: 'Rose, Jasmine, Orchid, Patchouli' },
+
+  // ==================== MARC JACOBS ====================
+  'marc jacobs daisy': { desc: 'Strawberry, violet leaves, jasmine, and musk. Youthful, cheerful, and effortlessly cute.', notes: 'Strawberry, Violet, Jasmine, Musk' },
+  'daisy': { desc: 'Strawberry, violet leaves, jasmine, and musk. Youthful, cheerful, and effortlessly cute.', notes: 'Strawberry, Violet, Jasmine, Musk' },
+
+  // ==================== CALVIN KLEIN ====================
+  'calvin klein euphoria': { desc: 'Pomegranate, orchid, amber, and mahogany. Mysterious and sensual — evening elegance.', notes: 'Pomegranate, Orchid, Amber, Mahogany' },
+  'euphoria': { desc: 'Pomegranate, orchid, amber, and mahogany. Mysterious and sensual — evening elegance.', notes: 'Pomegranate, Orchid, Amber, Mahogany' },
+
+  // ==================== LANCÔME ====================
+  'lancome la vie est belle': { desc: 'Iris, praline, vanilla, and patchouli. Sweet, powdery, and confidently joyful.', notes: 'Iris, Praline, Vanilla, Patchouli' },
+  'la vie est belle': { desc: 'Iris, praline, vanilla, and patchouli. Sweet, powdery, and confidently joyful.', notes: 'Iris, Praline, Vanilla, Patchouli' },
+
+  // ==================== TOM FORD ====================
+  'tom ford oud wood': { desc: 'Oud, sandalwood, vetiver, and tonka. The benchmark oud — rich, smoky, and luxurious.', notes: 'Oud, Sandalwood, Vetiver, Tonka' },
+  'tom ford tobacco vanille': { desc: 'Tobacco, vanilla, cocoa, and dried fruits. Rich, warm, and hypnotically indulgent.', notes: 'Tobacco, Vanilla, Cocoa, Dried Fruits' },
+
+  // ==================== AZZARO ====================
+  'azzaro wanted': { desc: 'Lemon, tonka bean, violet, and amber. Sweet, magnetic, and slightly dangerous.', notes: 'Lemon, Tonka, Violet, Amber' },
+  'azzaro wanted by night': { desc: 'Cinnamon, tobacco, honey, and cedar. Rich, warm, and intoxicating after dark.', notes: 'Cinnamon, Tobacco, Honey, Cedar' },
+
+  // ==================== CAROLINA HERRERA ====================
+  'carolina herrera bad boy': { desc: 'Citrus, white flowers, tonka bean, and cocoa. Electric and unexpected — fresh meets dark.', notes: 'Citrus, White Flowers, Tonka, Cocoa' },
+  'bad boy': { desc: 'Citrus, white flowers, tonka bean, and cocoa. Electric and unexpected — fresh meets dark.', notes: 'Citrus, White Flowers, Tonka, Cocoa' },
+
+  // ==================== BURBERRY ====================
+  'burberry her': { desc: 'Blackcurrant, peony, musk, and amber. Fruity-sweet with a sophisticated edge.', notes: 'Blackcurrant, Peony, Musk, Amber' },
+
+  // ==================== COACH ====================
+  'coach eau de parfum': { desc: 'Raspberry, rose, musk, and suede. Modern, polished, and quietly confident.', notes: 'Raspberry, Rose, Musk, Suede' },
+
+  // ==================== CHLOE ====================
+  'chloe eau de parfum': { desc: 'Rose, lychee, cedar, and honey. Light, romantic, and effortlessly chic.', notes: 'Rose, Lychee, Cedar, Honey' },
+
+  // ==================== GIVENCHY ====================
+  'givenchy l\'interdit': { desc: 'Tuberose, jasmine, patchouli, and amber. Dark floral — forbidden elegance.', notes: 'Tuberose, Jasmine, Patchouli, Amber' },
+
+  // ==================== NARCISO RODRIGUEZ ====================
+  'narciso rodriguez for her': { desc: 'Osmanthus, rose, musk, and amberwood. Deep, floral-musky, and hauntingly beautiful.', notes: 'Osmanthus, Rose, Musk, Amberwood' },
+  'narciso rodriguez for him': { desc: 'Vetiver, musk, amber, and cedar. Deep, smoky, and hypnotically sensual.', notes: 'Vetiver, Musk, Amber, Cedar' },
+
+  // ==================== MISS DIOR ====================
+  'miss dior': { desc: 'Lily of the valley, rose, musk, and peony. Romantic, elegant, and timelessly feminine.', notes: 'Lily of the Valley, Rose, Musk, Peony' },
+
+  // ==================== ARIANA GRANDE ====================
+  'ariana grande cloud': { desc: 'Lavender, coconut, praline, and musk. Sweet cloud of comfort — cosy and inviting.', notes: 'Lavender, Coconut, Praline, Musk' },
+
+  // ==================== ACQUA DI GIO ====================
+  'acqua di gio': { desc: 'Marine notes, bergamot, and rosemary. The original aquatic — light, breezy, perfect for hot days.', notes: 'Marine, Bergamot, Rosemary' },
+  'acqua di gio profondo': { desc: 'Deep aquatic with amber, musk, and oakmoss. Richer than the original — ocean meets forest.', notes: 'Aquatic, Amber, Musk, Oakmoss' },
+
+  // ==================== MONTBLANC ====================
+  'montblanc explorer': { desc: 'Bergamot, vetiver, and patchouli. Aventuresque and woody — like Aventus at a better price.', notes: 'Bergamot, Vetiver, Patchouli' },
+
+  // ==================== JIMMY CHOO ====================
+  'jimmy choo man': { desc: 'Melon, lavender, pink pepper, and patchouli. Fruity-fresh with a warm masculine edge.', notes: 'Melon, Lavender, Pink Pepper, Patchouli' },
+
+  // ==================== ARMAF ====================
+  'armaf club de nuit intense': { desc: 'Lemon, pineapple, birch, and musk. A Creed Aventus-inspired powerhouse.', notes: 'Lemon, Pineapple, Birch, Musk' },
+
+  // ==================== MUGLER ====================
+  'mugler alien': { desc: 'Jasmine, woody accord, and amber. Powerful, radiant, and otherworldly.', notes: 'Jasmine, Woody Accord, Amber' },
+
+  // ==================== VALENTINO ====================
+  'valentino uomo': { desc: 'Coffee, leather, cedar, and vanilla. Italian sophistication — warm and refined.', notes: 'Coffee, Leather, Cedar, Vanilla' },
+
+  // ==================== RABANNE ====================
+  'rabanne phantom': { desc: 'Lemon, lavender, vanilla, and woody accord. Futuristic freshness with a creamy finish.', notes: 'Lemon, Lavender, Vanilla, Woods' },
+  'rabanne 1 million elixir': { desc: 'Leather, rose, dark chocolate, and amber. Maximalist sweetness — the king of nightlife.', notes: 'Leather, Rose, Dark Chocolate, Amber' },
+};
+
+/** Look up a product in the perfume database by fuzzy name matching. */
+function lookupPerfume(product) {
+  const name = (product.name || '').toLowerCase().trim();
+  // Direct match
+  if (PERFUME_DB[name]) return PERFUME_DB[name];
+  // Partial match — check if any key is contained in the product name
+  for (const [key, val] of Object.entries(PERFUME_DB)) {
+    if (name.includes(key) || key.includes(name)) return val;
+  }
+  // Fuzzy — check each word
+  const words = name.split(/\s+/);
+  for (const [key, val] of Object.entries(PERFUME_DB)) {
+    const keyWords = key.split(/\s+/);
+    const overlap = words.filter(w => keyWords.some(kw => w.includes(kw) || kw.includes(w)));
+    if (overlap.length >= 2) return val;
+  }
+  return null;
+}
+
+/** Get the best description for a perfume product. */
+function getPerfumeDesc(product) {
+  const dbEntry = lookupPerfume(product);
+  if (dbEntry) return dbEntry.desc;
+  // Fall back to Firestore description if it\'s not the generic placeholder
+  if (product.description && product.description !== 'Premium quality perfume, authentic and long-lasting.') {
+    return product.description;
+  }
+  return 'Premium quality perfume, carefully sourced and authenticated by House of Baiden. Order via WhatsApp for fast campus delivery.';
+}
+
 function esc(str) {
   if (str == null) return '';
   return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -369,7 +562,7 @@ if (qvModal) {
         '<h2 class="qv-name">' + esc(product.name) + '</h2>' +
         '<div class="qv-price">₵' + esc(product.price) + '</div>' +
         stockHtml +
-        '<p class="qv-desc">' + esc(product.description || 'Premium quality product, carefully sourced and authenticated by House of Baiden. Order via WhatsApp for fast delivery to your hall on KNUST campus.') + '</p>' +
+        '<p class="qv-desc">' + esc(getPerfumeDesc(product)) + '</p>' +
         '<div class="qv-meta">' +
           '<div class="qv-meta-item"><i class="fas fa-shield-halved"></i> 100% Authentic</div>' +
           '<div class="qv-meta-item"><i class="fas fa-truck-fast"></i> Free campus delivery</div>' +
