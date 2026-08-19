@@ -751,6 +751,19 @@ const BUDGET_RANGES = {
 
 /* ---------- STATE ---------- */
 let currentQ = 0;
+
+/* ---------- QUIZ HELPERS ---------- */
+function selectOption(el) {
+  el.closest('.sf-options').querySelectorAll('.sf-option').forEach(function(o) { o.classList.remove('selected'); });
+  el.classList.add('selected');
+}
+
+function getSelected() {
+  var q = document.querySelector('.sf-question.active');
+  if (!q) return null;
+  var sel = q.querySelector('.sf-option.selected');
+  return sel ? sel.dataset.value : null;
+}
 /* ---------- FIRESTORE LOADING ---------- */
 async function loadAllProducts() {
   try {
