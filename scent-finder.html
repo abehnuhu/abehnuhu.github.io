@@ -349,6 +349,21 @@
   overflow: hidden;
   min-height: 36px;
 }
+.sf-product-scent {
+  font-size: 0.82rem;
+  color: var(--gold);
+  font-style: italic;
+  line-height: 1.5;
+  padding: 10px 12px;
+  background: rgba(196,167,71,0.06);
+  border: 1px solid rgba(196,167,71,0.15);
+  border-radius: var(--radius-sm);
+  margin-top: 4px;
+}
+.sf-product-scent i {
+  margin-right: 6px;
+  font-size: 0.75rem;
+}
 .sf-product-price {
   font-family: 'Playfair Display', serif;
   font-size: 1.3rem;
@@ -486,7 +501,7 @@
       </div>
     </div>
     <div class="sf-next-wrap">
-      <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn1">
+      <button class="btn btn-primary" onclick="nextQuestion()">
         Next <i class="fas fa-arrow-right"></i>
       </button>
     </div>
@@ -533,46 +548,62 @@
     </div>
     <div class="sf-next-wrap">
       <button class="sf-back-btn" onclick="prevQuestion()"><i class="fas fa-arrow-left"></i> Back</button>
-      <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn2">
+      <button class="btn btn-primary" onclick="nextQuestion()">
         Next <i class="fas fa-arrow-right"></i>
       </button>
     </div>
   </div>
 
-  <!-- Q3: Budget -->
+  <!-- Q3: Budget (5 tiers) -->
   <div class="sf-question" data-q="2">
     <div class="sf-q-number">3</div>
     <h2 class="sf-q-title">What's your budget?</h2>
-    <p class="sf-q-subtitle">We'll only show you products in your price range.</p>
+    <p class="sf-q-subtitle">We'll only show you products you can afford.</p>
     <div class="sf-options">
-      <div class="sf-option" data-value="under50" onclick="selectOption(this)">
+      <div class="sf-option" data-value="under30" onclick="selectOption(this)">
         <div class="sf-option-icon"><i class="fas fa-coins"></i></div>
         <div class="sf-option-text">
-          <span class="label">Under ₵50</span>
-          <span class="desc">Great value picks that still smell amazing</span>
+          <span class="label">Under ₵30</span>
+          <span class="desc">Budget-friendly picks that still smell great</span>
         </div>
         <div class="sf-option-check"><i class="fas fa-check"></i></div>
       </div>
-      <div class="sf-option" data-value="50to100" onclick="selectOption(this)">
+      <div class="sf-option" data-value="30to50" onclick="selectOption(this)">
         <div class="sf-option-icon"><i class="fas fa-wallet"></i></div>
         <div class="sf-option-text">
-          <span class="label">₵50 – 100</span>
-          <span class="desc">Mid-range quality with lasting power</span>
+          <span class="label">₵30 – 50</span>
+          <span class="desc">Solid quality at a student price</span>
         </div>
         <div class="sf-option-check"><i class="fas fa-check"></i></div>
       </div>
-      <div class="sf-option" data-value="over100" onclick="selectOption(this)">
+      <div class="sf-option" data-value="50to80" onclick="selectOption(this)">
+        <div class="sf-option-icon"><i class="fas fa-sack-dollar"></i></div>
+        <div class="sf-option-text">
+          <span class="label">₵50 – 80</span>
+          <span class="desc">Mid-range with lasting power</span>
+        </div>
+        <div class="sf-option-check"><i class="fas fa-check"></i></div>
+      </div>
+      <div class="sf-option" data-value="80to120" onclick="selectOption(this)">
         <div class="sf-option-icon"><i class="fas fa-gem"></i></div>
         <div class="sf-option-text">
-          <span class="label">₵100+</span>
-          <span class="desc">Premium and luxury — no compromise</span>
+          <span class="label">₵80 – 120</span>
+          <span class="desc">Premium designer fragrances</span>
+        </div>
+        <div class="sf-option-check"><i class="fas fa-check"></i></div>
+      </div>
+      <div class="sf-option" data-value="over120" onclick="selectOption(this)">
+        <div class="sf-option-icon"><i class="fas fa-crown"></i></div>
+        <div class="sf-option-text">
+          <span class="label">₵120+</span>
+          <span class="desc">Top-tier luxury — no compromise</span>
         </div>
         <div class="sf-option-check"><i class="fas fa-check"></i></div>
       </div>
     </div>
     <div class="sf-next-wrap">
       <button class="sf-back-btn" onclick="prevQuestion()"><i class="fas fa-arrow-left"></i> Back</button>
-      <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn3">
+      <button class="btn btn-primary" onclick="nextQuestion()">
         Next <i class="fas fa-arrow-right"></i>
       </button>
     </div>
@@ -700,17 +731,102 @@
 
 <script>
 // ============================================================
-// SCENT FINDER — Quiz logic
+// SCENT FINDER — Complete rewrite with perfume knowledge base
 // ============================================================
+
+/* ---------- PERFUME SCENT DATABASE ----------
+   Maps perfume names (lowercase) to their real scent profiles.
+   This is used to match quiz answers to products even when
+   the Firestore product description is minimal. */
+const SCENT_DB = {
+  // ==================== MALE FRAGRANCES ====================
+  // --- Fresh & Aquatic ---
+  'dior sauvage':           { gender: 'male', vibe: ['fresh','bold'], occasion: ['everyday','date','event'], notes: 'Fresh bergamot, peppery Sichuan, ambroxan. Clean yet magnetic — the modern everyday king.', priceRange: [80,150] },
+  'bleu de chanel':         { gender: 'male', vibe: ['fresh','woody'], occasion: ['everyday','office','date'], notes: 'Citrus, mint, pink pepper over sandalwood and incense. Sophisticated freshness with depth.', priceRange: [80,150] },
+  'acqua di gio':           { gender: 'male', vibe: ['fresh'], occasion: ['everyday','office'], notes: 'Marine notes, bergamot, rosemary. The original aquatic — light, breezy, perfect for hot days.', priceRange: [50,100] },
+  'acqua di gio profondo':  { gender: 'male', vibe: ['fresh','woody'], occasion: ['everyday','date'], notes: 'Deep aquatic with amber, musk, and oakmoss. Richer than the original — ocean meets forest.', priceRange: [80,120] },
+  'versace pour homme':     { gender: 'male', vibe: ['fresh'], occasion: ['everyday','office'], notes: 'Citrus, neroli, amber, and musk. Light and Mediterranean — effortless daily wear.', priceRange: [40,80] },
+  'versace eros':           { gender: 'male', vibe: ['sweet','bold'], occasion: ['date','event'], notes: 'Mint, green apple, tonka bean, vanilla. Sweet, powerful, and impossible to ignore.', priceRange: [60,120] },
+  'versace eros flame':     { gender: 'male', vibe: ['bold','sweet'], occasion: ['date','event'], notes: 'Black pepper, rose, vanilla, tonka. Smokier and more seductive than the original Eros.', priceRange: [70,130] },
+  'YSL Y Eau de Parfum':   { gender: 'male', vibe: ['fresh','sweet'], occasion: ['everyday','date','office'], notes: 'Apple, ginger, sage, ambergris. Modern, versatile, and effortlessly cool.', priceRange: [70,120] },
+  'paco rabanne 1 million':{ gender: 'male', vibe: ['sweet','bold'], occasion: ['date','event'], notes: 'Cinnamon, blood mandarin, leather, amber. Sweet spice bomb — the ultimate party scent.', priceRange: [50,100] },
+  'paco rabanne invictus':  { gender: 'male', vibe: ['fresh','bold'], occasion: ['everyday','event'], notes: 'Marine accord, grapefruit, guaiac wood. Fresh, sporty, and competitive — like winning.', priceRange: [50,100] },
+  'hugo boss bottled':      { gender: 'male', vibe: ['fresh','sweet'], occasion: ['everyday','office'], notes: 'Apple, cinnamon, geranium, sandalwood. The gentleman\'s daily — polished and approachable.', priceRange: [40,80] },
+  'azzaro wanted':          { gender: 'male', vibe: ['sweet','bold'], occasion: ['date','event'], notes: 'Lemon, tonka bean, violet, amber. Sweet, magnetic, and slightly dangerous.', priceRange: [50,90] },
+  'azzaro wanted by night': { gender: 'male', vibe: ['bold','sweet'], occasion: ['date','event'], notes: 'Cinnamon, tobacco, honey, cedar. Rich, warm, and intoxicating after dark.', priceRange: [50,100] },
+  'carolina herrera bad boy':{ gender: 'male', vibe: ['fresh','bold'], occasion: ['everyday','date'], notes: 'Citrus, white flowers, tonka bean, cocoa. Electric and unexpected — fresh meets dark.', priceRange: [60,110] },
+  'd&g the one':            { gender: 'male', vibe: ['sweet','woody'], occasion: ['date'], notes: 'Grapefruit, coriander, basil, amber, tobacco. Warm, intimate, and irresistibly charming.', priceRange: [40,80] },
+  'd&g light blue pour homme':{ gender: 'male', vibe: ['fresh'], occasion: ['everyday','office'], notes: 'Sicilian mandarin, juniper, rosemary, oakmoss. Sun-drenched Italian freshness.', priceRange: [40,80] },
+  'montblanc explorer':     { gender: 'male', vibe: ['fresh','woody'], occasion: ['everyday','office'], notes: 'Bergamot, vetiver, patchouli. Aventuresque and woody — like Aventus at a better price.', priceRange: [30,60] },
+  'prada l\'homme':         { gender: 'male', vibe: ['fresh'], occasion: ['office','everyday'], notes: 'Neroli, iris, amber, cedar. Clean, powdery, and impeccably refined.', priceRange: [50,100] },
+  'Jimmy Choo Man':         { gender: 'male', vibe: ['fresh','sweet'], occasion: ['everyday','date'], notes: 'Melon, lavender, pink pepper, patchouli. Fruity-fresh with a warm masculine edge.', priceRange: [30,60] },
+  'Jean Paul Gaultier Le Male':{ gender: 'male', vibe: ['sweet','bold'], occasion: ['date','event'], notes: 'Lavender, vanilla, tonka, mint. The iconic sweet-aromatic — bold and unforgettable.', priceRange: [50,90] },
+  'Jean Paul Gaultier Ultra Male':{ gender: 'male', vibe: ['sweet','bold'], occasion: ['date','event'], notes: 'Pear, lavender, vanilla, cinnamon. Sweeter and more intense than Le Male.', priceRange: [50,90] },
+  'Jean Paul Gaultier Le Male Le Parfum':{ gender: 'male', vibe: ['sweet','woody'], occasion: ['date','event'], notes: 'Lavender, vanilla, iris, oriental woods. Darker, richer, more mature.', priceRange: [60,100] },
+  'Valentino Uomo':         { gender: 'male', vibe: ['sweet','woody'], occasion: ['date','office'], notes: 'Coffee, leather, cedar, vanilla. Italian sophistication — warm and refined.', priceRange: [50,90] },
+  'rabanne phantom':        { gender: 'male', vibe: ['fresh','sweet'], occasion: ['everyday','date'], notes: 'Lemon, lavender, vanilla, woody accord. Futuristic freshness with a creamy finish.', priceRange: [50,90] },
+  'narciso rodriguez for him':{ gender: 'male', vibe: ['woody','bold'], occasion: ['date'], notes: 'Vetiver, musk, amber, cedar. Deep, smoky, and hypnotically sensual.', priceRange: [40,80] },
+  'english Laundry no.7':   { gender: 'male', vibe: ['fresh','sweet'], occasion: ['everyday','date'], notes: 'Bergamot, violet, musk, amber. Clean English gentleman — sophisticated yet approachable.', priceRange: [30,60] },
+  'lattafa raghba':         { gender: 'male', vibe: ['sweet','woody'], occasion: ['date','event'], notes: 'Vanilla, oud, musk, caramel. Arabian sweet luxury — long-lasting and mesmerizing.', priceRange: [20,50] },
+  'lattafa asad':           { gender: 'male', vibe: ['bold','woody'], occasion: ['date','event'], notes: 'Tobacco, oud, patchouli, amber. Smoky and powerful — a Sauvage Elixir alternative.', priceRange: [20,50] },
+  'armaf club de nuit intense':{ gender: 'male', vibe: ['fresh','woody'], occasion: ['everyday','date'], notes: 'Lemon, pineapple, birch, musk. A Creed Aventus-inspired powerhouse.', priceRange: [25,50] },
+  'oliver cabin 1':         { gender: 'male', vibe: ['woody','bold'], occasion: ['date','event'], notes: 'Cedar, tobacco, leather, amber. Rugged warmth — like a cabin in the woods.', priceRange: [20,40] },
+
+  // --- Woody & Oud ---
+  'tom ford oud wood':      { gender: 'male', vibe: ['woody','bold'], occasion: ['date','event'], notes: 'Oud, sandalwood, vetiver, tonka. The benchmark oud — rich, smoky, and luxurious.', priceRange: [100,200] },
+  'versace oud noir':       { gender: 'male', vibe: ['woody','bold'], occasion: ['date','event'], notes: 'Oud, leather, cardamom, patchouli. Dark and intense Versace luxury.', priceRange: [60,110] },
+  'dolce gabbana pour homme intenso':{ gender: 'male', vibe: ['woody','fresh'], occasion: ['everyday','office'], notes: 'Lavender, hay, musk, aquatic notes. Fresh woods meets aquatic calm.', priceRange: [40,80] },
+
+  // ==================== FEMALE FRAGRANCES ====================
+  // --- Sweet & Warm ---
+  'versace bright crystal':  { gender: 'female', vibe: ['fresh','sweet'], occasion: ['everyday','date'], notes: 'Pomegranate, peony, magnolia, amber. Light, sparkling, and feminine — a campus favourite.', priceRange: [50,100] },
+  'lancome la vie est belle':{ gender: 'female', vibe: ['sweet'], occasion: ['date','event'], notes: 'Iris, praline, vanilla, patchouli. Sweet, powdery, and confidently joyful.', priceRange: [60,120] },
+  'YSL black opium':        { gender: 'female', vibe: ['sweet','bold'], occasion: ['date','event'], notes: 'Coffee, vanilla, white flowers, cedar. Addictive, dark, and electrically seductive.', priceRange: [70,130] },
+  'chanel chance':           { gender: 'female', vibe: ['fresh','sweet'], occasion: ['everyday','date'], notes: 'Citrus, jasmine, patchouli, amber. Fresh sparkle that evolves into warm elegance.', priceRange: [80,150] },
+  'chanel chance eau tendre':{ gender: 'female', vibe: ['sweet','fresh'], occasion: ['everyday'], notes: 'Grapefruit, jasmine, musk. Softer, fruitier, and more delicate than the original.', priceRange: [80,150] },
+  'gucci bloom':             { gender: 'female', vibe: ['fresh','sweet'], occasion: ['everyday','date'], notes: 'Tuberose, jasmine, Rangoon creeper. Lush white florals — like walking through a garden.', priceRange: [60,110] },
+  'prada candy':            { gender: 'female', vibe: ['sweet'], occasion: ['date'], notes: 'Caramel, musk, vanilla, benzoin. Sweet, warm, and dangerously addictive.', priceRange: [50,100] },
+  'viktor rolf flowerbomb':  { gender: 'female', vibe: ['sweet','bold'], occasion: ['date','event'], notes: 'Rose, jasmine, orchid, patchouli. An explosion of sweet florals — bold and romantic.', priceRange: [70,130] },
+  'marc jacobs daisy':      { gender: 'female', vibe: ['fresh','sweet'], occasion: ['everyday'], notes: 'Strawberry, violet leaves, jasmine, musk. Youthful, cheerful, and effortlessly cute.', priceRange: [50,90] },
+  'calvin klein euphoria':  { gender: 'female', vibe: ['sweet','woody'], occasion: ['date'], notes: 'Pomegranate, orchid, amber, mahogany. Mysterious and sensual — evening elegance.', priceRange: [30,70] },
+  'd&g light blue':         { gender: 'female', vibe: ['fresh'], occasion: ['everyday'], notes: 'Sicilian lemon, apple, cedar, amber. Sun-kissed Mediterranean in a bottle.', priceRange: [50,90] },
+  'dolce gabbana the only one':{ gender: 'female', vibe: ['sweet','bold'], occasion: ['date','event'], notes: 'Violet, coffee, vanilla, caramel. Sweet, warm, and commanding attention.', priceRange: [50,100] },
+  'coach eau de parfum':    { gender: 'female', vibe: ['fresh','sweet'], occasion: ['everyday','date'], notes: 'Raspberry, rose, musk, suede. Modern, polished, and quietly confident.', priceRange: [40,80] },
+  'BURBERRY her':           { gender: 'female', vibe: ['sweet','fresh'], occasion: ['everyday','date'], notes: 'Blackcurrant, peony, musk, amber. Fruity-sweet with a sophisticated edge.', priceRange: [50,100] },
+  'ariana grande cloud':     { gender: 'female', vibe: ['sweet'], occasion: ['date','event'], notes: 'Lavender, coconut, praline, musk. Sweet cloud of comfort — cosy and inviting.', priceRange: [30,60] },
+  'narciso rodriguez for her':{ gender: 'female', vibe: ['sweet','woody'], occasion: ['date'], notes: 'Osmanthus, rose, musk, amberwood. Deep, floral-musky, and hauntingly beautiful.', priceRange: [50,90] },
+  'miss dior':              { gender: 'female', vibe: ['sweet','fresh'], occasion: ['everyday','date'], notes: 'Lily of the valley, rose, musk, peony. Romantic, elegant, and timelessly feminine.', priceRange: [80,150] },
+  'chloe eau de parfum':    { gender: 'female', vibe: ['fresh','sweet'], occasion: ['everyday','office'], notes: 'Rose, lychee, cedar, honey. Light, romantic, and effortlessly chic.', priceRange: [60,110] },
+  ' Givenchy l\'interdit':   { gender: 'female', vibe: ['sweet','bold'], occasion: ['date','event'], notes: 'Tuberose, jasmine, patchouli, amber. Dark floral — forbidden elegance.', priceRange: [60,110] },
+  'moschino cheap and chic':{ gender: 'female', vibe: ['fresh','sweet'], occasion: ['everyday'], notes: 'Lily of the valley, rose, cedar. Playful and light — a fun everyday signature.', priceRange: [25,50] },
+  'lattafa yara':           { gender: 'female', vibe: ['sweet'], occasion: ['date','event'], notes: 'Vanilla, caramel, heliotrope, musk. Arabian sweetness — dessert in a bottle.', priceRange: [15,40] },
+  'lattafa ana abiyedh':    { gender: 'female', vibe: ['fresh','sweet'], occasion: ['everyday'], notes: 'Orange blossom, vanilla, musk. Clean white floral with a warm finish.', priceRange: [15,40] },
+
+  // ==================== UNISEX FRAGRANCES ====================
+  'tom ford tobacco vanille':{ gender: 'unisex', vibe: ['sweet','woody'], occasion: ['date','event'], notes: 'Tobacco, vanilla, cocoa, dried fruits. Rich, warm, and hypnotically indulgent.', priceRange: [100,200] },
+  'byredo gypsy water':     { gender: 'unisex', vibe: ['fresh','woody'], occasion: ['everyday'], notes: 'Bergamot, juniper, pine, sandalwood. Fresh forest air meets warm earth.', priceRange: [80,150] },
+  'le labo santal 33':      { gender: 'unisex', vibe: ['woody'], occasion: ['everyday','date'], notes: 'Sandalwood, cardamom, iris, cedar. Smoky, creamy, and iconic.', priceRange: [100,200] },
+  'mugler alien':           { gender: 'female', vibe: ['woody','bold'], occasion: ['date','event'], notes: 'Jasmine, woody accord, amber. Powerful, radiant, and otherworldly.', priceRange: [50,100] },
+  'rabanne 1 million elixir':{ gender: 'male', vibe: ['bold','sweet'], occasion: ['event'], notes: 'Leather, rose, dark chocolate, amber. Maximalist sweetness — the king of nightlife.', priceRange: [60,110] },
+};
+
+/* ---------- BUDGET RANGES ----------
+   Maps quiz answer values to [min, max] price ranges in GHS. */
+const BUDGET_RANGES = {
+  'under30':  [0, 30],
+  '30to50':   [30, 50],
+  '50to80':   [50, 80],
+  '80to120':  [80, 120],
+  'over120':  [120, Infinity]
+};
 
 /* ---------- STATE ---------- */
 let currentQ = 0;
-const answers = [null, null, null, null]; // [occasion, vibe, budget, gender]
-let allProducts = []; // loaded from Firestore
+const answers = [null, null, null, null];
+let allProducts = [];
 
 /* ---------- QUIZ NAVIGATION ---------- */
 function selectOption(el) {
-  // Deselect siblings
   el.closest('.sf-options').querySelectorAll('.sf-option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
 }
@@ -723,10 +839,7 @@ function getSelected() {
 
 function nextQuestion() {
   const val = getSelected();
-  if (!val) {
-    toast('Please select an option', 'info');
-    return;
-  }
+  if (!val) { toast('Please select an option', 'info'); return; }
   answers[currentQ] = val;
   document.querySelectorAll('.sf-question')[currentQ].classList.remove('active');
   currentQ++;
@@ -742,95 +855,128 @@ function prevQuestion() {
 }
 
 function updateProgress() {
-  const pct = ((currentQ + 1) / 4) * 100;
-  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressFill').style.width = ((currentQ + 1) / 4 * 100) + '%';
   document.getElementById('progressLabel').textContent = (currentQ + 1) + ' / 4';
 }
 
-/* ---------- FIRESTORE LOADING ---------- */
-async function loadAllProducts() {
-  try {
-    const snap = await db.collection('products').where('category', '==', 'perfume').get();
-    allProducts = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-  } catch (err) {
-    console.error('Error loading products for Scent Finder:', err);
-    allProducts = [];
+/* ---------- LOOKUP PERFUME IN SCENT DATABASE ---------- */
+function lookupScent(product) {
+  const name = (product.name || '').toLowerCase().trim();
+  // Direct match
+  if (SCENT_DB[name]) return SCENT_DB[name];
+  // Partial match — check if any key is contained in the product name
+  for (const [key, val] of Object.entries(SCENT_DB)) {
+    if (name.includes(key) || key.includes(name)) return val;
   }
+  // Fuzzy — check each word
+  const words = name.split(/\s+/);
+  for (const [key, val] of Object.entries(SCENT_DB)) {
+    const keyWords = key.split(/\s+/);
+    const overlap = words.filter(w => keyWords.some(kw => w.includes(kw) || kw.includes(w)));
+    if (overlap.length >= 2) return val;
+  }
+  return null;
 }
 
 /* ---------- SCORING ALGORITHM ---------- */
 function scoreProduct(product) {
-  let score = 0;
+  const occasion = answers[0];
+  const vibe = answers[1];
+  const budgetKey = answers[2];
+  const genderPref = answers[3];
+  const price = parseFloat(product.price) || 0;
   const name = (product.name || '').toLowerCase();
   const desc = (product.description || '').toLowerCase();
   const text = name + ' ' + desc;
-  const price = parseFloat(product.price) || 0;
 
-  // --- Occasion scoring ---
-  const occasion = answers[0];
-  if (occasion === 'everyday') {
-    // Favour lighter, fresh, daily-wear keywords
-    if (/light|fresh|clean|citrus|aqua|daily|everyday|sport/.test(text)) score += 3;
-    if (/versace.*bright|acqua di gio|dior sauvage|chanel.*bleu|clinically|citrus/.test(text)) score += 2;
-    // Penalise heavy/intense
-    if (/oud|tobacco|leather|intense|elixir|absolu/.test(text)) score -= 1;
-  } else if (occasion === 'date') {
-    // Favour romantic, sensual, sweet
-    if (/sensual|romantic|love|passion|seductive|sexy|warm|sweet|floral/.test(text)) score += 3;
-    if (/black opium|la vie est belle|valentino|miu miu|flowerbomb|good girl/.test(text)) score += 2;
-  } else if (occasion === 'event') {
-    // Favour bold, statement, luxury
-    if (/luxury|prestige|absolu|intense|elixir|club|de nuit|party|statement/.test(text)) score += 3;
-    if (/versace|dior|yves saint laurent|gucci|prada|roja|tom ford/.test(text)) score += 2;
-  } else if (occasion === 'office') {
-    // Favour professional, subtle, clean
-    if (/subtle|elegant|professional|classic|gentle|sofisticat/.test(text)) score += 3;
-    if (/light|fresh|clean|cologne|eau de toilette|citrus/.test(text)) score += 2;
-    if (/oud|tobacco|leather|intense|club|de nuit|elixir/.test(text)) score -= 1;
+  let score = 0;
+
+  // ============ HARD FILTER: BUDGET ============
+  // Products OUTSIDE the selected budget range are excluded entirely.
+  const range = BUDGET_RANGES[budgetKey];
+  if (range) {
+    if (price < range[0] || price > range[1]) {
+      return -999; // Hard exclusion
+    }
   }
 
-  // --- Vibe scoring ---
-  const vibe = answers[1];
-  if (vibe === 'fresh') {
-    if (/fresh|clean|citrus|aqua|aqua di|ocean|breeze|sport|light|lemon|bergamot|grapefruit|mint/.test(text)) score += 4;
-  } else if (vibe === 'sweet') {
-    if (/sweet|vanilla|caramel|berry|gourmand|floral|candy|sugar|osmanthus|saffron/.test(text)) score += 4;
-  } else if (vibe === 'bold') {
-    if (/bold|intense|seductive|oud|tobacco|leather|dark|night|elixir|absolu|black|royal|king|queen|noir/.test(text)) score += 4;
-  } else if (vibe === 'woody') {
-    if (/woody|wood|oud|cedar|sandalwood|vetiver|amber|earthy|musk|smoky|pine/.test(text)) score += 4;
+  // ============ LOOKUP SCENT DATABASE ============
+  const scent = lookupScent(product);
+
+  // ============ GENDER MATCHING ============
+  if (scent) {
+    if (genderPref === 'male') {
+      if (scent.gender === 'male') score += 20;
+      else if (scent.gender === 'female') score -= 50; // Strong exclusion
+      else score += 5; // unisex
+    } else if (genderPref === 'female') {
+      if (scent.gender === 'female') score += 20;
+      else if (scent.gender === 'male') score -= 50; // Strong exclusion
+      else score += 5; // unisex
+    }
+    // unisex preference = no gender penalty
+  } else {
+    // Fallback: regex on name/description for gender
+    const maleSignals = /\b(homme|for him|for men|man|men|masculine|pour homme)\b/i;
+    const femaleSignals = /\b(femme|for her|for women|woman|women|feminine|elle)\b/i;
+    if (genderPref === 'male') {
+      if (maleSignals.test(text)) score += 15;
+      else if (femaleSignals.test(text)) score -= 50;
+    } else if (genderPref === 'female') {
+      if (femaleSignals.test(text)) score += 15;
+      else if (maleSignals.test(text)) score -= 50;
+    }
   }
 
-  // --- Budget scoring (hard filter) ---
-  const budget = answers[2];
-  if (budget === 'under50') {
-    if (price > 50) score -= 5; // penalise out-of-budget
-    else if (price <= 50) score += 2;
-  } else if (budget === '50to100') {
-    if (price < 50) score += 1;
-    else if (price >= 50 && price <= 100) score += 3;
-    else if (price > 100) score -= 2;
-  } else if (budget === 'over100') {
-    if (price > 100) score += 3;
-    else if (price >= 50) score += 1;
+  // ============ VIBE MATCHING ============
+  if (scent && scent.vibe) {
+    if (scent.vibe.includes(vibe)) score += 15;
+    else score -= 3; // Slight penalty for wrong vibe
+  } else {
+    // Fallback regex
+    if (vibe === 'fresh') {
+      if (/fresh|clean|citrus|aqua|light|sport|marine|breeze|lemon|bergamot/i.test(text)) score += 10;
+      if (/oud|tobacco|leather|intense|dark|sweet|vanilla/i.test(text)) score -= 3;
+    } else if (vibe === 'sweet') {
+      if (/sweet|vanilla|caramel|praline|floral|berry|sugar|chocolate|tonka/i.test(text)) score += 10;
+    } else if (vibe === 'bold') {
+      if (/bold|intense|seductive|dark|night|elixir|noir|club|party|statement/i.test(text)) score += 10;
+    } else if (vibe === 'woody') {
+      if (/woody|wood|oud|cedar|sandalwood|vetiver|amber|earthy|musk|smoky|patchouli/i.test(text)) score += 10;
+    }
+  }
+
+  // ============ OCCASION MATCHING ============
+  if (scent && scent.occasion) {
+    if (scent.occasion.includes(occasion)) score += 10;
     else score -= 2;
+  } else {
+    // Fallback
+    if (occasion === 'everyday') {
+      if (/light|fresh|clean|daily|everyday|sport|eau de toilette|eau fraiche/i.test(text)) score += 8;
+      if (/intense|elixir|oud|club|de nuit|night/i.test(text)) score -= 3;
+    } else if (occasion === 'date') {
+      if (/romantic|sensual|seductive|warm|intimate|love|date/i.test(text)) score += 8;
+    } else if (occasion === 'event') {
+      if (/club|party|night|statement|bold|luxury|intense|elixir/i.test(text)) score += 8;
+    } else if (occasion === 'office') {
+      if (/subtle|elegant|professional|classic|gentle|eau de toilette|fresh|light/i.test(text)) score += 8;
+      if (/oud|tobacco|club|de nuit|elixir|intense/i.test(text)) score -= 3;
+    }
   }
 
-  // --- Gender scoring ---
-  const gender = answers[3];
-  if (gender === 'male') {
-    // Look for "for him" / "for men" or penalise clearly female scents
-    if (/for him|for men|homme|man|men|masculine/.test(text)) score += 4;
-    if (/for her|for women|femme|woman|women|feminine/.test(text)) score -= 3;
-  } else if (gender === 'female') {
-    if (/for her|for women|femme|woman|women|feminine/.test(text)) score += 4;
-    if (/for him|for men|homme|man|men|masculine/.test(text)) score -= 3;
-  }
-  // 'unisex' = no gender penalty/bonus
+  // ============ SCENT DATABASE BONUS ============
+  if (scent) score += 8; // Bonus for being in the database
 
-  // --- Small bonus for in-stock ---
+  // ============ PRICE TIER MATCHING (bonus for being near top of budget) ============
+  if (range) {
+    const mid = (range[0] + range[1]) / 2;
+    if (price <= mid) score += 3; // Slightly favour affordable end of range
+  }
+
+  // ============ IN-STOCK CHECK ============
   const stock = product.stock !== undefined && product.stock !== null ? Number(product.stock) : null;
-  if (stock !== null && stock <= 0) score -= 10; // heavily penalise out of stock
+  if (stock !== null && stock <= 0) score -= 100;
 
   return score;
 }
@@ -838,13 +984,9 @@ function scoreProduct(product) {
 /* ---------- SHOW RESULTS ---------- */
 function showResults() {
   const val = getSelected();
-  if (!val) {
-    toast('Please select an option', 'info');
-    return;
-  }
+  if (!val) { toast('Please select an option', 'info'); return; }
   answers[currentQ] = val;
 
-  // Hide quiz, show loading
   document.getElementById('quizSection').style.display = 'none';
   document.getElementById('loadingSection').style.display = '';
 
@@ -853,12 +995,10 @@ function showResults() {
     const scored = allProducts.map(p => ({ ...p, _score: scoreProduct(p) }));
     scored.sort((a, b) => b._score - a._score);
 
-    // Take top 3 (or fewer if not enough)
-    const matches = scored.slice(0, 3);
-    // Filter out heavily negative scores (nothing matched)
-    const good = matches.filter(m => m._score > -2);
+    // Filter: only products that passed the budget hard filter and have positive-ish scores
+    const matches = scored.filter(m => m._score > -100).slice(0, 4);
+    const good = matches.filter(m => m._score > 0);
 
-    // Hide loading, show results
     document.getElementById('loadingSection').style.display = 'none';
     document.getElementById('resultsSection').classList.add('active');
 
@@ -871,18 +1011,24 @@ function showResults() {
       return;
     }
 
-    if (good.length === 0 || good.every(m => m._score < 0)) {
-      intro.textContent = 'We couldn\'t find a perfect match in our current collection, but here are our closest picks — or you can message us on WhatsApp for a personal recommendation!';
+    const displayProducts = good.length > 0 ? good : matches;
+
+    if (displayProducts.length === 0 || displayProducts.every(m => m._score < 0)) {
+      intro.textContent = 'We couldn\'t find a perfect match in our current collection. Try different options or message us on WhatsApp for a personal recommendation!';
     } else {
       intro.textContent = 'Based on your answers, here are the fragrances we think you\'ll love.';
     }
 
     container.innerHTML = '';
-    good.forEach((product, i) => {
+    displayProducts.forEach((product, i) => {
       const out = isOutOfStock(product);
-      const waText = encodeURIComponent('Hello! I took the Scent Finder quiz and I love ' + product.name + ' (₵' + product.price + '). Can I order?');
-      const matchLabel = i === 0 ? 'Best Match' : (i === 1 ? 'Great Pick' : 'Also Try');
+      const waText = encodeURIComponent('Hello! I took the Scent Finder quiz and I love ' + product.name + ' (GH₵' + product.price + '). Can I order?');
+      const matchLabel = i === 0 ? 'Best Match' : (i === 1 ? 'Great Pick' : (i === 2 ? 'Also Try' : 'Worth A Look'));
       const catPage = product.category === 'skincare' ? 'skincare.html' : 'perfumes.html';
+
+      // Get scent description
+      const scent = lookupScent(product);
+      const scentDesc = scent ? scent.notes : (product.description || 'A carefully curated fragrance from our collection.');
 
       const card = document.createElement('div');
       card.className = 'sf-product fade-in';
@@ -893,9 +1039,9 @@ function showResults() {
         '</div>' +
         '<div class="sf-product-body">' +
           '<div class="sf-product-name">' + esc(product.name) + '</div>' +
-          '<div class="sf-product-desc">' + esc(product.description || 'Premium quality fragrance, carefully sourced and authenticated.') + '</div>' +
+          '<div class="sf-product-scent"><i class="fas fa-wind"></i> ' + esc(scentDesc) + '</div>' +
           stockBadge(product) +
-          '<div class="sf-product-price">₵' + esc(product.price) + '</div>' +
+          '<div class="sf-product-price">GH₵' + esc(product.price) + '</div>' +
         '</div>' +
         '<div class="sf-product-actions">' +
           '<a href="' + catPage + '" class="btn btn-outline"><i class="fas fa-eye"></i> View Product</a>' +
@@ -904,7 +1050,6 @@ function showResults() {
       container.appendChild(card);
     });
 
-    // Scroll to results
     document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
     observeFadeIns();
   });
@@ -924,6 +1069,17 @@ function restartQuiz() {
   document.getElementById('loadingSection').style.display = 'none';
   updateProgress();
   document.getElementById('quizSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ---------- FIRESTORE LOADING ---------- */
+async function loadAllProducts() {
+  try {
+    const snap = await db.collection('products').where('category', '==', 'perfume').get();
+    allProducts = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (err) {
+    console.error('Error loading products:', err);
+    allProducts = [];
+  }
 }
 
 /* ---------- INIT ---------- */
