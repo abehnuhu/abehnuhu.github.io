@@ -560,42 +560,42 @@
     <h2 class="sf-q-title">What's your budget?</h2>
     <p class="sf-q-subtitle">We'll only show you products you can afford.</p>
     <div class="sf-options">
-      <div class="sf-option" data-value="under30" onclick="selectOption(this)">
+      <div class="sf-option" data-value="under80" onclick="selectOption(this)">
         <div class="sf-option-icon"><i class="fas fa-coins"></i></div>
         <div class="sf-option-text">
-          <span class="label">Under ₵30</span>
+          <span class="label">Under ₵80</span>
           <span class="desc">Budget-friendly picks that still smell great</span>
         </div>
         <div class="sf-option-check"><i class="fas fa-check"></i></div>
       </div>
-      <div class="sf-option" data-value="30to50" onclick="selectOption(this)">
+      <div class="sf-option" data-value="80to150" onclick="selectOption(this)">
         <div class="sf-option-icon"><i class="fas fa-wallet"></i></div>
         <div class="sf-option-text">
-          <span class="label">₵30 – 50</span>
-          <span class="desc">Solid quality at a student price</span>
+          <span class="label">₵80 – 150</span>
+          <span class="desc">Solid quality at a student-friendly price</span>
         </div>
         <div class="sf-option-check"><i class="fas fa-check"></i></div>
       </div>
-      <div class="sf-option" data-value="50to80" onclick="selectOption(this)">
+      <div class="sf-option" data-value="150to200" onclick="selectOption(this)">
         <div class="sf-option-icon"><i class="fas fa-sack-dollar"></i></div>
         <div class="sf-option-text">
-          <span class="label">₵50 – 80</span>
+          <span class="label">₵150 – 200</span>
           <span class="desc">Mid-range with lasting power</span>
         </div>
         <div class="sf-option-check"><i class="fas fa-check"></i></div>
       </div>
-      <div class="sf-option" data-value="80to120" onclick="selectOption(this)">
+      <div class="sf-option" data-value="200to300" onclick="selectOption(this)">
         <div class="sf-option-icon"><i class="fas fa-gem"></i></div>
         <div class="sf-option-text">
-          <span class="label">₵80 – 120</span>
+          <span class="label">₵200 – 300</span>
           <span class="desc">Premium designer fragrances</span>
         </div>
         <div class="sf-option-check"><i class="fas fa-check"></i></div>
       </div>
-      <div class="sf-option" data-value="over120" onclick="selectOption(this)">
+      <div class="sf-option" data-value="over300" onclick="selectOption(this)">
         <div class="sf-option-icon"><i class="fas fa-crown"></i></div>
         <div class="sf-option-text">
-          <span class="label">₵120+</span>
+          <span class="label">₵300+</span>
           <span class="desc">Top-tier luxury — no compromise</span>
         </div>
         <div class="sf-option-check"><i class="fas fa-check"></i></div>
@@ -767,15 +767,27 @@ const SCENT_DB = {
   'rabanne phantom':        { gender: 'male', vibe: ['fresh','sweet'], occasion: ['everyday','date'], notes: 'Lemon, lavender, vanilla, woody accord. Futuristic freshness with a creamy finish.', priceRange: [50,90] },
   'narciso rodriguez for him':{ gender: 'male', vibe: ['woody','bold'], occasion: ['date'], notes: 'Vetiver, musk, amber, cedar. Deep, smoky, and hypnotically sensual.', priceRange: [40,80] },
   'english Laundry no.7':   { gender: 'male', vibe: ['fresh','sweet'], occasion: ['everyday','date'], notes: 'Bergamot, violet, musk, amber. Clean English gentleman — sophisticated yet approachable.', priceRange: [30,60] },
-  'lattafa raghba':         { gender: 'male', vibe: ['sweet','woody'], occasion: ['date','event'], notes: 'Vanilla, oud, musk, caramel. Arabian sweet luxury — long-lasting and mesmerizing.', priceRange: [20,50] },
-  'lattafa asad':           { gender: 'male', vibe: ['bold','woody'], occasion: ['date','event'], notes: 'Tobacco, oud, patchouli, amber. Smoky and powerful — a Sauvage Elixir alternative.', priceRange: [20,50] },
-  'armaf club de nuit intense':{ gender: 'male', vibe: ['fresh','woody'], occasion: ['everyday','date'], notes: 'Lemon, pineapple, birch, musk. A Creed Aventus-inspired powerhouse.', priceRange: [25,50] },
-  'oliver cabin 1':         { gender: 'male', vibe: ['woody','bold'], occasion: ['date','event'], notes: 'Cedar, tobacco, leather, amber. Rugged warmth — like a cabin in the woods.', priceRange: [20,40] },
+  'lattafa raghba':         { gender: 'male', vibe: ['sweet','woody'], occasion: ['date','event'], notes: 'Vanilla, oud, musk, caramel. Arabian sweet luxury — long-lasting and mesmerizing.', priceRange: [20,300] },
+  'lattafa asad':           { gender: 'male', vibe: ['bold','woody'], occasion: ['date','event'], notes: 'Tobacco, oud, patchouli, amber. Smoky and powerful — a Sauvage Elixir alternative.', priceRange: [20,300] },
+  'lattafa bade\'e al oud': { gender: 'unisex', vibe: ['woody','bold'], occasion: ['date','event'], notes: 'Rich oud, saffron, and rose with a warm musk dry-down. A luxurious Arabian masterpiece.', priceRange: [100,300] },
+  'oud for glory':          { gender: 'unisex', vibe: ['woody','bold'], occasion: ['date','event'], notes: 'Rich oud, saffron, and rose with a warm musk dry-down. A luxurious Arabian masterpiece.', priceRange: [100,300] },
+  'bade\'e al oud':        { gender: 'unisex', vibe: ['woody','bold'], occasion: ['date','event'], notes: 'Rich oud, saffron, and rose with a warm musk dry-down. A luxurious Arabian masterpiece.', priceRange: [100,300] },
+  'lattafa khamrah':        { gender: 'male', vibe: ['sweet','bold'], occasion: ['date','event'], notes: 'Warm cinnamon, vanilla, and tonka bean over amber. Sweet, spicy, and irresistibly cozy.', priceRange: [80,300] },
+  'lattafa yara':           { gender: 'female', vibe: ['sweet'], occasion: ['date','event'], notes: 'Vanilla, caramel, heliotrope, musk. Arabian sweetness — dessert in a bottle.', priceRange: [80,300] },
+  'lattafa ana abiyedh':    { gender: 'female', vibe: ['fresh','sweet'], occasion: ['everyday'], notes: 'Orange blossom, vanilla, musk. Clean white floral with a warm finish.', priceRange: [80,300] },
+  'tofy milky vanilla':     { gender: 'unisex', vibe: ['sweet'], occasion: ['date','everyday'], notes: 'Creamy vanilla, milk, and soft caramel. A sweet, comforting gourmand — like a warm hug.', priceRange: [150,300] },
+  'tofy':                   { gender: 'unisex', vibe: ['sweet'], occasion: ['date','everyday'], notes: 'Creamy vanilla, milk, and soft caramel. A sweet, comforting gourmand — like a warm hug.', priceRange: [150,300] },
+  'imperial noir':          { gender: 'male', vibe: ['bold','woody'], occasion: ['date','event'], notes: 'Dark bergamot, black pepper, oud, and leather. A sophisticated noir fragrance.', priceRange: [100,300] },
+  'riiffs imperial noir':   { gender: 'male', vibe: ['bold','woody'], occasion: ['date','event'], notes: 'Dark bergamot, black pepper, oud, and leather. A sophisticated noir fragrance.', priceRange: [100,300] },
+  'hardcore wood':          { gender: 'male', vibe: ['woody','bold'], occasion: ['date','event'], notes: 'Intense cedar, sandalwood, and musk. A rugged woody fragrance — bold and earthy.', priceRange: [100,300] },
+  'fragrance world hardcore':{ gender: 'male', vibe: ['woody','bold'], occasion: ['date','event'], notes: 'Intense cedar, sandalwood, and musk. A rugged woody fragrance — bold and earthy.', priceRange: [100,300] },
+  'armaf club de nuit intense':{ gender: 'male', vibe: ['fresh','woody'], occasion: ['everyday','date'], notes: 'Lemon, pineapple, birch, musk. A Creed Aventus-inspired powerhouse.', priceRange: [80,300] },
+  'oliver cabin 1':         { gender: 'male', vibe: ['woody','bold'], occasion: ['date','event'], notes: 'Cedar, tobacco, leather, amber. Rugged warmth — like a cabin in the woods.', priceRange: [80,300] },
 
   // --- Woody & Oud ---
-  'tom ford oud wood':      { gender: 'male', vibe: ['woody','bold'], occasion: ['date','event'], notes: 'Oud, sandalwood, vetiver, tonka. The benchmark oud — rich, smoky, and luxurious.', priceRange: [100,200] },
-  'versace oud noir':       { gender: 'male', vibe: ['woody','bold'], occasion: ['date','event'], notes: 'Oud, leather, cardamom, patchouli. Dark and intense Versace luxury.', priceRange: [60,110] },
-  'dolce gabbana pour homme intenso':{ gender: 'male', vibe: ['woody','fresh'], occasion: ['everyday','office'], notes: 'Lavender, hay, musk, aquatic notes. Fresh woods meets aquatic calm.', priceRange: [40,80] },
+  'tom ford oud wood':      { gender: 'male', vibe: ['woody','bold'], occasion: ['date','event'], notes: 'Oud, sandalwood, vetiver, tonka. The benchmark oud — rich, smoky, and luxurious.', priceRange: [100,300] },
+  'versace oud noir':       { gender: 'male', vibe: ['woody','bold'], occasion: ['date','event'], notes: 'Oud, leather, cardamom, patchouli. Dark and intense Versace luxury.', priceRange: [100,300] },
+  'dolce gabbana pour homme intenso':{ gender: 'male', vibe: ['woody','fresh'], occasion: ['everyday','office'], notes: 'Lavender, hay, musk, aquatic notes. Fresh woods meets aquatic calm.', priceRange: [100,300] },
 
   // ==================== FEMALE FRAGRANCES ====================
   // --- Sweet & Warm ---
@@ -813,11 +825,11 @@ const SCENT_DB = {
 /* ---------- BUDGET RANGES ----------
    Maps quiz answer values to [min, max] price ranges in GHS. */
 const BUDGET_RANGES = {
-  'under30':  [0, 30],
-  '30to50':   [30, 50],
-  '50to80':   [50, 80],
-  '80to120':  [80, 120],
-  'over120':  [120, Infinity]
+  'under80':  [0, 80],
+  '80to150':  [80, 150],
+  '150to200': [150, 200],
+  '200to300': [200, 300],
+  'over300':  [300, Infinity]
 };
 
 /* ---------- STATE ---------- */
@@ -917,14 +929,16 @@ function scoreProduct(product) {
     // unisex preference = no gender penalty
   } else {
     // Fallback: regex on name/description for gender
-    const maleSignals = /\b(homme|for him|for men|man|men|masculine|pour homme)\b/i;
-    const femaleSignals = /\b(femme|for her|for women|woman|women|feminine|elle)\b/i;
+    // Only penalize if the product EXPLICITLY targets the opposite gender
+    const maleSignals = /\b(homme|for him|for men|pour homme|eau de toilette)\b/i;
+    const femaleSignals = /\b(femme|for her|for women|elle|eau de parfum)\b/i;
     if (genderPref === 'male') {
-      if (maleSignals.test(text)) score += 15;
-      else if (femaleSignals.test(text)) score -= 50;
+      if (maleSignals.test(text)) score += 10;
+      else if (femaleSignals.test(text)) score -= 15; // Reduced penalty
+      // No penalty if gender is unknown — most products are unisex-friendly
     } else if (genderPref === 'female') {
-      if (femaleSignals.test(text)) score += 15;
-      else if (maleSignals.test(text)) score -= 50;
+      if (femaleSignals.test(text)) score += 10;
+      else if (maleSignals.test(text)) score -= 15; // Reduced penalty
     }
   }
 
@@ -965,13 +979,20 @@ function scoreProduct(product) {
     }
   }
 
-  // ============ SCENT DATABASE BONUS ============
-  if (scent) score += 8; // Bonus for being in the database
+  // ============ BASE SCORE ============
+  // All in-budget, in-stock products start with a positive base
+  // so they can appear in results even without scent database match
+  score += 10;
 
-  // ============ PRICE TIER MATCHING (bonus for being near top of budget) ============
+  // ============ SCENT DATABASE BONUS ============
+  if (scent) score += 12; // Bonus for being in the database
+
+  // ============ PRICE TIER MATCHING ============
+  // Favour products closer to the middle of the budget range
   if (range) {
     const mid = (range[0] + range[1]) / 2;
-    if (price <= mid) score += 3; // Slightly favour affordable end of range
+    const dist = Math.abs(price - mid) / (range[1] - range[0] || 1);
+    score += Math.round((1 - dist) * 5); // 0-5 points for being near the sweet spot
   }
 
   // ============ IN-STOCK CHECK ============
@@ -995,9 +1016,9 @@ function showResults() {
     const scored = allProducts.map(p => ({ ...p, _score: scoreProduct(p) }));
     scored.sort((a, b) => b._score - a._score);
 
-    // Filter: only products that passed the budget hard filter and have positive-ish scores
-    const matches = scored.filter(m => m._score > -100).slice(0, 4);
-    const good = matches.filter(m => m._score > 0);
+    // Filter: products that passed the budget hard filter (score > -100)
+    // Show top 5 matches
+    const matches = scored.filter(m => m._score > -100).slice(0, 5);
 
     document.getElementById('loadingSection').style.display = 'none';
     document.getElementById('resultsSection').classList.add('active');
@@ -1011,10 +1032,10 @@ function showResults() {
       return;
     }
 
-    const displayProducts = good.length > 0 ? good : matches;
+    const displayProducts = matches;
 
-    if (displayProducts.length === 0 || displayProducts.every(m => m._score < 0)) {
-      intro.textContent = 'We couldn\'t find a perfect match in our current collection. Try different options or message us on WhatsApp for a personal recommendation!';
+    if (displayProducts.length === 0) {
+      intro.textContent = 'We couldn\'t find any products in your selected budget range. Try a different budget option or message us on WhatsApp for a personal recommendation!';
     } else {
       intro.textContent = 'Based on your answers, here are the fragrances we think you\'ll love.';
     }
