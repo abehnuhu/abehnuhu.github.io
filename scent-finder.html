@@ -500,192 +500,15 @@
     </div>
   </div>
 
-  <!-- Q1: Occasion -->
-  <div class="sf-question" data-q="1">
-    <div class="sf-q-number">2</div>
-    <h2 class="sf-q-title">What's the occasion?</h2>
-    <p class="sf-q-subtitle">When will you wear this fragrance most?</p>
-    <div class="sf-options">
-      <div class="sf-option" data-value="everyday" onclick="selectOption(this)">
-        <div class="sf-option-icon"><i class="fas fa-sun"></i></div>
-        <div class="sf-option-text">
-          <span class="label">Everyday Wear</span>
-          <span class="desc">Light, fresh, and easy to wear daily</span>
-        </div>
-        <div class="sf-option-check"><i class="fas fa-check"></i></div>
-      </div>
-      <div class="sf-option" data-value="date" onclick="selectOption(this)">
-        <div class="sf-option-icon"><i class="fas fa-heart"></i></div>
-        <div class="sf-option-text">
-          <span class="label">Date Night</span>
-          <span class="desc">Alluring and memorable for close moments</span>
-        </div>
-        <div class="sf-option-check"><i class="fas fa-check"></i></div>
-      </div>
-      <div class="sf-option" data-value="event" onclick="selectOption(this)">
-        <div class="sf-option-icon"><i class="fas fa-star"></i></div>
-        <div class="sf-option-text">
-          <span class="label">Special Event</span>
-          <span class="desc">Stand out at parties and celebrations</span>
-        </div>
-        <div class="sf-option-check"><i class="fas fa-check"></i></div>
-      </div>
-      <div class="sf-option" data-value="office" onclick="selectOption(this)">
-        <div class="sf-option-icon"><i class="fas fa-briefcase"></i></div>
-        <div class="sf-option-text">
-          <span class="label">Office / School</span>
-          <span class="desc">Professional and non-overpowering</span>
-        </div>
-        <div class="sf-option-check"><i class="fas fa-check"></i></div>
-      </div>
-    </div>
-    <div class="sf-next-wrap">
-      <button class="btn btn-primary" onclick="nextQuestion()">
-        Next <i class="fas fa-arrow-right"></i>
-      </button>
-    </div>
-  </div>
-
-  <!-- Q2: Vibe -->
-  <div class="sf-question" data-q="2">
-    <div class="sf-q-number">3</div>
-    <h2 class="sf-q-title">What vibe do you want?</h2>
-    <p class="sf-q-subtitle">What feeling should your scent give off?</p>
-    <div class="sf-options">
-      <div class="sf-option" data-value="fresh" onclick="selectOption(this)">
-        <div class="sf-option-icon"><i class="fas fa-wind"></i></div>
-        <div class="sf-option-text">
-          <span class="label">Fresh &amp; Clean</span>
-          <span class="desc">Crisp citrus, aqua, and light florals</span>
-        </div>
-        <div class="sf-option-check"><i class="fas fa-check"></i></div>
-      </div>
-      <div class="sf-option" data-value="sweet" onclick="selectOption(this)">
-        <div class="sf-option-icon"><i class="fas fa-cookie-bite"></i></div>
-        <div class="sf-option-text">
-          <span class="label">Sweet &amp; Warm</span>
-          <span class="desc">Vanilla, caramel, and soft spice</span>
-        </div>
-        <div class="sf-option-check"><i class="fas fa-check"></i></div>
-      </div>
-      <div class="sf-option" data-value="bold" onclick="selectOption(this)">
-        <div class="sf-option-icon"><i class="fas fa-fire"></i></div>
-        <div class="sf-option-text">
-          <span class="label">Bold &amp; Seductive</span>
-          <span class="desc">Intense, rich, and statement-making</span>
-        </div>
-        <div class="sf-option-check"><i class="fas fa-check"></i></div>
-      </div>
-      <div class="sf-option" data-value="woody" onclick="selectOption(this)">
-        <div class="sf-option-icon"><i class="fas fa-tree"></i></div>
-        <div class="sf-option-text">
-          <span class="label">Woody &amp; Mysterious</span>
-          <span class="desc">Oud, cedar, and deep earthy notes</span>
-        </div>
-        <div class="sf-option-check"><i class="fas fa-check"></i></div>
-      </div>
-    </div>
-    <div class="sf-next-wrap">
-      <button class="sf-back-btn" onclick="prevQuestion()"><i class="fas fa-arrow-left"></i> Back</button>
-      <button class="btn btn-primary" onclick="nextQuestion()">
-        Next <i class="fas fa-arrow-right"></i>
-      </button>
-    </div>
-  </div>
-
-  <!-- Q3: Budget (5 tiers) -->
-  <div class="sf-question" data-q="3">
-    <div class="sf-q-number">4</div>
-    <h2 class="sf-q-title">What's your budget?</h2>
-    <p class="sf-q-subtitle">We'll only show you products you can afford.</p>
-    <div class="sf-options">
-      <div class="sf-option" data-value="under80" onclick="selectOption(this)">
-        <div class="sf-option-icon"><i class="fas fa-coins"></i></div>
-        <div class="sf-option-text">
-          <span class="label">Under ₵80</span>
-          <span class="desc">Budget-friendly picks that still smell great</span>
-        </div>
-        <div class="sf-option-check"><i class="fas fa-check"></i></div>
-      </div>
-      <div class="sf-option" data-value="80to150" onclick="selectOption(this)">
-        <div class="sf-option-icon"><i class="fas fa-wallet"></i></div>
-        <div class="sf-option-text">
-          <span class="label">₵80 – 150</span>
-          <span class="desc">Solid quality at a student-friendly price</span>
-        </div>
-        <div class="sf-option-check"><i class="fas fa-check"></i></div>
-      </div>
-      <div class="sf-option" data-value="150to200" onclick="selectOption(this)">
-        <div class="sf-option-icon"><i class="fas fa-sack-dollar"></i></div>
-        <div class="sf-option-text">
-          <span class="label">₵150 – 200</span>
-          <span class="desc">Mid-range with lasting power</span>
-        </div>
-        <div class="sf-option-check"><i class="fas fa-check"></i></div>
-      </div>
-      <div class="sf-option" data-value="200to300" onclick="selectOption(this)">
-        <div class="sf-option-icon"><i class="fas fa-gem"></i></div>
-        <div class="sf-option-text">
-          <span class="label">₵200 – 300</span>
-          <span class="desc">Premium designer fragrances</span>
-        </div>
-        <div class="sf-option-check"><i class="fas fa-check"></i></div>
-      </div>
-      <div class="sf-option" data-value="over300" onclick="selectOption(this)">
-        <div class="sf-option-icon"><i class="fas fa-crown"></i></div>
-        <div class="sf-option-text">
-          <span class="label">₵300+</span>
-          <span class="desc">Top-tier luxury — no compromise</span>
-        </div>
-        <div class="sf-option-check"><i class="fas fa-check"></i></div>
-      </div>
-    </div>
-    <div class="sf-next-wrap">
-      <button class="sf-back-btn" onclick="prevQuestion()"><i class="fas fa-arrow-left"></i> Back</button>
-      <button class="btn btn-primary" onclick="nextQuestion()">
-        Next <i class="fas fa-arrow-right"></i>
-      </button>
-    </div>
-  </div>
-
-  <!-- Q4: Gender -->
-  <div class="sf-question" data-q="4">
-    <div class="sf-q-number">5</div>
-    <h2 class="sf-q-title">Male or Female fragrance?</h2>
-    <p class="sf-q-subtitle">We'll recommend accordingly — or show you both if you're open to it.</p>
-    <div class="sf-options">
-      <div class="sf-option" data-value="male" onclick="selectOption(this)">
-        <div class="sf-option-icon"><i class="fas fa-mars"></i></div>
-        <div class="sf-option-text">
-          <span class="label">Male</span>
-          <span class="desc">Fragrances designed for men</span>
-        </div>
-        <div class="sf-option-check"><i class="fas fa-check"></i></div>
-      </div>
-      <div class="sf-option" data-value="female" onclick="selectOption(this)">
-        <div class="sf-option-icon"><i class="fas fa-venus"></i></div>
-        <div class="sf-option-text">
-          <span class="label">Female</span>
-          <span class="desc">Fragrances designed for women</span>
-        </div>
-        <div class="sf-option-check"><i class="fas fa-check"></i></div>
-      </div>
-      <div class="sf-option" data-value="unisex" onclick="selectOption(this)">
-        <div class="sf-option-icon"><i class="fas fa-genderless"></i></div>
-        <div class="sf-option-text">
-          <span class="label">No Preference</span>
-          <span class="desc">Show me the best matches regardless</span>
-        </div>
-        <div class="sf-option-check"><i class="fas fa-check"></i></div>
-      </div>
-    </div>
-    <div class="sf-next-wrap">
-      <button class="sf-back-btn" onclick="prevQuestion()"><i class="fas fa-arrow-left"></i> Back</button>
-      <button class="btn btn-primary" onclick="showResults()" id="findBtn">
-        <i class="fas fa-wand-magic-sparkles"></i> Find My Scent
-      </button>
-    </div>
-  </div>
+  <!-- Q1: DYNAMIC — populated by JS -->
+  <div class="sf-question" data-q="1" id="dynamicQ1"></div>
+  <!-- Q2: DYNAMIC -->
+  <div class="sf-question" data-q="2" id="dynamicQ2"></div>
+  <!-- Q3: DYNAMIC -->
+  <div class="sf-question" data-q="3" id="dynamicQ3"></div>
+  <!-- Q4: DYNAMIC -->
+  <div class="sf-question" data-q="4" id="dynamicQ4"></div>
+</div>
 </div>
 
 <!-- ===================== LOADING ===================== -->
@@ -827,31 +650,31 @@ const SCENT_DB = {
 
 
   // ===== SKINCARE PRODUCTS =====
-  'dr pure vitamin c brightening serum': { gender: 'unisex', vibe: ['sweet'], occasion: ['everyday','date'], category: 'skincare', notes: 'Vitamin C (Sodium Ascorbyl Phosphate), Niacinamide, Hyaluronic Acid — Lightweight Vitamin C serum that brightens skin and fades dark spots for glowing results' },
-  'mr bears dead skin/scrub': { gender: 'unisex', vibe: ['bold'], occasion: ['everyday'], category: 'skincare', notes: 'Aloe Vera, Safflower Oil, Birch Leaf Extract, Silica Beads — Gentle face and body scrub that removes dead skin cells for smoother, softer skin' },
-  '100% rel aloe vera': { gender: 'unisex', vibe: ['fresh'], occasion: ['everyday'], category: 'skincare', notes: 'Pure Aloe Barbadensis Leaf Juice, Panthenol, Glycerin — Pure soothing aloe gel that hydrates, calms irritation, and heals sun-damaged skin' },
-  'dr becks dead skin/scrub': { gender: 'unisex', vibe: ['bold'], occasion: ['everyday'], category: 'skincare', notes: 'Sugar Crystals, Coconut Oil, Honey, Jojoba Beads, Vitamin E — Exfoliating sugar scrub that buffs away dead skin while moisturising with natural oils' },
-  'grapeseed instant radiance serum': { gender: 'unisex', vibe: ['sweet','woody'], occasion: ['everyday','date'], category: 'skincare', notes: 'Grapeseed Oil, Vitamin E, Linoleic Acid, Antioxidants — Lightweight antioxidant serum that brightens dull skin and protects against environmental damage' },
-  'rosewater garden glamour toner': { gender: 'unisex', vibe: ['fresh'], occasion: ['everyday'], category: 'skincare', notes: 'Rosa Damascena Flower Water, Glycerin, Natural Rose Extract — Soothing rose toner that balances pH, hydrates, and reduces redness for calm skin' },
-  'yes to tomatoes scrub': { gender: 'unisex', vibe: ['bold'], occasion: ['everyday'], category: 'skincare', notes: 'Activated Charcoal, Tomato Extract, Salicylic Acid, PLA Exfoliating Particles — Detoxifying charcoal scrub that deep-cleans pores and prevents acne breakouts' },
-  'oil free moisturising honey water': { gender: 'unisex', vibe: ['fresh','sweet'], occasion: ['everyday','date'], category: 'skincare', notes: 'Honey Extract, Aloe Vera, Hyaluronic Acid, Propolis — Oil-free honey gel moisturiser that hydrates without clogging pores or feeling greasy' },
-  'dr rashel vitamin c serum': { gender: 'unisex', vibe: ['sweet','woody'], occasion: ['everyday','date'], category: 'skincare', notes: 'Ethyl Ascorbic Acid (Vitamin C), Hyaluronic Acid, Collagen, Ceramides — Brightening Vitamin C serum that fades dark spots, boosts collagen, and plumps skin' },
-  'kojie san soap': { gender: 'unisex', vibe: ['sweet','fresh'], occasion: ['everyday','date'], category: 'skincare', notes: 'Kojic Acid, Coconut Oil, Glycerin, Vitamin C, Orange Fragrance — Original Kojic Acid soap that lightens dark spots, acne marks, and evens skin tone' },
-  'gluta whitening body lotion': { gender: 'unisex', vibe: ['sweet'], occasion: ['everyday','date','date'], category: 'skincare', notes: 'Glutathione, Collagen, Carrot Extract, Papaya Extract, Vitamin C — Whitening body lotion with glutathione that brightens skin while improving elasticity' },
-  'positive shower gel': { gender: 'unisex', vibe: ['fresh'], occasion: ['everyday'], category: 'skincare', notes: 'Coconut Oil, Aloe Vera, Glycerin, Vitamin E, Gentle Surfactants — Refreshing shower gel that cleanses without stripping skin of its natural moisture' },
-  'rosehip beauty oil': { gender: 'unisex', vibe: ['woody','sweet'], occasion: ['everyday','date'], category: 'skincare', notes: 'Rosehip Seed Oil (Rosa Canina), Vitamin E, Omega Fatty Acids, Beta-Carotene — Luxurious facial oil rich in antioxidants that fades scars, evens tone, and fights aging' },
-  'body korean lactic acid': { gender: 'unisex', vibe: ['bold','sweet'], occasion: ['everyday','date'], category: 'skincare', notes: 'Lactic Acid (AHA), Ceramides, Hyaluronic Acid, Niacinamide — Korean-style exfoliating lotion with lactic acid that smooths texture and brightens skin' },
-  'dr rashel whitening scrub': { gender: 'unisex', vibe: ['bold','sweet'], occasion: ['everyday','date'], category: 'skincare', notes: 'Niacinamide, Arbutin, Walnut Shell Powder, Glycerin, Vitamin C — Brightening face and body scrub with niacinamide that exfoliates and reveals radiant skin' },
-  'dr rashel whitening body milk': { gender: 'unisex', vibe: ['sweet'], occasion: ['everyday','date','date'], category: 'skincare', notes: 'Vitamin C, Calamansi Extract, Aloe Vera, Hyaluronic Acid, Sunscreen Agents — Affordable whitening body milk that brightens, nourishes, and provides sun protection' },
-  'duo rose cleanser': { gender: 'unisex', vibe: ['fresh'], occasion: ['everyday'], category: 'skincare', notes: 'Rose Water (Rosa Damascena), Rosehip Oil, Glycerin, Decyl Glucoside, Aloe Vera — Gentle rose-infused cleanser that removes impurities while keeping skin soft and hydrated' },
-  'raw shea butter': { gender: 'unisex', vibe: ['sweet','woody'], occasion: ['everyday','date','date'], category: 'skincare', notes: '100% Unrefined Shea Butter (Butyrospermum Parkii), Vitamin A, Vitamin E, Fatty Acids — Pure unrefined shea butter that deeply moisturises, heals dry skin, and improves elasticity' },
-  'glow body moisturizer': { gender: 'unisex', vibe: ['sweet'], occasion: ['everyday','date','date'], category: 'skincare', notes: 'Shea Butter, Hyaluronic Acid, Aloe Vera, Vitamin E, Niacinamide — Hydrating body cream that moisturises deeply while enhancing skin\'s natural glow' },
-  'fruit emollient balm': { gender: 'unisex', vibe: ['sweet'], occasion: ['everyday','date'], category: 'skincare', notes: 'Coconut Oil, Beeswax, Fruit Kernel Oils (Apricot, Plum, Cherry), Vitamin E, Shea Butter — Multi-purpose emollient balm that heals chapped lips and deeply moisturises dry patches' },
-  'vitamin e body oil': { gender: 'unisex', vibe: ['sweet','woody'], occasion: ['everyday','date','date'], category: 'skincare', notes: 'Tocopherol (Vitamin E), Jojoba Oil, Sweet Almond Oil, Grapeseed Oil, Argan Oil — Rich antioxidant body oil that repairs skin barrier, fades stretch marks, and locks in moisture' },
-  'olive oil soap': { gender: 'unisex', vibe: ['fresh','sweet'], occasion: ['everyday','date'], category: 'skincare', notes: 'Olive Oil (Olea Europaea), Coconut Oil, Vitamin E, Natural Glycerin — Gentle castile-style soap that cleanses without stripping skin\'s natural oils' },
-  'panthenol niacinamide moisturizer': { gender: 'unisex', vibe: ['fresh','woody'], occasion: ['everyday'], category: 'skincare', notes: 'Panthenol (Vitamin B5), Niacinamide, Ceramides, Hyaluronic Acid, Centella Asiatica — Barrier-repair moisturiser with panthenol that soothes, strengthens, and deeply hydrates skin' },
-  'amlactin vitamin c body lotion': { gender: 'unisex', vibe: ['bold','sweet'], occasion: ['everyday','date','date'], category: 'skincare', notes: 'Lactic Acid (7%), Vitamin C (Ascorbic Acid), Ceramides, Glycerin, Ammonium Lactate — Exfoliating body lotion with AHA and Vitamin C that brightens and smooths rough, dry skin' },
-  'isdin water fusion sunscreen': { gender: 'unisex', vibe: ['fresh'], occasion: ['everyday'], category: 'skincare', notes: 'Avobenzone, Homosalate, Octisalate, Octocrylene, Hyaluronic Acid, Mediterranean Algae Extract, Vitamin E — Water-light invisible sunscreen with SPF 50 that hydrates while protecting from UV damage' },
+  'dr pure vitamin c brightening serum': { gender: 'unisex', vibe: ['sweet'], occasion: ['everyday','date'], category: 'skincare', concern: ['brightening'], skinType: ['oily','combination'], notes: 'Vitamin C (Sodium Ascorbyl Phosphate), Niacinamide, Hyaluronic Acid — Lightweight Vitamin C serum that brightens skin and fades dark spots for glowing results' },
+  'mr bears dead skin/scrub': { gender: 'unisex', vibe: ['bold'], occasion: ['everyday'], category: 'skincare', concern: ['exfoliating'], skinType: ['all'], notes: 'Aloe Vera, Safflower Oil, Birch Leaf Extract, Silica Beads — Gentle face and body scrub that removes dead skin cells for smoother, softer skin' },
+  '100% rel aloe vera': { gender: 'unisex', vibe: ['fresh'], occasion: ['everyday'], category: 'skincare', concern: ['hydrating','soothing'], skinType: ['sensitive','oily'], notes: 'Pure Aloe Barbadensis Leaf Juice, Panthenol, Glycerin — Pure soothing aloe gel that hydrates, calms irritation, and heals sun-damaged skin' },
+  'dr becks dead skin/scrub': { gender: 'unisex', vibe: ['bold'], occasion: ['everyday'], category: 'skincare', concern: ['exfoliating'], skinType: ['all'], notes: 'Sugar Crystals, Coconut Oil, Honey, Jojoba Beads, Vitamin E — Exfoliating sugar scrub that buffs away dead skin while moisturising with natural oils' },
+  'grapeseed instant radiance serum': { gender: 'unisex', vibe: ['sweet','woody'], occasion: ['everyday','date'], category: 'skincare', concern: ['brightening','anti-aging'], skinType: ['oily','combination'], notes: 'Grapeseed Oil, Vitamin E, Linoleic Acid, Antioxidants — Lightweight antioxidant serum that brightens dull skin and protects against environmental damage' },
+  'rosewater garden glamour toner': { gender: 'unisex', vibe: ['fresh'], occasion: ['everyday'], category: 'skincare', concern: ['hydrating','cleansing'], skinType: ['sensitive','dry'], notes: 'Rosa Damascena Flower Water, Glycerin, Natural Rose Extract — Soothing rose toner that balances pH, hydrates, and reduces redness for calm skin' },
+  'yes to tomatoes scrub': { gender: 'unisex', vibe: ['bold'], occasion: ['everyday'], category: 'skincare', concern: ['acne','exfoliating'], skinType: ['oily','combination'], notes: 'Activated Charcoal, Tomato Extract, Salicylic Acid, PLA Exfoliating Particles — Detoxifying charcoal scrub that deep-cleans pores and prevents acne breakouts' },
+  'oil free moisturising honey water': { gender: 'unisex', vibe: ['fresh','sweet'], occasion: ['everyday','date'], category: 'skincare', concern: ['hydrating','moisturising'], skinType: ['oily','combination'], notes: 'Honey Extract, Aloe Vera, Hyaluronic Acid, Propolis — Oil-free honey gel moisturiser that hydrates without clogging pores or feeling greasy' },
+  'dr rashel vitamin c serum': { gender: 'unisex', vibe: ['sweet','woody'], occasion: ['everyday','date'], category: 'skincare', concern: ['brightening','anti-aging'], skinType: ['oily','combination','dry'], notes: 'Ethyl Ascorbic Acid (Vitamin C), Hyaluronic Acid, Collagen, Ceramides — Brightening Vitamin C serum that fades dark spots, boosts collagen, and plumps skin' },
+  'kojie san soap': { gender: 'unisex', vibe: ['sweet','fresh'], occasion: ['everyday','date'], category: 'skincare', concern: ['brightening','cleansing'], skinType: ['all'], notes: 'Kojic Acid, Coconut Oil, Glycerin, Vitamin C, Orange Fragrance — Original Kojic Acid soap that lightens dark spots, acne marks, and evens skin tone' },
+  'gluta whitening body lotion': { gender: 'unisex', vibe: ['sweet'], occasion: ['everyday','date','date'], category: 'skincare', concern: ['brightening','moisturising'], skinType: ['dry','combination'], notes: 'Glutathione, Collagen, Carrot Extract, Papaya Extract, Vitamin C — Whitening body lotion with glutathione that brightens skin while improving elasticity' },
+  'positive shower gel': { gender: 'unisex', vibe: ['fresh'], occasion: ['everyday'], category: 'skincare', concern: ['cleansing','hydrating'], skinType: ['all'], notes: 'Coconut Oil, Aloe Vera, Glycerin, Vitamin E, Gentle Surfactants — Refreshing shower gel that cleanses without stripping skin of its natural moisture' },
+  'rosehip beauty oil': { gender: 'unisex', vibe: ['woody','sweet'], occasion: ['everyday','date'], category: 'skincare', concern: ['anti-aging','brightening'], skinType: ['dry','combination','sensitive'], notes: 'Rosehip Seed Oil (Rosa Canina), Vitamin E, Omega Fatty Acids, Beta-Carotene — Luxurious facial oil rich in antioxidants that fades scars, evens tone, and fights aging' },
+  'body korean lactic acid': { gender: 'unisex', vibe: ['bold','sweet'], occasion: ['everyday','date'], category: 'skincare', concern: ['exfoliating','brightening'], skinType: ['dry','combination'], notes: 'Lactic Acid (AHA), Ceramides, Hyaluronic Acid, Niacinamide — Korean-style exfoliating lotion with lactic acid that smooths texture and brightens skin' },
+  'dr rashel whitening scrub': { gender: 'unisex', vibe: ['bold','sweet'], occasion: ['everyday','date'], category: 'skincare', concern: ['exfoliating','brightening'], skinType: ['oily','combination','dry'], notes: 'Niacinamide, Arbutin, Walnut Shell Powder, Glycerin, Vitamin C — Brightening face and body scrub with niacinamide that exfoliates and reveals radiant skin' },
+  'dr rashel whitening body milk': { gender: 'unisex', vibe: ['sweet'], occasion: ['everyday','date','date'], category: 'skincare', concern: ['brightening','moisturising'], skinType: ['dry','combination'], notes: 'Vitamin C, Calamansi Extract, Aloe Vera, Hyaluronic Acid, Sunscreen Agents — Affordable whitening body milk that brightens, nourishes, and provides sun protection' },
+  'duo rose cleanser': { gender: 'unisex', vibe: ['fresh'], occasion: ['everyday'], category: 'skincare', concern: ['cleansing','hydrating'], skinType: ['sensitive','dry','all'], notes: 'Rose Water (Rosa Damascena), Rosehip Oil, Glycerin, Decyl Glucoside, Aloe Vera — Gentle rose-infused cleanser that removes impurities while keeping skin soft and hydrated' },
+  'raw shea butter': { gender: 'unisex', vibe: ['sweet','woody'], occasion: ['everyday','date','date'], category: 'skincare', concern: ['moisturising','anti-aging'], skinType: ['dry','sensitive'], notes: '100% Unrefined Shea Butter (Butyrospermum Parkii), Vitamin A, Vitamin E, Fatty Acids — Pure unrefined shea butter that deeply moisturises, heals dry skin, and improves elasticity' },
+  'glow body moisturizer': { gender: 'unisex', vibe: ['sweet'], occasion: ['everyday','date','date'], category: 'skincare', concern: ['moisturising','brightening'], skinType: ['dry','combination','all'], notes: 'Shea Butter, Hyaluronic Acid, Aloe Vera, Vitamin E, Niacinamide — Hydrating body cream that moisturises deeply while enhancing skin\'s natural glow' },
+  'fruit emollient balm': { gender: 'unisex', vibe: ['sweet'], occasion: ['everyday','date'], category: 'skincare', concern: ['moisturising'], skinType: ['dry','sensitive','all'], notes: 'Coconut Oil, Beeswax, Fruit Kernel Oils (Apricot, Plum, Cherry), Vitamin E, Shea Butter — Multi-purpose emollient balm that heals chapped lips and deeply moisturises dry patches' },
+  'vitamin e body oil': { gender: 'unisex', vibe: ['sweet','woody'], occasion: ['everyday','date','date'], category: 'skincare', concern: ['moisturising','anti-aging'], skinType: ['dry','combination','sensitive'], notes: 'Tocopherol (Vitamin E), Jojoba Oil, Sweet Almond Oil, Grapeseed Oil, Argan Oil — Rich antioxidant body oil that repairs skin barrier, fades stretch marks, and locks in moisture' },
+  'olive oil soap': { gender: 'unisex', vibe: ['fresh','sweet'], occasion: ['everyday','date'], category: 'skincare', concern: ['cleansing','moisturising'], skinType: ['dry','sensitive','all'], notes: 'Olive Oil (Olea Europaea), Coconut Oil, Vitamin E, Natural Glycerin — Gentle castile-style soap that cleanses without stripping skin\'s natural oils' },
+  'panthenol niacinamide moisturizer': { gender: 'unisex', vibe: ['fresh','woody'], occasion: ['everyday'], category: 'skincare', concern: ['hydrating','barrier-repair'], skinType: ['sensitive','dry','combination'], notes: 'Panthenol (Vitamin B5), Niacinamide, Ceramides, Hyaluronic Acid, Centella Asiatica — Barrier-repair moisturiser with panthenol that soothes, strengthens, and deeply hydrates skin' },
+  'amlactin vitamin c body lotion': { gender: 'unisex', vibe: ['bold','sweet'], occasion: ['everyday','date','date'], category: 'skincare', concern: ['exfoliating','brightening','moisturising'], skinType: ['dry','combination'], notes: 'Lactic Acid (7%), Vitamin C (Ascorbic Acid), Ceramides, Glycerin, Ammonium Lactate — Exfoliating body lotion with AHA and Vitamin C that brightens and smooths rough, dry skin' },
+  'isdin water fusion sunscreen': { gender: 'unisex', vibe: ['fresh'], occasion: ['everyday'], category: 'skincare', concern: ['sun-protection','hydrating'], skinType: ['oily','combination','all'], notes: 'Avobenzone, Homosalate, Octisalate, Octocrylene, Hyaluronic Acid, Mediterranean Algae Extract, Vitamin E — Water-light invisible sunscreen with SPF 50 that hydrates while protecting from UV damage' },
   'la roche posay anthelios sunscreen': { gender: 'unisex', vibe: ['fresh'], occasion: ['everyday'], category: 'skincare', notes: 'Avobenzone, Homosalate, Octisalate, Octocrylene, Cell-Ox Shield Technology, Glycerin, Thermal Spring Water — Dermatologist-tested high-protection sunscreen for sensitive skin with advanced UV filters' },
   'palmer\'s cocoa butter': { gender: 'unisex', vibe: ['sweet'], occasion: ['everyday','date'], category: 'skincare', notes: 'Cocoa Butter, Vitamin E, Mineral Oil, Palm Kernel Oil, Fragrance — Classic cocoa butter formula that heals extremely dry skin and helps improve skin tone and texture' },
 
@@ -928,274 +751,6 @@ const BUDGET_RANGES = {
 
 /* ---------- STATE ---------- */
 let currentQ = 0;
-const answers = [null, null, null, null, null];
-let allProducts = [];
-
-/* ---------- QUIZ NAVIGATION ---------- */
-function selectOption(el) {
-  el.closest('.sf-options').querySelectorAll('.sf-option').forEach(o => o.classList.remove('selected'));
-  el.classList.add('selected');
-}
-
-function getSelected() {
-  const q = document.querySelector('.sf-question.active');
-  const sel = q.querySelector('.sf-option.selected');
-  return sel ? sel.dataset.value : null;
-}
-
-function nextQuestion() {
-  const val = getSelected();
-  if (!val) { toast('Please select an option', 'info'); return; }
-  answers[currentQ] = val;
-  document.querySelectorAll('.sf-question')[currentQ].classList.remove('active');
-  currentQ++;
-  document.querySelectorAll('.sf-question')[currentQ].classList.add('active');
-  updateProgress();
-}
-
-function prevQuestion() {
-  document.querySelectorAll('.sf-question')[currentQ].classList.remove('active');
-  currentQ--;
-  document.querySelectorAll('.sf-question')[currentQ].classList.add('active');
-  updateProgress();
-}
-
-function updateProgress() {
-  document.getElementById('progressFill').style.width = ((currentQ + 1) / 5 * 100) + '%';
-  document.getElementById('progressLabel').textContent = (currentQ + 1) + ' / 5';
-}
-
-/* ---------- LOOKUP PERFUME IN SCENT DATABASE ---------- */
-function lookupScent(product) {
-  const name = (product.name || '').toLowerCase().trim();
-  // Direct match
-  if (SCENT_DB[name]) return SCENT_DB[name];
-  // Partial match — check if any key is contained in the product name
-  for (const [key, val] of Object.entries(SCENT_DB)) {
-    if (name.includes(key) || key.includes(name)) return val;
-  }
-  // Fuzzy — check each word
-  const words = name.split(/\s+/);
-  for (const [key, val] of Object.entries(SCENT_DB)) {
-    const keyWords = key.split(/\s+/);
-    const overlap = words.filter(w => keyWords.some(kw => w.includes(kw) || kw.includes(w)));
-    if (overlap.length >= 2) return val;
-  }
-  return null;
-}
-
-/* ---------- SCORING ALGORITHM ---------- */
-function scoreProduct(product) {
-  const categoryPref = answers[0];
-  const occasion = answers[1];
-  const vibe = answers[2];
-  const budgetKey = answers[3];
-  const genderPref = answers[4];
-  const price = parseFloat(product.price) || 0;
-  const name = (product.name || '').toLowerCase();
-  const desc = (product.description || '').toLowerCase();
-  const text = name + ' ' + desc;
-
-  let score = 0;
-
-  // ============ HARD FILTER: CATEGORY ============
-  if (categoryPref && categoryPref !== 'everything') {
-    if (categoryPref === 'perfume' && product.category === 'skincare') return -999;
-    if (categoryPref === 'skincare' && product.category === 'perfume') return -999;
-  }
-
-  // ============ HARD FILTER: BUDGET ============
-  // Products OUTSIDE the selected budget range are excluded entirely.
-  const range = BUDGET_RANGES[budgetKey];
-  if (range) {
-    if (price < range[0] || price > range[1]) {
-      return -999; // Hard exclusion
-    }
-  }
-
-  // ============ LOOKUP SCENT DATABASE ============
-  const scent = lookupScent(product);
-
-  // ============ GENDER MATCHING ============
-  // Skip gender matching for skincare — skincare is unisex
-  if (product.category === 'skincare') {
-    score += 5; // Small bonus for skincare being universally applicable
-  } else if (scent) {
-    if (genderPref === 'male') {
-      if (scent.gender === 'male') score += 20;
-      else if (scent.gender === 'female') score -= 50; // Strong exclusion
-      else score += 5; // unisex
-    } else if (genderPref === 'female') {
-      if (scent.gender === 'female') score += 20;
-      else if (scent.gender === 'male') score -= 50; // Strong exclusion
-      else score += 5; // unisex
-    }
-    // unisex preference = no gender penalty
-  } else {
-    // Fallback: regex on name/description for gender
-    // Only penalize if the product EXPLICITLY targets the opposite gender
-    const maleSignals = /\b(homme|for him|for men|pour homme|eau de toilette)\b/i;
-    const femaleSignals = /\b(femme|for her|for women|elle|eau de parfum)\b/i;
-    if (genderPref === 'male') {
-      if (maleSignals.test(text)) score += 10;
-      else if (femaleSignals.test(text)) score -= 15; // Reduced penalty
-      // No penalty if gender is unknown — most products are unisex-friendly
-    } else if (genderPref === 'female') {
-      if (femaleSignals.test(text)) score += 10;
-      else if (maleSignals.test(text)) score -= 15; // Reduced penalty
-    }
-  }
-
-  // ============ VIBE MATCHING ============
-  if (scent && scent.vibe) {
-    if (scent.vibe.includes(vibe)) score += 15;
-    else score -= 3; // Slight penalty for wrong vibe
-  } else {
-    // Fallback regex
-    if (vibe === 'fresh') {
-      if (/fresh|clean|citrus|aqua|light|sport|marine|breeze|lemon|bergamot/i.test(text)) score += 10;
-      if (/oud|tobacco|leather|intense|dark|sweet|vanilla/i.test(text)) score -= 3;
-    } else if (vibe === 'sweet') {
-      if (/sweet|vanilla|caramel|praline|floral|berry|sugar|chocolate|tonka/i.test(text)) score += 10;
-    } else if (vibe === 'bold') {
-      if (/bold|intense|seductive|dark|night|elixir|noir|club|party|statement/i.test(text)) score += 10;
-    } else if (vibe === 'woody') {
-      if (/woody|wood|oud|cedar|sandalwood|vetiver|amber|earthy|musk|smoky|patchouli/i.test(text)) score += 10;
-    }
-  }
-
-  // ============ OCCASION MATCHING ============
-  if (scent && scent.occasion) {
-    if (scent.occasion.includes(occasion)) score += 10;
-    else score -= 2;
-  } else {
-    // Fallback
-    if (occasion === 'everyday') {
-      if (/light|fresh|clean|daily|everyday|sport|eau de toilette|eau fraiche/i.test(text)) score += 8;
-      if (/intense|elixir|oud|club|de nuit|night/i.test(text)) score -= 3;
-    } else if (occasion === 'date') {
-      if (/romantic|sensual|seductive|warm|intimate|love|date/i.test(text)) score += 8;
-    } else if (occasion === 'event') {
-      if (/club|party|night|statement|bold|luxury|intense|elixir/i.test(text)) score += 8;
-    } else if (occasion === 'office') {
-      if (/subtle|elegant|professional|classic|gentle|eau de toilette|fresh|light/i.test(text)) score += 8;
-      if (/oud|tobacco|club|de nuit|elixir|intense/i.test(text)) score -= 3;
-    }
-  }
-
-  // ============ BASE SCORE ============
-  // All in-budget, in-stock products start with a positive base
-  // so they can appear in results even without scent database match
-  score += 10;
-
-  // ============ SCENT DATABASE BONUS ============
-  if (scent) score += 12; // Bonus for being in the database
-
-  // ============ PRICE TIER MATCHING ============
-  // Favour products closer to the middle of the budget range
-  if (range) {
-    const mid = (range[0] + range[1]) / 2;
-    const dist = Math.abs(price - mid) / (range[1] - range[0] || 1);
-    score += Math.round((1 - dist) * 5); // 0-5 points for being near the sweet spot
-  }
-
-  // ============ IN-STOCK CHECK ============
-  const stock = product.stock !== undefined && product.stock !== null ? Number(product.stock) : null;
-  if (stock !== null && stock <= 0) score -= 100;
-
-  return score;
-}
-
-/* ---------- SHOW RESULTS ---------- */
-function showResults() {
-  const val = getSelected();
-  if (!val) { toast('Please select an option', 'info'); return; }
-  answers[currentQ] = val;
-
-  document.getElementById('quizSection').style.display = 'none';
-  document.getElementById('loadingSection').style.display = '';
-
-  loadAllProducts().then(() => {
-    // Score and sort
-    const scored = allProducts.map(p => ({ ...p, _score: scoreProduct(p) }));
-    scored.sort((a, b) => b._score - a._score);
-
-    // Filter: products that passed the budget hard filter (score > -100)
-    // Show top 5 matches
-    const matches = scored.filter(m => m._score > -100).slice(0, 5);
-
-    document.getElementById('loadingSection').style.display = 'none';
-    document.getElementById('resultsSection').classList.add('active');
-
-    const container = document.getElementById('resultsProducts');
-    const intro = document.getElementById('resultsIntro');
-
-    if (allProducts.length === 0) {
-      intro.textContent = 'We couldn\'t load our products right now. Please try again.';
-      container.innerHTML = '';
-      return;
-    }
-
-    const displayProducts = matches;
-
-    if (displayProducts.length === 0) {
-      intro.textContent = 'We couldn\'t find any products in your selected budget range. Try a different budget option or message us on WhatsApp for a personal recommendation!';
-    } else {
-      intro.textContent = 'Based on your answers, here are the products we think you\'ll love.';
-    }
-
-    container.innerHTML = '';
-    displayProducts.forEach((product, i) => {
-      const out = isOutOfStock(product);
-      const waText = encodeURIComponent('Hello! I took the Scent Finder quiz and I love ' + product.name + ' (GH₵' + product.price + '). Can I order this?');
-      const matchLabel = i === 0 ? 'Best Match' : (i === 1 ? 'Great Pick' : (i === 2 ? 'Also Try' : 'Worth A Look'));
-      const catPage = product.category === 'skincare' ? 'skincare.html' : 'perfumes.html';
-
-      // Get scent description
-      const scent = lookupScent(product);
-      const scentDesc = scent ? scent.notes : (product.description || 'A carefully curated fragrance from our collection.');
-
-      const card = document.createElement('div');
-      card.className = 'sf-product fade-in';
-      card.innerHTML =
-        '<div class="sf-product-img">' +
-          '<img src="' + esc(product.image || '') + '" alt="' + esc(product.name) + '" loading="lazy" onerror="this.style.opacity=\'0.3\'">' +
-          '<span class="sf-product-match">' + matchLabel + '</span>' +
-        '</div>' +
-        '<div class="sf-product-body">' +
-          '<div class="sf-product-name">' + esc(product.name) + '</div>' +
-          '<div class="sf-product-scent"><i class="fas fa-wind"></i> ' + esc(scentDesc) + '</div>' +
-          stockBadge(product) +
-          '<div class="sf-product-price">GH₵' + esc(product.price) + '</div>' +
-        '</div>' +
-        '<div class="sf-product-actions">' +
-          '<a href="' + catPage + '" class="btn btn-outline"><i class="fas fa-eye"></i> View Product</a>' +
-          '<a href="https://wa.me/' + STORE.whatsappNumber + '?text=' + waText + '" target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Order Now</a>' +
-        '</div>';
-      container.appendChild(card);
-    });
-
-    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    observeFadeIns();
-  });
-}
-
-/* ---------- RESTART ---------- */
-function restartQuiz() {
-  currentQ = 0;
-  answers.fill(null);
-  document.getElementById('resultsSection').classList.remove('active');
-  document.querySelectorAll('.sf-question').forEach((q, i) => {
-    q.classList.remove('active');
-    if (i === 0) q.classList.add('active');
-    q.querySelectorAll('.sf-option').forEach(o => o.classList.remove('selected'));
-  });
-  document.getElementById('quizSection').style.display = '';
-  document.getElementById('loadingSection').style.display = 'none';
-  updateProgress();
-  document.getElementById('quizSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
 /* ---------- FIRESTORE LOADING ---------- */
 async function loadAllProducts() {
   try {
@@ -1213,6 +768,350 @@ async function loadAllProducts() {
     allProducts = [];
   }
 }
+
+
+/* ---------- ADAPTIVE QUIZ LOGIC ---------- */
+// Question templates for each category
+const Q_TEMPLATES = {
+  // Skincare Q1: Skin concern
+  skincare_q1: {
+    num: 2, title: "What's your main skin concern?",
+    subtitle: "What do you want this product to do for your skin?",
+    options: [
+      { value: 'brightening', icon: 'fa-sun', label: 'Brightening & Glow', desc: 'Fade dark spots, even skin tone, radiant glow' },
+      { value: 'hydrating', icon: 'fa-droplet', label: 'Hydrating & Moisture', desc: 'Deep hydration, plump skin, moisture lock' },
+      { value: 'exfoliating', icon: 'fa-brush', label: 'Exfoliating & Smooth', desc: 'Remove dead skin, unclog pores, smooth texture' },
+      { value: 'moisturising', icon: 'fa-hand-holding-heart', label: 'Moisturising & Nourish', desc: 'Rich nourishment, barrier repair, soft skin' },
+      { value: 'sun-protection', icon: 'fa-umbrella-beach', label: 'Sun Protection', desc: 'SPF shield against UV damage and aging' },
+      { value: 'cleansing', icon: 'fa-pump-soap', label: 'Cleansing & Purify', desc: 'Gentle cleansing, remove impurities, fresh feel' }
+    ]
+  },
+  // Skincare Q2: Skin type
+  skincare_q2: {
+    num: 3, title: "What's your skin type?",
+    subtitle: "This helps us match the right texture and formula for you.",
+    options: [
+      { value: 'oily', icon: 'fa-face-smile', label: 'Oily Skin', desc: 'Shiny T-zone, enlarged pores, prone to breakouts' },
+      { value: 'dry', icon: 'fa-leaf', label: 'Dry Skin', desc: 'Tight, flaky, or rough patches' },
+      { value: 'combination', icon: 'fa-arrows-split-up-and-left', label: 'Combination', desc: 'Oily T-zone but dry cheeks' },
+      { value: 'sensitive', icon: 'fa-heart-crack', label: 'Sensitive Skin', desc: 'Easily irritated, red, or reactive' },
+      { value: 'all', icon: 'fa-globe', label: 'All / Not Sure', desc: 'Works for any skin type' }
+    ]
+  },
+  // Perfume Q1: Occasion
+  perfume_q1: {
+    num: 2, title: "What's the occasion?",
+    subtitle: "When will you wear this fragrance most?",
+    options: [
+      { value: 'everyday', icon: 'fa-sun', label: 'Everyday Wear', desc: 'Light, fresh, and easy to wear daily' },
+      { value: 'date', icon: 'fa-heart', label: 'Date Night', desc: 'Alluring and memorable for close moments' },
+      { value: 'event', icon: 'fa-star', label: 'Special Event', desc: 'Stand out at parties and celebrations' },
+      { value: 'office', icon: 'fa-briefcase', label: 'Office / School', desc: 'Professional and non-overpowering' }
+    ]
+  },
+  // Perfume Q2: Vibe
+  perfume_q2: {
+    num: 3, title: 'What vibe do you want?',
+    subtitle: 'What feeling should your scent give off?',
+    options: [
+      { value: 'fresh', icon: 'fa-wind', label: 'Fresh & Clean', desc: 'Crisp citrus, aqua, and light florals' },
+      { value: 'sweet', icon: 'fa-cookie-bite', label: 'Sweet & Warm', desc: 'Vanilla, caramel, and soft spice' },
+      { value: 'bold', icon: 'fa-fire', label: 'Bold & Seductive', desc: 'Intense, rich, and statement-making' },
+      { value: 'woody', icon: 'fa-tree', label: 'Woody & Mysterious', desc: 'Oud, cedar, and deep earthy notes' }
+    ]
+  },
+  // Budget (shared)
+  budget: {
+    num: 4, title: "What's your budget?",
+    subtitle: "We'll only show you products you can afford.",
+    options: [
+      { value: 'under80', icon: 'fa-coins', label: 'Under ₵80', desc: 'Budget-friendly picks that work great' },
+      { value: '80to150', icon: 'fa-wallet', label: '₵80 – 150', desc: 'Solid quality at a student-friendly price' },
+      { value: '150to200', icon: 'fa-sack-dollar', label: '₵150 – 200', desc: 'Mid-range with lasting power' },
+      { value: '200to300', icon: 'fa-gem', label: '₵200 – 300', desc: 'Premium designer fragrances' },
+      { value: 'over300', icon: 'fa-crown', label: '₵300+', desc: 'Top-tier luxury — no compromise' }
+    ]
+  },
+  // Perfume Q4: Gender
+  perfume_q4: {
+    num: 5, title: 'Male or Female fragrance?',
+    subtitle: "We'll recommend accordingly — or show you both if you're open to it.",
+    options: [
+      { value: 'male', icon: 'fa-mars', label: 'Male', desc: 'Fragrances designed for men' },
+      { value: 'female', icon: 'fa-venus', label: 'Female', desc: 'Fragrances designed for women' },
+      { value: 'unisex', icon: 'fa-genderless', label: 'No Preference', desc: 'Show me the best matches regardless' }
+    ]
+  }
+};
+
+// Build HTML for a question from template
+function buildQ(tpl, isLast) {
+  var opts = tpl.options.map(function(o) {
+    return '<div class="sf-option" data-value="' + o.value + '" onclick="selectOption(this)">' +
+      '<div class="sf-option-icon"><i class="fas ' + o.icon + '"></i></div>' +
+      '<div class="sf-option-text"><span class="label">' + o.label + '</span><span class="desc">' + o.desc + '</span></div>' +
+      '<div class="sf-option-check"><i class="fas fa-check"></i></div></div>';
+  }).join('');
+  var backBtn = '<button class="sf-back-btn" onclick="prevQuestion()"><i class="fas fa-arrow-left"></i> Back</button>';
+  var nextBtn = isLast
+    ? '<button class="btn btn-primary" onclick="showResults()" id="findBtn"><i class="fas fa-wand-magic-sparkles"></i> Find My Match</button>'
+    : '<button class="btn btn-primary" onclick="nextQuestion()">Next <i class="fas fa-arrow-right"></i></button>';
+  return '<div class="sf-q-number">' + tpl.num + '</div>' +
+    '<h2 class="sf-q-title">' + tpl.title + '</h2>' +
+    '<p class="sf-q-subtitle">' + tpl.subtitle + '</p>' +
+    '<div class="sf-options">' + opts + '</div>' +
+    '<div class="sf-next-wrap">' + backBtn + nextBtn + '</div>';
+}
+
+// Quiz state
+var quizMode = ''; // 'perfume', 'skincare', 'everything'
+var totalQ = 4;
+
+// Configure questions after Q0 selection
+function configureQuiz(category) {
+  quizMode = category;
+  var d1 = document.getElementById('dynamicQ1');
+  var d2 = document.getElementById('dynamicQ2');
+  var d3 = document.getElementById('dynamicQ3');
+  var d4 = document.getElementById('dynamicQ4');
+
+  if (category === 'skincare') {
+    totalQ = 3;
+    d1.innerHTML = buildQ(Q_TEMPLATES.skincare_q1, false);
+    d2.innerHTML = buildQ(Q_TEMPLATES.skincare_q2, false);
+    d3.innerHTML = buildQ(Q_TEMPLATES.budget, true);
+    d4.style.display = 'none';
+    // Skincare: answers map to [category, concern, skinType, budget, gender]
+  } else if (category === 'perfume') {
+    totalQ = 5;
+    d1.innerHTML = buildQ(Q_TEMPLATES.perfume_q1, false);
+    d2.innerHTML = buildQ(Q_TEMPLATES.perfume_q2, false);
+    d3.innerHTML = buildQ(Q_TEMPLATES.budget, false);
+    d4.innerHTML = buildQ(Q_TEMPLATES.perfume_q4, true);
+    d4.style.display = '';
+    // Perfume: answers map to [category, occasion, vibe, budget, gender]
+  } else {
+    // Everything — simplified 3-question flow
+    totalQ = 3;
+    d1.innerHTML = buildQ(Q_TEMPLATES.perfume_q1, false); // occasion
+    d2.innerHTML = buildQ(Q_TEMPLATES.budget, true);       // budget
+    d3.style.display = 'none';
+    d4.style.display = 'none';
+    // Everything: answers map to [category, occasion, budget, null, null]
+  }
+}
+
+// Override navigation for adaptive flow
+function nextQuestion() {
+  var val = getSelected();
+  if (!val) { toast('Please select an option', 'info'); return; }
+  answers[currentQ] = val;
+
+  // After Q0, configure the remaining questions
+  if (currentQ === 0) {
+    configureQuiz(val);
+  }
+
+  document.querySelectorAll('.sf-question')[currentQ].classList.remove('active');
+  currentQ++;
+
+  // Skip hidden/empty questions
+  while (currentQ < 5) {
+    var q = document.querySelectorAll('.sf-question')[currentQ];
+    if (q && q.style.display !== 'none' && q.innerHTML.trim() !== '') break;
+    currentQ++;
+  }
+
+  if (currentQ >= totalQ) {
+    // Last question reached — auto-submit on next click would have set answers
+    // But since we're past the last, show results
+    showResults();
+    return;
+  }
+
+  document.querySelectorAll('.sf-question')[currentQ].classList.add('active');
+  updateProgress();
+}
+
+function prevQuestion() {
+  document.querySelectorAll('.sf-question')[currentQ].classList.remove('active');
+  currentQ--;
+  while (currentQ >= 0) {
+    var q = document.querySelectorAll('.sf-question')[currentQ];
+    if (currentQ === 0 || (q && q.style.display !== 'none' && q.innerHTML.trim() !== '')) break;
+    currentQ--;
+  }
+  document.querySelectorAll('.sf-question')[currentQ].classList.add('active');
+  updateProgress();
+}
+
+function updateProgress() {
+  var pct = ((currentQ + 1) / totalQ) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = (currentQ + 1) + ' / ' + totalQ;
+}
+
+function restartQuiz() {
+  currentQ = 0;
+  answers.fill(null);
+  quizMode = '';
+  totalQ = 4;
+  document.querySelectorAll('.sf-question').forEach(function(q) {
+    q.classList.remove('active');
+    q.style.display = '';
+    q.querySelectorAll('.sf-option').forEach(function(o) { o.classList.remove('selected'); });
+  });
+  // Clear dynamic containers
+  ['dynamicQ1','dynamicQ2','dynamicQ3','dynamicQ4'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.innerHTML = ''; el.style.display = ''; }
+  });
+  document.querySelectorAll('.sf-question')[0].classList.add('active');
+  document.getElementById('quizSection').style.display = '';
+  document.getElementById('resultsSection').classList.remove('active');
+  document.getElementById('loadingSection').style.display = 'none';
+  updateProgress();
+  document.getElementById('quizSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ---------- ADAPTIVE SCORING ---------- */
+function scoreProduct(product) {
+  var categoryPref = answers[0];
+  var price = parseFloat(product.price) || 0;
+  var name = (product.name || '').toLowerCase();
+  var desc = (product.description || '').toLowerCase();
+  var text = name + ' ' + desc;
+  var score = 0;
+
+  // ============ HARD FILTER: CATEGORY ============
+  if (categoryPref && categoryPref !== 'everything') {
+    if (categoryPref === 'perfume' && product.category === 'skincare') return -999;
+    if (categoryPref === 'skincare' && product.category === 'perfume') return -999;
+  }
+
+  if (product.category === 'skincare') {
+    // ============ SKINCARE SCORING ============
+    var concern = answers[1];
+    var skinType = answers[2];
+    var budgetKey = answers[3];
+
+    // Budget filter
+    var range = BUDGET_RANGES[budgetKey];
+    if (range && (price < range[0] || price > range[1])) return -999;
+
+    // Concern matching
+    var scent = lookupScent(product);
+    if (scent && scent.concern) {
+      if (scent.concern.includes(concern)) score += 25;
+      else score -= 5;
+    } else {
+      // Fallback: match concern keywords in name/description
+      var concernWords = {
+        brightening: /brighten|glow|whiten|lighten|radiance|vitamin c|kojic|gluta/i,
+        hydrating: /hydrat|moistur|hyaluronic|aloe|serum|water|gel/i,
+        exfoliating: /exfoliat|scrub|lactic|acid|peel|dead skin|rough/i,
+        moisturising: /moistur|butter|cream|lotion|nourish|oil|emollient/i,
+        'sun-protection': /sun|spf|uv|sunscreen|protection/i,
+        cleansing: /clean|wash|gel|soap|foam|purif|remov/i
+      };
+      if (concernWords[concern] && concernWords[concern].test(text)) score += 15;
+    }
+
+    // Skin type matching
+    if (scent && scent.skinType) {
+      if (scent.skinType.includes(skinType) || skinType === 'all') score += 15;
+      else score -= 5;
+    } else {
+      // Fallback
+      var skinWords = {
+        oily: /oil|gel|lightweight|water|serum|non-greasy|charcoal|salicylic/i,
+        dry: /dry|rich|butter|cream|nourish|deep|hydrate|moisture/i,
+        combination: /combin|all skin|normal|balanced/i,
+        sensitive: /sensitive|gentle|calm|soothe|aloe|rose|fragrance-free/i
+      };
+      if (skinWords[skinType] && skinWords[skinType].test(text)) score += 10;
+    }
+
+    // Texture bonus
+    if (scent && scent.texture) score += 3;
+
+  } else {
+    // ============ PERFUME SCORING ============
+    var occasion = answers[1];
+    var vibe = answers[2];
+    var budgetKeyP = answers[3];
+    var genderPref = answers[4];
+
+    // Budget filter
+    var rangeP = BUDGET_RANGES[budgetKeyP];
+    if (rangeP && (price < rangeP[0] || price > rangeP[1])) return -999;
+
+    var scentP = lookupScent(product);
+
+    // Gender matching
+    if (scentP) {
+      if (genderPref === 'male') {
+        if (scentP.gender === 'male') score += 20;
+        else if (scentP.gender === 'female') score -= 50;
+        else score += 5;
+      } else if (genderPref === 'female') {
+        if (scentP.gender === 'female') score += 20;
+        else if (scentP.gender === 'male') score -= 50;
+        else score += 5;
+      }
+    } else {
+      var maleSignals = /\b(homme|for him|for men|pour homme)\b/i;
+      var femaleSignals = /\b(femme|for her|for women|elle)\b/i;
+      if (genderPref === 'male') {
+        if (maleSignals.test(text)) score += 10;
+        else if (femaleSignals.test(text)) score -= 15;
+      } else if (genderPref === 'female') {
+        if (femaleSignals.test(text)) score += 10;
+        else if (maleSignals.test(text)) score -= 15;
+      }
+    }
+
+    // Vibe matching
+    if (scentP && scentP.vibe) {
+      if (scentP.vibe.includes(vibe)) score += 15;
+      else score -= 3;
+    } else {
+      if (vibe === 'fresh' && /fresh|clean|citrus|aqua|light|sport|marine|lemon|bergamot/i.test(text)) score += 10;
+      if (vibe === 'sweet' && /sweet|vanilla|caramel|praline|floral|berry|chocolate|tonka/i.test(text)) score += 10;
+      if (vibe === 'bold' && /bold|intense|seductive|dark|night|elixir|noir|club|party/i.test(text)) score += 10;
+      if (vibe === 'woody' && /woody|wood|oud|cedar|sandalwood|vetiver|amber|earthy|musk|patchouli/i.test(text)) score += 10;
+    }
+
+    // Occasion matching
+    if (scentP && scentP.occasion) {
+      if (scentP.occasion.includes(occasion)) score += 10;
+      else score -= 2;
+    } else {
+      if (occasion === 'everyday' && /light|fresh|clean|daily|sport|eau de toilette/i.test(text)) score += 8;
+      if (occasion === 'date' && /romantic|sensual|seductive|warm|intimate|love/i.test(text)) score += 8;
+      if (occasion === 'event' && /club|party|night|statement|bold|luxury|intense|elixir/i.test(text)) score += 8;
+      if (occasion === 'office' && /subtle|elegant|professional|classic|fresh|light/i.test(text)) score += 8;
+    }
+
+    // Price tier bonus
+    if (rangeP) {
+      var mid = (rangeP[0] + rangeP[1]) / 2;
+      var dist = Math.abs(price - mid) / (rangeP[1] - rangeP[0] || 1);
+      score += Math.round((1 - dist) * 5);
+    }
+  }
+
+  // Base score
+  score += 10;
+  if (scent || (product.category === 'skincare' && lookupScent(product))) score += 12;
+
+  // Stock check
+  var stock = product.stock !== undefined && product.stock !== null ? Number(product.stock) : null;
+  if (stock !== null && stock <= 0) score -= 100;
+
+  return score;
+}
+
 
 /* ---------- INIT ---------- */
 updateProgress();
