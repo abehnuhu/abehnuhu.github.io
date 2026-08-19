@@ -289,7 +289,7 @@ function renderProducts() {
       '</div>' +
       '<div class="product-info" onclick=\'openQuickView(' + JSON.stringify(p).replace(/'/g, '&#39;') + ')\'>' +
         '<div class="product-name">' + esc(p.name) + '</div>' +
-        '<div class="product-desc">' + esc(p.description || 'Premium quality skincare, authentic and effective.') + '</div>' +
+        '<div class="product-desc">' + esc((typeof lookupPerfume === 'function' && lookupPerfume(p) ? lookupPerfume(p).desc : p.description) || 'Premium quality skincare, authentic and effective.') + '</div>' +
         '<div class="product-price">₵' + esc(p.price) + '</div>' +
         stockBadge(p) +
       '</div>' +
