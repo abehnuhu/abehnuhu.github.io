@@ -751,6 +751,7 @@ const BUDGET_RANGES = {
 
 /* ---------- STATE ---------- */
 let currentQ = 0;
+var answers = [null, null, null, null, null];
 
 /* ---------- QUIZ HELPERS ---------- */
 function selectOption(el) {
@@ -962,6 +963,75 @@ function updateProgress() {
   var pct = ((currentQ + 1) / totalQ) * 100;
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressLabel').textContent = (currentQ + 1) + ' / ' + totalQ;
+}
+
+/* ---------- SHOW RESULTS ---------- */
+function showResults() {
+  var val = getSelected();
+  if (!val) { toast('Please select an option', 'info'); return; }
+  answers[currentQ] = val;
+
+  document.getElementById('quizSection').style.display = 'none';
+  document.getElementById('loadingSection').style.display = '';
+
+  loadAllProducts().then(function() {
+    var scored = allProducts.map(function(p) { return Object.assign({}, p, { _score: scoreProduct(p) }); });
+    scored.sort(function(a, b) { return b._score - a._score; });
+    var matches = scored.filter(function(m) { return m._score > -100; }).slice(0, 5);
+
+    document.getElementById('loadingSection').style.display = 'none';
+    document.getElementById('resultsSection').classList.add('active');
+
+    var container = document.getElementById('resultsProducts');
+    var intro = document.getElementById('resultsIntro');
+
+    if (allProducts.length === 0) {
+      intro.textContent = 'We couldn\'t load our products right now. Please try again.';
+      container.innerHTML = '';
+      return;
+    }
+
+    if (matches.length === 0) {
+      intro.textContent = 'We couldn\'t find any products matching your criteria. Try different options or message us on WhatsApp!';
+    } else {
+      intro.textContent = quizMode === 'skincare'
+        ? 'Based on your answers, here are the skincare products we think you\'ll love.'
+        : 'Based on your answers, here are the products we think you\'ll love.';
+    }
+
+    container.innerHTML = '';
+    matches.forEach(function(product, i) {
+      var out = isOutOfStock(product);
+      var waText = encodeURIComponent('Hello! I took the Scent Finder quiz and I love ' + product.name + ' (GH\u20B5' + product.price + '). Can I order this?');
+      var matchLabel = i === 0 ? 'Best Match' : (i === 1 ? 'Great Pick' : (i === 2 ? 'Also Try' : 'Worth A Look'));
+      var catPage = product.category === 'skincare' ? 'skincare.html' : 'perfumes.html';
+
+      var scent = lookupScent(product);
+      var scentDesc = scent ? scent.notes : (product.description || 'A carefully curated product from our collection.');
+
+      var card = document.createElement('div');
+      card.className = 'sf-product fade-in';
+      card.innerHTML =
+        '<div class="sf-product-img">' +
+          '<img src="' + esc(product.image || '') + '" alt="' + esc(product.name) + '" loading="lazy" onerror="this.style.opacity=\'0.3\'">' +
+          '<span class="sf-product-match">' + matchLabel + '</span>' +
+        '</div>' +
+        '<div class="sf-product-body">' +
+          '<div class="sf-product-name">' + esc(product.name) + '</div>' +
+          '<div class="sf-product-scent"><i class="fas fa-wind"></i> ' + esc(scentDesc) + '</div>' +
+          stockBadge(product) +
+          '<div class="sf-product-price">GH\u20B5' + esc(product.price) + '</div>' +
+        '</div>' +
+        '<div class="sf-product-actions">' +
+          '<a href="' + catPage + '" class="btn btn-outline"><i class="fas fa-eye"></i> View Product</a>' +
+          '<a href="https://wa.me/' + STORE.whatsappNumber + '?text=' + waText + '" target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Order Now</a>' +
+        '</div>';
+      container.appendChild(card);
+    });
+
+    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    observeFadeIns();
+  });
 }
 
 function restartQuiz() {
